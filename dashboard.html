@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UPI Guardian Dashboard</title>
+  <link rel="stylesheet" href="dashboard.css" />
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+</head>
+<body>
+  <div class="dashboard-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="logo-area">
+        <div class="logo-shield"><i class="fa-solid fa-shield-halved"></i></div>
+        <div>
+          <h2>UPI Guardian</h2>
+          <p>Explain Before You Pay</p>
+        </div>
+      </div>
+      <p class="menu-title">PROTECT</p>
+      <nav class="sidebar-menu">
+        <a href="#" class="menu-item active"><i class="fa-solid fa-chart-pie"></i><span>Dashboard</span></a>
+        <a href="#" class="menu-item"><i class="fa-solid fa-paper-plane"></i><span>Send Money</span></a>
+        <a href="#" class="menu-item"><i class="fa-solid fa-qrcode"></i><span>Scan & Pay</span></a>
+        <a href="#" class="menu-item"><i class="fa-solid fa-inbox"></i><span>Payment Requests</span><span class="menu-badge">3</span></a>
+        <a href="#" class="menu-item"><i class="fa-solid fa-message"></i><span>Message Analyzer</span></a>
+        <a href="#" class="menu-item"><i class="fa-solid fa-clock-rotate-left"></i><span>Scam Timeline</span></a>
+        <a href="#" class="menu-item"><i class="fa-solid fa-life-ring"></i><span>Recovery Mode</span></a>
+      </nav>
+      <p class="menu-title manage-title">MANAGE</p>
+      <nav class="sidebar-menu">
+        <a href="#" class="menu-item"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+        <a href="#" class="menu-item"><i class="fa-solid fa-circle-question"></i><span>Help & Support</span></a>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="safety-box">
+          <div class="safety-icon"><i class="fa-solid fa-shield-heart"></i></div>
+          <h4>Your safety comes first</h4>
+          <p>Pause. Verify. Then pay.</p>
+        </div>
+        <div class="profile-box">
+          <div class="profile-avatar">A</div>
+          <div>
+            <h4>Arjun Sharma</h4>
+            <p>Personal account</p>
+          </div>
+          <i class="fa-solid fa-chevron-down profile-arrow"></i>
+        </div>
+      </div>
+    </aside>
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Top Bar -->
+      <header class="topbar">
+        <div class="mobile-title"><i class="fa-solid fa-shield-halved"></i>UPI Guardian</div>
+        <div class="topbar-right">
+          <div class="protection-status">
+            <span class="status-dot"></span>
+            Protection active
+          </div>
+          <button class="notification-button">
+            <i class="fa-regular fa-bell"></i>
+            <span class="notification-badge">2</span>
+          </button>
+          <div class="top-profile">
+            <div class="small-avatar">A</div>
+            <span>User</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+        </div>
+      </header>
+      <section class="page-container">
+        <!-- Greeting -->
+        <div class="page-heading">
+          <div>
+            <p class="date-text">THURSDAY, 27 AUGUST 2026</p>
+            <h1>
+              Good evening, User
+              <span>👋</span>
+            </h1>
+            <p class="heading-description">Your payments are being monitored for suspicious activity.</p>
+          </div>
+          <button class="primary-button"><i class="fa-solid fa-plus"></i>New Payment</button>
+        </div>
+        <!-- Protection Snapshot -->
+        <section class="hero-card">
+          <div class="hero-content">
+            <div class="hero-label"><i class="fa-solid fa-sparkles"></i>YOUR PROTECTION SNAPSHOT</div>
+            <h2>Pause before<br />money leaves.</h2>
+            <p>
+              UPI Guardian checks payment amount, receiver history,
+              messages, payment requests and QR codes before authorization.
+            </p>
+            <div class="protection-message">
+              <i class="fa-solid fa-circle-check"></i>
+              <span>
+                <strong>Protection is active</strong>
+                <small>Context checked before authorization</small>
+              </span>
+            </div>
+          </div>
+          <!-- Generated Image -->
+          <div class="hero-illustration">
+            <img
+              src="img/snapshot.png" alt="Secure payment protected by UPI Guardian"/>
+            <div class="illustration-caption">
+              <i class="fa-solid fa-shield-check"></i>
+              <span>
+                <strong>Payment protected</strong>
+                <small>Safe decision support</small>
+              </span>
+            </div>
+          </div>
+        </section>
+        <!-- Statistics -->
+        <section class="stats-grid">
+          <div class="stat-card green-card">
+            <div class="stat-header">
+              <span>Safety score</span>
+              <i class="fa-solid fa-shield"></i>
+            </div>
+            <h3>86<span>/100</span></h3>
+            <p class="stat-success">
+              <i class="fa-solid fa-arrow-trend-up"></i>
+              Very safe today
+            </p>
+          </div>
+          <div class="stat-card purple-card">
+            <div class="stat-header">
+              <span>Payments reviewed</span>
+              <i class="fa-solid fa-file-shield"></i>
+            </div>
+            <h3>24</h3>
+            <p class="stat-purple">
+              <i class="fa-solid fa-chart-line"></i>
+              18% this month
+            </p>
+          </div>
+          <div class="stat-card blue-card">
+            <div class="stat-header">
+              <span>Risk prevented</span>
+              <i class="fa-solid fa-indian-rupee-sign"></i>
+            </div>
+            <h3>₹12,500</h3>
+
+            <p class="tat-blue">
+              <i class="fa-solid fa-circle-check"></i>
+              4 payments stopped
+            </p>
+          </div>
+        </section>
+        <!-- Protection Features -->
+        <section class="content-card protection-card">
+          <div class="card-heading">
+            <div>
+              <p class="small-label">DETECT → EXPLAIN → ACT</p>
+              <h2>How Guardian protects you</h2>
+            </div>
+            <span class="feature-count">7 protection layers</span>
+          </div>
+          <div class="feature-grid">
+            <div class="feature-card">
+              <div class="feature-icon purple-icon"><i class="fa-solid fa-wallet"></i></div>
+              <div>
+                <h3>Unusual amount</h3>
+                <p>Detect payments outside your normal pattern.</p>
+              </div>
+            </div>
+            <div class="feature-card">
+              <div class="feature-icon blue-icon"><i class="fa-solid fa-user-plus"></i></div>
+              <div>
+                <h3>New receiver</h3>
+                <p>Identify first-time or unfamiliar UPI IDs.</p>
+              </div>
+            </div>
+            <div class="feature-card">
+              <div class="feature-icon pink-icon"><i class="fa-solid fa-message"></i></div>
+              <div>
+                <h3>Scam message analyzer</h3>
+                <p>Find urgency, impersonation and suspicious links.</p>
+              </div>
+            </div>
+            <div class="feature-card">
+              <div class="feature-icon green-icon"><i class="fa-solid fa-user-shield"></i></div>
+              <div>
+                <h3>Trusted confirmation</h3>
+                <p>Ask someone you trust before a risky payment.</p>
+              </div>
+            </div>
+            <div class="feature-card">
+              <div class="feature-icon cyan-icon"><i class="fa-solid fa-qrcode"></i></div>
+              <div>
+                <h3>Fake request & QR detection</h3>
+                <p>Detect collect requests and QR codes pulling money.</p>
+              </div>
+            </div>
+            <div class="feature-card">
+              <div class="feature-icon violet-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
+              <div>
+                <h3>Scam timeline</h3>
+                <p>Connect messages, QR scans and payment events.</p>
+              </div>
+            </div>
+            <div class="feature-card">
+              <div class="feature-icon red-icon"><i class="fa-solid fa-life-ring"></i></div>
+              <div>
+                <h3>Recovery mode</h3>
+                <p>Report incidents, collect evidence and start recovery.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- Quick Actions and Timeline -->
+        <section class="content-grid">
+          <div class="content-card">
+            <div class="card-heading">
+              <div>
+                <p class="small-label">SHORTCUTS</p>
+                <h2>Quick actions</h2>
+              </div>
+            </div>
+            <div class="quick-action-list">
+              <a href="#">
+                <span class="quick-icon blue-icon"><i class="fa-solid fa-paper-plane"></i></span>
+                <span>
+                  <strong>Send money</strong>
+                  <small>Check before paying</small>
+                </span>
+                <i class="fa-solid fa-arrow-right"></i>
+              </a>
+              <a href="#"><span class="quick-icon purple-icon"><i class="fa-solid fa-qrcode"></i></span>
+                <span>
+                  <strong>Scan a QR</strong>
+                  <small>Verify payment direction</small>
+                </span>
+                <i class="fa-solid fa-arrow-right"></i>
+              </a>
+              <a href="#">
+                <span class="quick-icon pink-icon"><i class="fa-solid fa-message"></i></span>
+                <span>
+                  <strong>Analyze message</strong>
+                  <small>Find scam signals</small>
+                </span>
+                <i class="fa-solid fa-arrow-right"></i>
+              </a>
+              <a href="#">
+                <span class="quick-icon green-icon"><i class="fa-solid fa-inbox"></i></span>
+                <span>
+                  <strong>Review requests</strong>
+                  <small>Check before accepting</small>
+                </span>
+                <i class="fa-solid fa-arrow-right"></i>
+              </a>
+              <a href="#">
+                <span class="quick-icon red-icon"><i class="fa-solid fa-life-ring"></i></span>
+                <span>
+                  <strong>Open recovery mode</strong>
+                  <small>Already paid? Start here</small>
+                </span>
+                <i class="fa-solid fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+          <div class="content-card">
+            <div class="card-heading">
+              <div>
+                <p class="small-label">CONNECTED SIGNALS</p>
+                <h2>Scam timeline</h2>
+              </div>
+              <a href="#">Open<i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+            <div class="timeline">
+              <div class="timeline-item">
+                <div class="timeline-marker danger-marker"><i class="fa-solid fa-message"></i></div>
+                <div class="timeline-line"></div>
+                <div class="timeline-content">
+                  <div class="timeline-top">
+                    <h4>Suspicious message detected</h4>
+                    <span>09:14 AM</span>
+                  </div>
+                  <p>Fake refund claim with urgent payment link.</p>
+                  <span class="timeline-risk high-risk">High risk</span>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-marker danger-marker"><i class="fa-solid fa-qrcode"></i></div>
+                <div class="timeline-line"></div>
+                <div class="timeline-content">
+                  <div class="timeline-top">
+                    <h4>Fake collect QR identified</h4>
+                    <span>09:19 AM</span>
+                  </div>
+                  <p>The QR could pull money from your account.</p>
+                  <span class="timeline-risk high-risk">High risk</span>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-marker success-marker"><i class="fa-solid fa-shield-check"></i></div>
+                <div class="timeline-content">
+                  <div class="timeline-top">
+                    <h4>Payment paused</h4>
+                    <span>09:28 AM</span>
+                  </div>
+                  <p>UPI Guardian kept the user in control.</p>
+                  <span class="timeline-risk protected-risk">Protected</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- Recent Transactions -->
+        <section class="content-card transaction-card">
+          <div class="card-heading">
+            <div>
+              <p class="small-label">YOUR ACTIVITY</p>
+              <h2>Recent transactions</h2>
+            </div>
+            <a href="#">View all<i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+          <div class="transaction-list">
+            <div class="transaction-row">
+              <div class="transaction-avatar green-avatar"><i class="fa-solid fa-user"></i></div>
+              <div class="transaction-info">
+                <h4>Aarav Mehta</h4>
+                <p>aarav.mehta@axis</p>
+              </div>
+              <div class="transaction-amount">
+                <strong>₹1,200</strong>
+                <small>Today, 11:42 AM</small>
+              </div>
+              <span class="risk-tag safe-tag">Safe</span>
+            </div>
+            <div class="transaction-row">
+              <div class="transaction-avatar red-avatar"><i class="fa-solid fa-user-slash"></i></div>
+              <div class="transaction-info">
+                <h4>Unknown Receiver</h4>
+                <p>xyz123@upi</p>
+              </div>
+              <div class="transaction-amount">
+                <strong>₹25,000</strong>
+                <small>Yesterday, 6:18 PM</small>
+              </div>
+              <span class="risk-tag blocked-tag">Blocked</span>
+            </div>
+            <div class="transaction-row">
+              <div class="transaction-avatar amber-avatar"><i class="fa-solid fa-cart-shopping"></i></div>
+              <div class="transaction-info">
+                <h4>FreshMart Online</h4>
+                <p>freshmart@okicici</p>
+              </div>
+              <div class="transaction-amount">
+                <strong>₹2,840</strong>
+                <small>Yesterday, 1:05 PM</small>
+              </div>
+              <span class="risk-tag review-tag">Review</span>
+            </div>
+          </div>
+        </section>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

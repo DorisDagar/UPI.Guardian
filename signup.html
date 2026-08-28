@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>UPI Guardian - Sign Up</title>
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+    <link rel="stylesheet" href="style4.css">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+
+        <div class="brand">
+
+            <div class="logo">
+                <i class="fa-solid fa-shield"></i>
+                <span>₹</span>
+            </div>
+
+            <div class="brand-text">
+                <h2>UPI <span>Guardian</span></h2>
+                <p>Explain Before You Pay</p>
+            </div>
+
+        </div>
+
+        <div class="header-login">
+            <p>Already registered?</p>
+
+            <button onclick="window.location.href='login.html'">
+                Login
+            </button>
+        </div>
+
+    </header>
+
+
+    <!-- SIGNUP CARD -->
+    <main class="signup-card">
+
+        <!-- LEFT PANEL -->
+        <section class="left-panel">
+
+            <img
+                src="img/signUp.png"
+                alt="UPI Guardian"
+            >
+
+        </section>
+
+
+        <!-- RIGHT PANEL -->
+        <section class="right-panel">
+
+            <p class="top-title">
+                CREATE YOUR ACCOUNT
+            </p>
+
+            <h1>
+                Start protecting your payments
+            </h1>
+
+            <p class="description">
+                It takes less than a minute.
+            </p>
+
+
+            <!-- NAME + EMAIL -->
+            <div class="row">
+
+                <!-- FULL NAME -->
+                <div class="field">
+
+                    <label>Full Name</label>
+
+                    <div class="input">
+
+                        <i class="fa-regular fa-user"></i>
+
+                        <input
+                            type="text"
+                            id="name"
+                            placeholder="Enter your full name"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- EMAIL -->
+                <div class="field">
+
+                    <label>Email Address</label>
+
+                    <div class="input">
+
+                        <i class="fa-regular fa-envelope"></i>
+
+                        <input
+                            type="email"
+                            id="email"
+                            placeholder="Enter your email address"
+                        >
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- PASSWORD + CONFIRM PASSWORD -->
+            <div class="row">
+
+                <!-- PASSWORD -->
+                <div class="field">
+
+                    <label>Password</label>
+
+                    <div class="input">
+
+                        <i class="fa-solid fa-lock"></i>
+
+                        <input
+                            type="password"
+                            id="password"
+                            placeholder="Create a strong password"
+                        >
+
+                        <i class="fa-regular fa-eye eye"></i>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CONFIRM PASSWORD -->
+                <div class="field">
+
+                    <label>Confirm Password</label>
+
+                    <div class="input">
+
+                        <i class="fa-solid fa-lock"></i>
+
+                        <input
+                            type="password"
+                            id="confirmPassword"
+                            placeholder="Re-enter your password"
+                        >
+
+                        <i class="fa-regular fa-eye eye"></i>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- TERMS -->
+            <div class="terms">
+
+                <input
+                    type="checkbox"
+                    id="terms"
+                    checked
+                >
+
+                <p>
+                    I agree to the
+                    <span>Terms & Conditions</span>
+                    and
+                    <span>Privacy Policy</span>
+                </p>
+
+            </div>
+
+
+            <!-- CREATE ACCOUNT BUTTON -->
+            <button
+                class="create-account"
+                id="signupBtn"
+                type="button"
+            >
+
+                <span>
+                    Create Secure Account
+                </span>
+
+                <i class="fa-solid fa-arrow-right"></i>
+
+            </button>
+
+
+            <!-- OR -->
+            <div class="or">
+
+                <div></div>
+
+                <span>
+                    OR CONTINUE WITH
+                </span>
+
+                <div></div>
+
+            </div>
+
+
+            <!-- GOOGLE -->
+            <button
+                class="google"
+                type="button"
+            >
+
+                <i class="fa-brands fa-google"></i>
+
+                <span>
+                    Continue with Google
+                </span>
+
+            </button>
+
+
+            <!-- LOGIN -->
+            <p class="bottom-login">
+
+                Already have an account?
+
+                <span onclick="window.location.href='login.html'">
+                    Login
+                </span>
+
+            </p>
+
+        </section>
+
+
+        <!-- SECURITY MESSAGE -->
+        <div class="security">
+
+            <i class="fa-solid fa-shield"></i>
+
+            <p>
+                Your details are encrypted.
+                We never ask for your UPI PIN.
+            </p>
+
+        </div>
+
+    </main>
+
+
+    <!-- SIGNUP JAVASCRIPT -->
+    <script src="signup.js"></script>
+
+</body>
+
+</html>
