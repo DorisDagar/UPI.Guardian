@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 require("dotenv").config();
 
 const authRoutes = require("./routes/auth");
@@ -22,12 +23,15 @@ app.use(express.json());
 
 app.use("/api/auth", authRoutes);
 
+// Serve the existing HTML, CSS, JavaScript and image files.
+app.use(express.static(path.join(__dirname, "..")));
+
 
 // ===============================
 // TEST ROUTE
 // ===============================
 
-app.get("/", (req, res) => {
+app.get("/api/health", (req, res) => {
     res.json({
         message: "UPI Guardian Backend is running"
     });
