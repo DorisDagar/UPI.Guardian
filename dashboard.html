@@ -46,10 +46,10 @@
           <h4>Your safety comes first</h4>
           <p>Pause. Verify. Then pay.</p>
         </div>
-        <div class="profile-box">
-          <div class="profile-avatar">A</div>
+        <div class="profile-box" id="sidebarProfile" role="button" tabindex="0" title="Click to log out">
+          <div class="profile-avatar" data-user-initial>A</div>
           <div>
-            <h4>Arjun Sharma</h4>
+            <h4 data-user-name>User</h4>
             <p>Personal account</p>
           </div>
           <i class="fa-solid fa-chevron-down profile-arrow"></i>
@@ -70,9 +70,9 @@
             <i class="fa-regular fa-bell"></i>
             <span class="notification-badge">2</span>
           </button>
-          <div class="top-profile">
-            <div class="small-avatar">A</div>
-            <span>User</span>
+          <div class="top-profile" id="topProfile" role="button" tabindex="0" title="Click to log out">
+            <div class="small-avatar" data-user-initial>A</div>
+            <span data-user-name>User</span>
             <i class="fa-solid fa-chevron-down"></i>
           </div>
         </div>
@@ -81,11 +81,8 @@
         <!-- Greeting -->
         <div class="page-heading">
           <div>
-            <p class="date-text">THURSDAY, 27 AUGUST 2026</p>
-            <h1>
-              Good evening, User
-              <span>👋</span>
-            </h1>
+            <p class="date-text" id="todayLabel">THURSDAY, 27 AUGUST 2026</p>
+            <h1 id="greeting">Good evening, User <span>👋</span></h1>
             <p class="heading-description">Your payments are being monitored for suspicious activity.</p>
           </div>
           <button class="primary-button"><i class="fa-solid fa-plus"></i>New Payment</button>
@@ -367,5 +364,6 @@
       </section>
     </main>
   </div>
+  <script src="app.js"></script>
 </body>
 </html>
