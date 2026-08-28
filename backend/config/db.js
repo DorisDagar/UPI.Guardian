@@ -8,7 +8,7 @@ const pool = new Pool({
     : { rejectUnauthorized: false },
 });
 
-pool.connect()
+pool.query("SELECT 1")
   .then(() => {
     console.log("✅ PostgreSQL Connected Successfully");
   })
