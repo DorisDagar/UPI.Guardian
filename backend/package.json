@@ -7,7 +7,7 @@
     "start": "node server.js",
     "dev": "nodemon server.js",
     "reset-password": "node reset-password.js",
-    "test": "node --check server.js && node --check routes/auth.js && node --check reset-password.js && node --check ../login.js && node --check ../signup.js && node --check ../app.js"
+    "test": "node --check server.js && node --check middleware/auth.js && node --check routes/auth.js && node --check routes/dashboard.js && node --check reset-password.js && node --check ../login.js && node --check ../signup.js && node --check ../app.js"
   },
   "keywords": [],
   "author": "",
