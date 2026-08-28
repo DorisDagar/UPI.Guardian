@@ -4,6 +4,7 @@ const path = require("path");
 require("dotenv").config();
 
 const authRoutes = require("./routes/auth");
+const dashboardRoutes = require("./routes/dashboard");
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use(express.json());
 // ===============================
 
 app.use("/api/auth", authRoutes);
+app.use("/api/dashboard", dashboardRoutes);
 
 // Serve the existing HTML, CSS, JavaScript and image files.
 app.use(express.static(path.join(__dirname, "..")));
