@@ -84,7 +84,11 @@ router.post("/login", async (req, res) => {
     }
 
     const user = result.rows[0];
-    const passwordMatches = await bcrypt.compare(password, user.password);
+    // PostgreSQL drivers normally return VARCHAR unchanged. Trimming the stored
+    // hash also supports older databases where the column was created as CHAR.
+    const storedPasswordHash = String(user.password || "").trim();
+    const passwordMatches = storedPasswordHash.startsWith("$2")
+      && await bcrypt.compare(password, storedPasswordHash);
 
     if (!passwordMatches) {
       return res.status(401).json({ message: "Invalid email or password" });
