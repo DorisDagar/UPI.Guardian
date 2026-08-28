@@ -75,7 +75,7 @@ a {
   height: 50px;
   color: white;
   background: linear-gradient(145deg,var(--cyan),#637cff 60%,var(--purple) );
-  clip-path: polygon(50% 0,94% 15%,86% 70%,50% 100%,14% 70%,6% 15%);
+  border-radius: 10px;
   font-size: 20px;
 }
 .logo-area h2 {
