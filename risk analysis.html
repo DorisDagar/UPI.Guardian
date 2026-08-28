@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Risk Analysis - UPI Guardian</title>
+
+    <link rel="stylesheet" href="risk analysis.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+
+    <div class="dashboard-container">
+
+        <!-- ================= SIDEBAR ================= -->
+
+        <aside class="sidebar">
+
+            <div class="logo-section">
+
+                <div class="logo-icon">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+
+                <div>
+                    <h2>UPI Guardian</h2>
+                    <p>Explain Before You Pay</p>
+                </div>
+
+            </div>
+
+
+            <!-- PROTECT -->
+
+            <div class="menu-section">
+
+                <p class="menu-title">PROTECT</p>
+
+                <a href="dashboard.html" class="nav-item">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    <span>Dashboard</span>
+                </a>
+
+                <a href="sendMoney.html" class="nav-item">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    <span>Send Money</span>
+                </a>
+
+                <a href="scan.html" class="nav-item">
+                    <i class="fa-solid fa-qrcode"></i>
+                    <span>Scan & Pay</span>
+                </a>
+
+                <a href="payment-request.html" class="nav-item">
+                    <i class="fa-solid fa-wallet"></i>
+                    <span>Payment Requests</span>
+
+                    <span class="notification-count">3</span>
+                </a>
+
+                <a href="message-analyzer.html" class="nav-item">
+                    <i class="fa-solid fa-message"></i>
+                    <span>Message Analyzer</span>
+                </a>
+
+                <a href="scam-timeline.html" class="nav-item">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                    <span>Scam Timeline</span>
+                </a>
+
+                <a href="recovery.html" class="nav-item">
+                    <i class="fa-solid fa-life-ring"></i>
+                    <span>Recovery Mode</span>
+                </a>
+
+            </div>
+
+
+            <!-- MANAGE -->
+
+            <div class="menu-section manage-section">
+
+                <p class="menu-title">MANAGE</p>
+
+                <a href="settings.html" class="nav-item">
+                    <i class="fa-solid fa-gear"></i>
+                    <span>Settings</span>
+                </a>
+
+                <a href="help.html" class="nav-item">
+                    <i class="fa-solid fa-circle-question"></i>
+                    <span>Help & Support</span>
+                </a>
+
+                <a href="risk-analysis.html" class="nav-item active">
+                    <div class="risk-icon">
+                        <i class="fa-solid fa-shield"></i>
+                    </div>
+
+                    <span>Risk Analysis</span>
+                </a>
+
+            </div>
+
+        </aside>
+
+
+        <!-- ================= MAIN CONTENT ================= -->
+
+        <main class="main-content">
+
+
+            <!-- ================= TOP HEADER ================= -->
+
+            <header class="top-header">
+
+                <div class="page-heading">
+                    <h1>Risk Analysis</h1>
+                    <p>Detailed risk assessment of your transaction</p>
+                </div>
+
+
+                <div class="header-right">
+
+                    <div class="protection-status">
+                        <span class="green-dot"></span>
+                        Protection active
+                    </div>
+
+
+                    <div class="notification">
+                        <i class="fa-regular fa-bell"></i>
+                        <span>2</span>
+                    </div>
+
+
+                    <div class="profile">
+
+                        <div class="profile-avatar">
+                            G
+                        </div>
+
+                        <span>geetanshi</span>
+
+                        <i class="fa-solid fa-chevron-down"></i>
+
+                    </div>
+
+                </div>
+
+            </header>
+
+
+            <!-- ================= PAGE ACTION ================= -->
+
+            <div class="page-action">
+
+                <button class="analyze-btn">
+                    <i class="fa-solid fa-globe"></i>
+                    Analyze New Transaction
+                </button>
+
+            </div>
+
+
+            <!-- ================= DASHBOARD GRID ================= -->
+
+            <div class="content-grid">
+
+
+                <!-- LEFT SIDE -->
+
+                <div class="left-column">
+
+
+                    <!-- ================= RISK OVERVIEW ================= -->
+
+                    <section class="card risk-overview">
+
+                        <p class="section-title">
+                            RISK OVERVIEW
+                        </p>
+
+
+                        <div class="overview-content">
+
+
+                            <!-- SCORE -->
+
+                            <div class="risk-score">
+
+                                <div class="score-circle">
+
+                                    <div class="score-inner">
+
+                                        <h2>82</h2>
+                                        <span>/100</span>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- RISK TEXT -->
+
+                            <div class="risk-description">
+
+                                <h2>High Risk</h2>
+
+                                <p>
+                                    This transaction shows high risk
+                                    factors. Please proceed with
+                                    caution and verify all details.
+                                </p>
+
+
+                                <div class="analyzed-time">
+
+                                    <i class="fa-regular fa-clock"></i>
+
+                                    Analyzed on 28 Aug 2026, 11:12 PM
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- TRANSACTION DETAILS -->
+
+                            <div class="transaction-details">
+
+
+                                <div class="detail-item">
+
+                                    <div class="detail-icon blue">
+                                        <i class="fa-solid fa-file-lines"></i>
+                                    </div>
+
+                                    <div>
+                                        <span>Transaction ID</span>
+                                        <strong>TXN8F3K2L9M1</strong>
+                                    </div>
+
+                                </div>
+
+
+                                <div class="detail-item">
+
+                                    <div class="detail-icon red">
+                                        ₹
+                                    </div>
+
+                                    <div>
+                                        <span>Amount</span>
+                                        <strong>₹24,000</strong>
+                                    </div>
+
+                                </div>
+
+
+                                <div class="detail-item">
+
+                                    <div class="detail-icon blue">
+                                        <i class="fa-solid fa-user"></i>
+                                    </div>
+
+                                    <div>
+                                        <span>To</span>
+                                        <strong>+91 98765 43210</strong>
+                                    </div>
+
+                                </div>
+
+
+                                <div class="detail-item">
+
+                                    <div class="detail-icon multi">
+                                        <i class="fa-solid fa-bolt"></i>
+                                    </div>
+
+                                    <div>
+                                        <span>UPI ID</span>
+                                        <strong>john.doe@upi</strong>
+                                    </div>
+
+                                </div>
+
+
+                                <div class="detail-item">
+
+                                    <div class="detail-icon blue">
+                                        <i class="fa-regular fa-clock"></i>
+                                    </div>
+
+                                    <div>
+                                        <span>Time</span>
+                                        <strong>28 Aug 2026, 11:12 PM</strong>
+                                    </div>
+
+                                </div>
+
+
+                                <div class="detail-item">
+
+                                    <div class="detail-icon green">
+                                        <i class="fa-solid fa-mobile-screen"></i>
+                                    </div>
+
+                                    <div>
+                                        <span>Channel</span>
+                                        <strong>PhonePe</strong>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+
+
+                    <!-- ================= LOWER GRID ================= -->
+
+                    <div class="lower-grid">
+
+
+                        <!-- RISK FACTORS -->
+
+                        <section class="card risk-factors">
+
+                            <p class="section-title">
+                                RISK FACTORS DETECTED
+                            </p>
+
+
+                            <div class="factor-list">
+
+
+                                <div class="factor-item">
+
+                                    <div class="factor-icon danger">
+                                        <i class="fa-solid fa-exclamation"></i>
+                                    </div>
+
+                                    <div class="factor-content">
+
+                                        <h4>New Payee</h4>
+
+                                        <p>
+                                            You haven't sent money to this
+                                            payee before.
+                                        </p>
+
+                                    </div>
+
+                                    <span class="risk-badge high">
+                                        High Risk
+                                    </span>
+
+                                </div>
+
+
+
+                                <div class="factor-item">
+
+                                    <div class="factor-icon amount">
+                                        ₹
+                                    </div>
+
+                                    <div class="factor-content">
+
+                                        <h4>High Amount</h4>
+
+                                        <p>
+                                            This amount is 3x higher than
+                                            your recent average.
+                                        </p>
+
+                                    </div>
+
+                                    <span class="risk-badge medium">
+                                        Medium Risk
+                                    </span>
+
+                                </div>
+
+
+
+                                <div class="factor-item">
+
+                                    <div class="factor-icon danger">
+                                        <i class="fa-solid fa-comment-dots"></i>
+                                    </div>
+
+                                    <div class="factor-content">
+
+                                        <h4>Suspicious Message</h4>
+
+                                        <p>
+                                            Keywords like "urgent", "verify",
+                                            "KYC" detected.
+                                        </p>
+
+                                    </div>
+
+                                    <span class="risk-badge high">
+                                        High Risk
+                                    </span>
+
+                                </div>
+
+
+
+                                <div class="factor-item">
+
+                                    <div class="factor-icon warning">
+                                        <i class="fa-regular fa-clock"></i>
+                                    </div>
+
+                                    <div class="factor-content">
+
+                                        <h4>Unusual Time</h4>
+
+                                        <p>
+                                            Transaction at an odd hour for
+                                            your activity.
+                                        </p>
+
+                                    </div>
+
+                                    <span class="risk-badge medium">
+                                        Medium Risk
+                                    </span>
+
+                                </div>
+
+
+
+                                <div class="factor-item">
+
+                                    <div class="factor-icon location">
+                                        <i class="fa-solid fa-location-dot"></i>
+                                    </div>
+
+                                    <div class="factor-content">
+
+                                        <h4>Location Mismatch</h4>
+
+                                        <p>
+                                            Your current location doesn't
+                                            match usual pattern.
+                                        </p>
+
+                                    </div>
+
+                                    <span class="risk-badge low">
+                                        Low Risk
+                                    </span>
+
+                                </div>
+
+
+                            </div>
+
+
+                            <a href="#" class="view-details">
+
+                                View full risk details
+
+                                <i class="fa-solid fa-chevron-right"></i>
+
+                            </a>
+
+                        </section>
+
+
+
+                        <!-- HISTORICAL COMPARISON -->
+
+                        <section class="card historical">
+
+                            <p class="section-title">
+                                HISTORICAL COMPARISON
+                            </p>
+
+
+                            <div class="chart-heading">
+
+                                <span class="chart-dot"></span>
+
+                                <div>
+
+                                    <h4>
+                                        How this transaction compares
+                                    </h4>
+
+                                    <p>
+                                        to your recent activity
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="chart-area">
+
+
+                                <div class="chart-labels">
+
+                                    <span>High</span>
+                                    <span>Med</span>
+                                    <span>Low</span>
+
+                                </div>
+
+
+                                <div class="bars-wrapper">
+
+
+                                    <!-- GROUP 1 -->
+
+                                    <div class="bar-group">
+
+                                        <div class="bars">
+
+                                            <div class="bar usual bar-small"></div>
+                                            <div class="bar current bar-medium"></div>
+
+                                        </div>
+
+                                        <span>Amount (₹)</span>
+
+                                    </div>
+
+
+                                    <!-- GROUP 2 -->
+
+                                    <div class="bar-group">
+
+                                        <div class="bars">
+
+                                            <div class="bar usual bar-medium"></div>
+                                            <div class="bar current bar-small"></div>
+
+                                        </div>
+
+                                        <span>Frequency</span>
+
+                                    </div>
+
+
+                                    <!-- GROUP 3 -->
+
+                                    <div class="bar-group">
+
+                                        <div class="bars">
+
+                                            <div class="bar usual bar-tiny"></div>
+                                            <div class="bar current bar-large"></div>
+
+                                        </div>
+
+                                        <span>New Payees</span>
+
+                                    </div>
+
+
+                                    <!-- GROUP 4 -->
+
+                                    <div class="bar-group">
+
+                                        <div class="bars">
+
+                                            <div class="bar usual bar-small"></div>
+                                            <div class="bar current bar-large"></div>
+
+                                        </div>
+
+                                        <span>Late Night Txns</span>
+
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="chart-legend">
+
+                                <div>
+                                    <span class="legend-box usual-box"></span>
+                                    Your Usual
+                                </div>
+
+                                <div>
+                                    <span class="legend-box current-box"></span>
+                                    This Transaction
+                                </div>
+
+                            </div>
+
+
+                            <p class="comparison-text">
+
+                                This transaction is higher risk than
+
+                                <strong>87%</strong>
+
+                                of your last 20 transactions.
+
+                            </p>
+
+                        </section>
+
+
+                    </div>
+
+
+
+                    <!-- ================= UPI TIP ================= -->
+
+                    <section class="card guardian-tip">
+
+                        <div class="tip-left">
+
+                            <div class="tip-icon">
+                                <i class="fa-solid fa-shield-halved"></i>
+                            </div>
+
+
+                            <div>
+
+                                <h3>UPI Guardian Tip</h3>
+
+                                <p>
+                                    Always verify the receiver and transaction
+                                    details before approving any payment request.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <button class="learn-btn">
+
+                            Learn More
+
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
+                        </button>
+
+                    </section>
+
+
+                </div>
+
+
+
+                <!-- ================= RIGHT SIDE ================= -->
+
+                <div class="right-column">
+
+
+                    <!-- RISK BREAKDOWN -->
+
+                    <section class="card risk-breakdown">
+
+                        <p class="section-title">
+                            RISK BREAKDOWN
+                        </p>
+
+
+                        <div class="breakdown-item">
+
+                            <div class="breakdown-icon red-icon">
+                                <i class="fa-regular fa-clock"></i>
+                            </div>
+
+                            <div class="breakdown-content">
+
+                                <div class="breakdown-top">
+
+                                    <div>
+
+                                        <h4>Unusual Receiver</h4>
+
+                                        <p>New or unverified payee</p>
+
+                                    </div>
+
+                                    <strong>85/100</strong>
+
+                                </div>
+
+                                <div class="progress">
+                                    <div class="progress-bar red-progress p85"></div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="breakdown-item">
+
+                            <div class="breakdown-icon orange-icon">
+                                ₹
+                            </div>
+
+                            <div class="breakdown-content">
+
+                                <div class="breakdown-top">
+
+                                    <div>
+
+                                        <h4>Transaction Amount</h4>
+
+                                        <p>Higher than your usual</p>
+
+                                    </div>
+
+                                    <strong>70/100</strong>
+
+                                </div>
+
+                                <div class="progress">
+                                    <div class="progress-bar orange-progress p70"></div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="breakdown-item">
+
+                            <div class="breakdown-icon yellow-icon">
+                                <i class="fa-regular fa-clock"></i>
+                            </div>
+
+                            <div class="breakdown-content">
+
+                                <div class="breakdown-top">
+
+                                    <div>
+
+                                        <h4>Time & Frequency</h4>
+
+                                        <p>Unusual time or frequency</p>
+
+                                    </div>
+
+                                    <strong>60/100</strong>
+
+                                </div>
+
+                                <div class="progress">
+                                    <div class="progress-bar yellow-progress p60"></div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="breakdown-item">
+
+                            <div class="breakdown-icon red-icon">
+                                <i class="fa-solid fa-comment-dots"></i>
+                            </div>
+
+                            <div class="breakdown-content">
+
+                                <div class="breakdown-top">
+
+                                    <div>
+
+                                        <h4>Message/Context</h4>
+
+                                        <p>Suspicious keywords detected</p>
+
+                                    </div>
+
+                                    <strong>90/100</strong>
+
+                                </div>
+
+                                <div class="progress">
+                                    <div class="progress-bar red-progress p90"></div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="breakdown-item">
+
+                            <div class="breakdown-icon green-icon">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+
+                            <div class="breakdown-content">
+
+                                <div class="breakdown-top">
+
+                                    <div>
+
+                                        <h4>Device & Location</h4>
+
+                                        <p>Login / location mismatch</p>
+
+                                    </div>
+
+                                    <strong>40/100</strong>
+
+                                </div>
+
+                                <div class="progress">
+                                    <div class="progress-bar green-progress p40"></div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="overall-risk">
+
+                            <span>Overall Risk Score</span>
+
+                            <strong>82/100</strong>
+
+                        </div>
+
+                    </section>
+
+
+
+                    <!-- ================= RECOMMENDATIONS ================= -->
+
+                    <section class="card recommendations">
+
+                        <p class="section-title">
+                            RECOMMENDATIONS
+                        </p>
+
+
+                        <div class="recommendation-item">
+
+                            <div class="recommendation-icon shield">
+                                <i class="fa-solid fa-shield-halved"></i>
+                            </div>
+
+                            <div>
+
+                                <h4>Verify Payee</h4>
+
+                                <p>
+                                    Confirm the payee details through a trusted
+                                    source before proceeding.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="recommendation-item">
+
+                            <div class="recommendation-icon message">
+                                <i class="fa-solid fa-message"></i>
+                            </div>
+
+                            <div>
+
+                                <h4>Check Message</h4>
+
+                                <p>
+                                    Do not share OTP, PIN or personal details
+                                    with anyone.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="recommendation-item">
+
+                            <div class="recommendation-icon lock">
+                                <i class="fa-solid fa-lock"></i>
+                            </div>
+
+                            <div>
+
+                                <h4>Enable 2FA</h4>
+
+                                <p>
+                                    Add an extra layer of security to your
+                                    account.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="warning-box">
+
+                            <div class="warning-icon">
+                                <i class="fa-solid fa-triangle-exclamation"></i>
+                            </div>
+
+                            <div>
+
+                                <h3>When in doubt, don't send.</h3>
+
+                                <p>
+                                    Your security is our priority.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+</body>
+
+</html>
