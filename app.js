@@ -1,40 +1,34 @@
-const actions = {
-  dashboard: "You are already on the dashboard.",
-  send: "Send Money is the next frontend screen.",
-  scan: "Scan & Pay is coming in the next milestone.",
-  requests: "Payment Requests is coming in the next milestone.",
-  messages: "Message Analyzer is coming in the next milestone.",
-  timeline: "Scam Timeline is coming in the next milestone.",
-  recovery: "Recovery Mode is coming in the next milestone.",
-  settings: "Settings is coming in the next milestone.",
-  help: "Help & Support is coming in the next milestone.",
-};
+const token = localStorage.getItem("upiGuardianToken");
+const API_BASE_URL = window.location.port === "5000" ? "" : "http://localhost:5000";
 
-const toast = document.querySelector("#toast");
-const toastText = toast.querySelector("span");
-let toastTimer;
-
-function showToast(message) {
-  toastText.textContent = message;
-  toast.hidden = false;
-
-  clearTimeout(toastTimer);
-
-  toastTimer = setTimeout(() => {
-    toast.hidden = true;
-  }, 2600);
+if (!token) {
+  window.location.replace("login.html");
 }
 
-function setActivePage(page) {
-  document.querySelectorAll(".nav-link").forEach((link) => {
-    link.classList.toggle("active", link.dataset.page === page);
+function setUser(user) {
+  if (!user?.name) return;
+
+  const firstName = user.name.trim().split(/\s+/)[0];
+  const initial = firstName.charAt(0).toUpperCase();
+  const hour = new Date().getHours();
+  const greeting = hour < 12 ? "Good morning" : hour < 17 ? "Good afternoon" : "Good evening";
+
+  document.querySelectorAll("[data-user-name]").forEach((element) => {
+    element.textContent = user.name;
   });
+  document.querySelectorAll("[data-user-initial]").forEach((element) => {
+    element.textContent = initial;
+  });
+
+  const greetingElement = document.getElementById("greeting");
+  greetingElement.textContent = `${greeting}, ${firstName} `;
+  const wave = document.createElement("span");
+  wave.textContent = "👋";
+  greetingElement.appendChild(wave);
 }
 
-function updateDateAndGreeting() {
-  const now = new Date();
-
-  const date = now
+function updateDate() {
+  document.getElementById("todayLabel").textContent = new Date()
     .toLocaleDateString("en-IN", {
       weekday: "long",
       day: "numeric",
@@ -42,81 +36,49 @@ function updateDateAndGreeting() {
       year: "numeric",
     })
     .toUpperCase();
-
-  const hour = now.getHours();
-
-  const greeting =
-    hour < 12
-      ? "Good morning"
-      : hour < 17
-        ? "Good afternoon"
-        : "Good evening";
-
-  document.querySelector("#todayLabel").textContent = date;
-
-  document.querySelector("#greeting").innerHTML =
-    `${greeting}, Arjun <span>👋</span>`;
 }
 
-document.querySelectorAll(".nav-link").forEach((link) => {
-  link.addEventListener("click", (event) => {
-    event.preventDefault();
+function logOut() {
+  if (!confirm("Do you want to log out of UPI Guardian?")) return;
+  localStorage.removeItem("upiGuardianToken");
+  localStorage.removeItem("upiGuardianUser");
+  window.location.replace("login.html");
+}
 
-    const page = link.dataset.page;
+async function loadLoggedInUser() {
+  try {
+    const cachedUser = JSON.parse(localStorage.getItem("upiGuardianUser") || "null");
+    setUser(cachedUser);
 
-    setActivePage(page);
-    showToast(actions[page]);
-  });
-});
+    const response = await fetch(`${API_BASE_URL}/api/auth/me`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
 
-document.querySelectorAll("[data-action]").forEach((element) => {
-  element.addEventListener("click", () => {
-    const action = element.dataset.action;
+    if (!response.ok) throw new Error("Session expired");
 
-    if (action === "notifications") {
-      const menu = document.querySelector("#notificationMenu");
-
-      menu.hidden = !menu.hidden;
-      return;
-    }
-
-    if (action === "account") {
-      showToast(
-        "Account menu will be connected after authentication is added.",
-      );
-      return;
-    }
-
-    const message = {
-      "new-payment": "The Send Money flow will open here.",
-      "review-payment":
-        "The payment review experience is our next frontend milestone.",
-      amount: "Unusual amount detection will open in the risk review.",
-      receiver: "Receiver history will be checked before payment.",
-      message: "The AI-assisted Message Analyzer will open here.",
-      trusted:
-        "Trusted Person Confirmation will be connected to the payment review.",
-      transactions: "Transaction history will open here.",
-      help: actions.help,
-      timeline: actions.timeline,
-      send: actions.send,
-      scan: actions.scan,
-      recovery: actions.recovery,
-    }[action] || "This feature will be connected in a later milestone.";
-
-    showToast(message);
-  });
-});
-
-document.addEventListener("click", (event) => {
-  const menu = document.querySelector("#notificationMenu");
-
-  if (
-    !event.target.closest("#notificationMenu") &&
-    !event.target.closest('[data-action="notifications"]')
-  ) {
-    menu.hidden = true;
+    const data = await response.json();
+    localStorage.setItem("upiGuardianUser", JSON.stringify(data.user));
+    setUser(data.user);
+  } catch (error) {
+    localStorage.removeItem("upiGuardianToken");
+    localStorage.removeItem("upiGuardianUser");
+    window.location.replace("login.html");
   }
+}
+
+document.querySelectorAll("#topProfile, #sidebarProfile").forEach((profile) => {
+  profile.addEventListener("click", logOut);
+  profile.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") logOut();
+  });
 });
 
-updateDateAndGreeting();
+const sendMoneyItems = [...document.querySelectorAll("a")].filter((link) =>
+  link.textContent.toLowerCase().includes("send money")
+);
+sendMoneyItems.forEach((link) => {
+  link.href = "send%20money.html";
+});
+
+updateDate();
+loadLoggedInUser();
