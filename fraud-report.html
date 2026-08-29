@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>UPI Guardian — Fraud Incident Report</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    >
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+
+    <link rel="stylesheet" href="fraud-report.css">
+</head>
+
+<body>
+
+<!-- ======================================================
+     NAVBAR
+====================================================== -->
+
+<header class="navbar">
+
+    <div class="brand">
+        <div class="brand-logo">
+            <i class="fa-solid fa-star"></i>
+        </div>
+
+        <span>UPI Guardian</span>
+    </div>
+
+
+    <nav class="navigation">
+
+        <a href="#" class="nav-link">
+            <i class="fa-solid fa-border-all"></i>
+            <span>Dashboard</span>
+        </a>
+
+        <a href="#" class="nav-link">
+            <i class="fa-solid fa-arrow-up"></i>
+            <span>Send Money</span>
+        </a>
+
+        <a href="#" class="nav-link">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+            <span>Transaction History</span>
+        </a>
+
+        <a href="#" class="nav-link">
+            <i class="fa-regular fa-shield"></i>
+            <span>Scam Analyzer</span>
+        </a>
+
+        <a href="#" class="nav-link active">
+            <i class="fa-solid fa-shield-halved"></i>
+            <span>Recovery Mode</span>
+        </a>
+
+    </nav>
+
+
+    <div class="navbar-right">
+
+        <button class="notification-btn">
+            <i class="fa-regular fa-bell"></i>
+            <span class="notification-dot"></span>
+        </button>
+
+        <div class="profile">
+            <div class="profile-avatar">AK</div>
+            <i class="fa-solid fa-chevron-down"></i>
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- ======================================================
+     MAIN
+====================================================== -->
+
+<main class="container">
+
+    <!-- REPORT HEADER -->
+
+    <section class="report-header">
+
+        <div class="report-heading">
+
+            <div class="shield-large">
+                <i class="fa-solid fa-star"></i>
+            </div>
+
+            <div>
+                <div class="guardian-title">
+                    UPI Guardian
+                </div>
+
+                <h1>
+                    Fraud Incident Report
+                </h1>
+            </div>
+
+        </div>
+
+
+        <div class="report-information">
+
+            <div class="report-info">
+                <span>Report ID:</span>
+                <strong>UG-FIR-2026-0829</strong>
+            </div>
+
+            <div class="report-info">
+                <span>Date:</span>
+                <strong>29 Aug 2026</strong>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ==================================================
+         DASHBOARD GRID
+    ================================================== -->
+
+    <div class="dashboard-grid">
+
+
+        <!-- ==================================================
+             1. TRANSACTION DETAILS
+        ================================================== -->
+
+        <section class="card transaction-card">
+
+            <div class="card-header">
+                <div class="section-number">1</div>
+                <h2>Transaction Details</h2>
+            </div>
+
+
+            <div class="transaction-details">
+
+                <div class="detail-row">
+                    <i class="fa-regular fa-user"></i>
+
+                    <span>Receiver:</span>
+
+                    <strong>
+                        Lucky Reward UPI
+                    </strong>
+                </div>
+
+
+                <div class="detail-row">
+                    <i class="fa-solid fa-indian-rupee-sign"></i>
+
+                    <span>Amount:</span>
+
+                    <strong>
+                        ₹50,000
+                    </strong>
+                </div>
+
+
+                <div class="detail-row">
+                    <i class="fa-solid fa-link"></i>
+
+                    <span>Transaction ID:</span>
+
+                    <strong>
+                        UPI982174563210
+                    </strong>
+                </div>
+
+
+                <div class="detail-row">
+                    <i class="fa-regular fa-calendar"></i>
+
+                    <span>Date &amp; Time:</span>
+
+                    <strong>
+                        29 Aug 2026, 10:42 AM
+                    </strong>
+                </div>
+
+
+                <div class="detail-row">
+                    <i class="fa-solid fa-building-columns"></i>
+
+                    <span>Payment Method:</span>
+
+                    <strong>
+                        UPI • HDFC Bank
+                    </strong>
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ==================================================
+             2. RISK ANALYSIS
+        ================================================== -->
+
+        <section class="card risk-card">
+
+            <div class="card-header">
+                <div class="section-number">2</div>
+                <h2>Risk Analysis</h2>
+            </div>
+
+
+            <div class="risk-content">
+
+                <!-- SCORE -->
+
+                <div class="score-section">
+
+                    <div class="small-title">
+                        Overall Risk Score
+                    </div>
+
+                    <div class="chart-wrapper">
+
+                        <canvas id="riskChart"></canvas>
+
+                        <div class="score-center">
+                            <span id="scoreNumber">92</span>
+                            <small>/100</small>
+                        </div>
+
+                    </div>
+
+                    <div class="gauge-labels">
+                        <span>0</span>
+                        <span>100</span>
+                    </div>
+
+                </div>
+
+
+                <!-- LEVEL -->
+
+                <div class="risk-level-section">
+
+                    <div class="small-title">
+                        Risk Level
+                    </div>
+
+                    <div class="high-risk">
+                        HIGH RISK
+                    </div>
+
+                </div>
+
+
+                <!-- REASONS -->
+
+                <div class="risk-reasons">
+
+                    <div class="small-title">
+                        Reasons for Risk
+                    </div>
+
+
+                    <div class="reason">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+
+                        <span>
+                            Reward-based social engineering
+                        </span>
+                    </div>
+
+
+                    <div class="reason">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+
+                        <span>
+                            New and unverified receiver
+                        </span>
+                    </div>
+
+
+                    <div class="reason">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+
+                        <span>
+                            Unusually high payment amount
+                        </span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ==================================================
+             3. INCIDENT SUMMARY
+        ================================================== -->
+
+        <section class="card summary-card">
+
+            <div class="card-header">
+                <div class="section-number">3</div>
+                <h2>Incident Summary</h2>
+            </div>
+
+
+            <div class="summary">
+
+                <i class="fa-solid fa-quote-left quote quote-left"></i>
+
+                <p>
+                    The receiver claimed that a reward could only be
+                    released after an urgent verification payment.
+                    The request used pressure, unfamiliar payment
+                    details and a high-value transfer.
+                </p>
+
+                <i class="fa-solid fa-quote-right quote quote-right"></i>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ==================================================
+             4. IMMEDIATE ACTIONS
+        ================================================== -->
+
+        <section class="card actions-card">
+
+            <div class="card-header">
+                <div class="section-number">4</div>
+                <h2>Immediate Actions Taken</h2>
+            </div>
+
+
+            <div class="actions">
+
+                <div class="action">
+                    <div class="success-icon">
+                        <i class="fa-solid fa-check"></i>
+                    </div>
+
+                    <span>
+                        Bank<br>
+                        notified
+                    </span>
+                </div>
+
+
+                <div class="action-divider"></div>
+
+
+                <div class="action">
+                    <div class="success-icon">
+                        <i class="fa-solid fa-check"></i>
+                    </div>
+
+                    <span>
+                        UPI ID<br>
+                        blocked
+                    </span>
+                </div>
+
+
+                <div class="action-divider"></div>
+
+
+                <div class="action">
+                    <div class="success-icon">
+                        <i class="fa-solid fa-check"></i>
+                    </div>
+
+                    <span>
+                        Transaction<br>
+                        flagged
+                    </span>
+                </div>
+
+
+                <div class="action-divider"></div>
+
+
+                <div class="action">
+                    <div class="success-icon">
+                        <i class="fa-solid fa-check"></i>
+                    </div>
+
+                    <span>
+                        Cybercrime<br>
+                        complaint prepared
+                    </span>
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ==================================================
+             5. EVIDENCE
+        ================================================== -->
+
+        <section class="card evidence-card">
+
+            <div class="card-header">
+                <div class="section-number">5</div>
+                <h2>Evidence Collected</h2>
+            </div>
+
+
+            <div class="evidence-list">
+
+                <div class="evidence-row">
+
+                    <i class="fa-regular fa-image image-icon"></i>
+
+                    <span>
+                        payment-receipt.png
+                    </span>
+
+                    <div class="attached">
+                        <i class="fa-solid fa-check"></i>
+                        Attached
+                    </div>
+
+                </div>
+
+
+                <div class="evidence-row">
+
+                    <i class="fa-regular fa-image image-icon"></i>
+
+                    <span>
+                        scam-message.png
+                    </span>
+
+                    <div class="attached">
+                        <i class="fa-solid fa-check"></i>
+                        Attached
+                    </div>
+
+                </div>
+
+
+                <div class="evidence-row">
+
+                    <i class="fa-regular fa-file-pdf pdf-icon"></i>
+
+                    <span>
+                        upi-details.pdf
+                    </span>
+
+                    <div class="attached">
+                        <i class="fa-solid fa-check"></i>
+                        Attached
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ==================================================
+             6. TIMELINE
+        ================================================== -->
+
+        <section class="card timeline-card">
+
+            <div class="card-header timeline-header">
+
+                <div class="section-number">6</div>
+
+                <h2>Scam Timeline</h2>
+
+                <span class="timeline-note">
+                    Timeline is for THIS selected transaction only.
+                </span>
+
+            </div>
+
+
+            <div class="timeline">
+
+                <div class="timeline-event">
+
+                    <div class="timeline-marker"></div>
+
+                    <strong>
+                        10:35 AM
+                    </strong>
+
+                    <span class="dash">—</span>
+
+                    <span>
+                        Suspicious reward message received
+                    </span>
+
+                </div>
+
+
+                <div class="timeline-event">
+
+                    <div class="timeline-marker"></div>
+
+                    <strong>
+                        10:39 AM
+                    </strong>
+
+                    <span class="dash">—</span>
+
+                    <span>
+                        Unverified UPI ID shared
+                    </span>
+
+                </div>
+
+
+                <div class="timeline-event">
+
+                    <div class="timeline-marker"></div>
+
+                    <strong>
+                        10:42 AM
+                    </strong>
+
+                    <span class="dash">—</span>
+
+                    <span>
+                        ₹50,000 payment completed
+                    </span>
+
+                </div>
+
+
+                <div class="timeline-event">
+
+                    <div class="timeline-marker"></div>
+
+                    <strong>
+                        10:44 AM
+                    </strong>
+
+                    <span class="dash">—</span>
+
+                    <span>
+                        Risk indicators detected
+                    </span>
+
+                </div>
+
+
+                <div class="timeline-event">
+
+                    <div class="timeline-marker"></div>
+
+                    <strong>
+                        10:46 AM
+                    </strong>
+
+                    <span class="dash">—</span>
+
+                    <span>
+                        Recovery Mode activated
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ==================================================
+             7. TRUSTED PERSON
+        ================================================== -->
+
+        <section class="card trusted-card">
+
+            <div class="card-header">
+                <div class="section-number">7</div>
+                <h2>Trusted Person</h2>
+            </div>
+
+
+            <div class="trusted-content">
+
+                <div class="person-icon">
+
+                    <i class="fa-solid fa-user"></i>
+
+                </div>
+
+
+                <div class="person-details">
+
+                   <div>
+                        <span>Selected person:</span>
+                        <strong id="reportTrustedPerson">-</strong>
+                    </div>
+
+
+                    <div>
+                        <span>Relationship:</span>
+                        <strong id="reportTrustedRelationship">-</strong>
+                    </div>
+
+
+                    <div>
+                        <span>Mobile:</span>
+                        <strong id="reportTrustedMobile">-</strong>
+                    </div>
+
+
+                    <div class="status-row">
+                        <span>Status:</span>
+
+                        <button class="ready-btn">
+                            Ready to notify
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+
+    <!-- ==================================================
+         BOTTOM BUTTONS
+    ================================================== -->
+
+    <section class="bottom-bar">
+
+        <button class="download-btn" id="downloadBtn">
+
+            <i class="fa-solid fa-download"></i>
+
+            Download Fraud Report
+
+        </button>
+
+
+        <button class="notify-btn" id="notifyBtn">
+
+            <i class="fa-regular fa-paper-plane"></i>
+
+            Send to Trusted Person
+
+        </button>
+
+    </section>
+
+</main>
+
+
+<!-- TOAST -->
+
+<div class="toast" id="toast">
+
+    <i class="fa-solid fa-circle-check"></i>
+
+    <span id="toastText">
+        Action completed
+    </span>
+
+</div>
+
+
+<script src="fraud-report.js"></script>
+
+</body>
+</html>

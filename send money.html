@@ -46,7 +46,7 @@
           <span>Dashboard</span>
         </a>
 
-        <a href="send-money.html" class="menu-item active">
+        <a href="send money.html" class="menu-item active">
           <i class="fa-solid fa-paper-plane"></i>
           <span>Send Money</span>
         </a>
@@ -139,7 +139,7 @@
             Protection active
           </div>
 
-          <button class="notification-button">
+          <button class="notification-button" type="button">
             <i class="fa-regular fa-bell"></i>
             <span class="notification-badge">2</span>
           </button>
@@ -204,20 +204,26 @@
             </div>
 
 
-            <form class="payment-form">
+            <form class="payment-form" id="paymentForm">
 
               <label>
                 Receiver name
+
                 <input
+                  id="receiverName"
+                  name="receiverName"
                   type="text"
                   placeholder="Enter receiver name"
                   autocomplete="name"
+                  maxlength="150"
+                  required
                 />
               </label>
 
 
               <label>
                 UPI ID
+
                 <span class="input-help">
                   Example: name@upi
                 </span>
@@ -226,9 +232,13 @@
                   <i class="fa-solid fa-at"></i>
 
                   <input
+                    id="receiverUpiId"
+                    name="receiverUpiId"
                     type="text"
                     placeholder="receiver@upi"
                     autocomplete="off"
+                    maxlength="150"
+                    required
                   />
                 </div>
               </label>
@@ -236,13 +246,19 @@
 
               <label>
                 Amount
+
                 <div class="amount-input">
                   <span>₹</span>
 
                   <input
+                    id="paymentAmount"
+                    name="amount"
                     type="number"
                     placeholder="0.00"
                     min="1"
+                    max="10000000"
+                    step="0.01"
+                    required
                   />
                 </div>
               </label>
@@ -261,8 +277,11 @@
                 <span class="optional">Optional</span>
 
                 <input
+                  id="paymentNote"
+                  name="paymentNote"
                   type="text"
                   placeholder="What is this payment for?"
+                  maxlength="500"
                 />
               </label>
 
@@ -293,6 +312,7 @@
             <div class="safety-panel-heading">
               <p class="small-label">BEFORE YOU PAY</p>
               <h2>Guardian checks the context.</h2>
+
               <p>
                 A payment is more than just an amount. We look at the complete
                 picture before showing you the next step.
@@ -302,7 +322,7 @@
 
             <div class="payment-visual">
               <img
-                src="dashboard-payment-guardian.png"
+                src="img/protect.png"
                 alt="Payment protected by UPI Guardian"
               />
             </div>
@@ -336,7 +356,7 @@
 
               <div class="check-item">
                 <span class="check-icon">
-                    <i class="fa-solid fa-circle-info"></i>
+                  <i class="fa-solid fa-circle-info"></i>
                 </span>
 
                 <span>
@@ -353,6 +373,7 @@
 
               <div>
                 <strong>You stay in control</strong>
+
                 <p>
                   Guardian explains the risk. You decide whether to verify,
                   cancel or continue.
@@ -428,5 +449,6 @@
 
   </div>
 
+  <script src="./send-money.js?v=1"></script>
 </body>
 </html>

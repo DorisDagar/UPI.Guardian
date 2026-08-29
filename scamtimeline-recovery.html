@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>UPI Guardian - Scam Timeline</title>
+
+    <link rel="stylesheet" href="scamtimeline recover.css">
+</head>
+
+<body>
+
+    <!-- Background -->
+    <div class="background-grid"></div>
+    <div class="background-glow glow-one"></div>
+    <div class="background-glow glow-two"></div>
+
+
+    <!-- ==================================================
+         TOP BAR
+    =================================================== -->
+
+    <header class="topbar">
+
+        <div class="brand">
+
+            <!-- Blue square logo -->
+            <div class="brand-logo">
+
+                <!-- White shield -->
+                <svg
+                    class="shield-svg"
+                    viewBox="0 0 64 72"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        d="M32 3
+                           L57 12
+                           V32
+                           C57 49 47 62 32 69
+                           C17 62 7 49 7 32
+                           V12
+                           Z"
+                        fill="white"
+                    />
+
+                    <path
+                        d="M32 11
+                           L49 17
+                           V32
+                           C49 44 42 53 32 59
+                           C22 53 15 44 15 32
+                           V17
+                           Z"
+                        fill="#087EFF"
+                    />
+
+                </svg>
+
+            </div>
+
+            <span class="brand-name">
+                UPI Guardian
+            </span>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- ==================================================
+         MAIN
+    =================================================== -->
+
+    <main class="container">
+
+
+        <!-- Page heading -->
+
+        <section class="page-heading">
+
+            <div class="mode-label">
+
+                <span class="mode-arrow">↩</span>
+
+                <span>RECOVERY</span>
+
+                <strong>MODE</strong>
+
+            </div>
+
+            <h1>Scam Timeline</h1>
+
+            <p>
+                Understand how the incident happened, step by step.
+            </p>
+
+        </section>
+
+
+
+        <!-- ==================================================
+             MAIN DASHBOARD
+        =================================================== -->
+
+        <section class="dashboard-grid">
+
+
+            <!-- ==================================================
+                 INCIDENT TIMELINE
+            =================================================== -->
+
+            <div class="timeline-card">
+
+                <h2>Incident Timeline</h2>
+
+                <div class="timeline" id="timeline">
+
+
+                    <!-- Event 1 -->
+
+                    <div class="timeline-event">
+
+                        <div class="time">
+                            09:12 AM
+                        </div>
+
+                        <div class="timeline-marker">
+
+                            <div class="event-icon blue-icon">
+                                <span>✉</span>
+                            </div>
+
+                        </div>
+
+                        <div class="event-content">
+
+                            <h3>
+                                Received suspicious message
+                            </h3>
+
+                            <p>
+                                Reward claim received
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Event 2 -->
+
+                    <div class="timeline-event">
+
+                        <div class="time">
+                            09:15 AM
+                        </div>
+
+                        <div class="timeline-marker">
+
+                            <div class="event-icon purple-icon">
+                                <span>↗</span>
+                            </div>
+
+                        </div>
+
+                        <div class="event-content">
+
+                            <h3>
+                                Clicked suspicious link
+                            </h3>
+
+                            <p>
+                                Unverified website opened
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Event 3 -->
+
+                    <div class="timeline-event">
+
+                        <div class="time">
+                            09:22 AM
+                        </div>
+
+                        <div class="timeline-marker">
+
+                            <div class="event-icon purple-icon">
+                                <span>▰</span>
+                            </div>
+
+                        </div>
+
+                        <div class="event-content">
+
+                            <h3>
+                                Communicated with scammer
+                            </h3>
+
+                            <p>
+                                Payment pressure increased
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Event 4 -->
+
+                    <div class="timeline-event">
+
+                        <div class="time">
+                            09:30 AM
+                        </div>
+
+                        <div class="timeline-marker">
+
+                            <div class="event-icon orange-icon">
+                                <span>₹</span>
+                            </div>
+
+                        </div>
+
+                        <div class="event-content payment-content">
+
+                            <h3>
+                                Made ₹50,000 payment
+                            </h3>
+
+                            <p>
+                                High-value transaction completed
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Event 5 -->
+
+                    <div class="timeline-event">
+
+                        <div class="time">
+                            09:35 AM
+                        </div>
+
+                        <div class="timeline-marker">
+
+                            <div class="event-icon red-icon">
+                                <span>!</span>
+                            </div>
+
+                        </div>
+
+                        <div class="event-content fraud-content">
+
+                            <h3>
+                                Fraud detected
+                            </h3>
+
+                            <p>
+                                Suspicious activity confirmed
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Recovery events -->
+                <div id="recoveryEvents"></div>
+
+            </div>
+
+
+
+            <!-- ==================================================
+                 RIGHT COLUMN
+            =================================================== -->
+
+            <div class="right-column">
+
+
+                <!-- ==================================================
+                     INCIDENT SUMMARY
+                =================================================== -->
+
+                <div class="info-card">
+
+                    <h2>Incident Summary</h2>
+
+
+                    <!-- Shield search icon -->
+
+                    <div class="summary-shield">
+
+                        <svg
+                            viewBox="0 0 64 72"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+
+                            <path
+                                d="M32 3
+                                   L57 12
+                                   V32
+                                   C57 49 47 62 32 69
+                                   C17 62 7 49 7 32
+                                   V12
+                                   Z"
+                                fill="none"
+                                stroke="#9dcfff"
+                                stroke-width="3"
+                            />
+
+                            <circle
+                                cx="29"
+                                cy="31"
+                                r="9"
+                                fill="none"
+                                stroke="#9dcfff"
+                                stroke-width="3"
+                            />
+
+                            <line
+                                x1="36"
+                                y1="38"
+                                x2="44"
+                                y2="46"
+                                stroke="#9dcfff"
+                                stroke-width="3"
+                                stroke-linecap="round"
+                            />
+
+                        </svg>
+
+                    </div>
+
+
+                    <p class="summary-text">
+
+                        An unknown sender contacted the user with a
+                        reward-related message, directed them to a
+                        suspicious link, and persuaded them to make a
+                        payment.
+
+                    </p>
+
+
+                    <!-- Statistics -->
+
+                    <div class="stats">
+
+
+                        <div class="stat">
+
+                            <div class="stat-icon">
+                                ◷
+                            </div>
+
+                            <div>
+
+                                <span>Duration</span>
+
+                                <strong>
+                                    23 min
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="stat">
+
+                            <div class="stat-icon">
+                                ₹
+                            </div>
+
+                            <div>
+
+                                <span>Amount</span>
+
+                                <strong>
+                                    ₹50,000
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="stat risk">
+
+                            <div class="stat-icon">
+                                △
+                            </div>
+
+                            <div>
+
+                                <span>Risk</span>
+
+                                <strong>
+                                    HIGH
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ==================================================
+                     SCAM PATTERN
+                =================================================== -->
+
+                <div class="info-card pattern-card">
+
+                    <h2>
+                        Scam Pattern Detected
+                    </h2>
+
+
+                    <div class="pattern-shield">
+
+                        <svg
+                            viewBox="0 0 64 72"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+
+                            <path
+                                d="M32 3
+                                   L57 12
+                                   V32
+                                   C57 49 47 62 32 69
+                                   C17 62 7 49 7 32
+                                   V12
+                                   Z"
+                                fill="none"
+                                stroke="#c05cff"
+                                stroke-width="3"
+                            />
+
+                            <circle
+                                cx="29"
+                                cy="31"
+                                r="9"
+                                fill="none"
+                                stroke="#c05cff"
+                                stroke-width="3"
+                            />
+
+                            <line
+                                x1="36"
+                                y1="38"
+                                x2="44"
+                                y2="46"
+                                stroke="#c05cff"
+                                stroke-width="3"
+                                stroke-linecap="round"
+                            />
+
+                        </svg>
+
+                    </div>
+
+
+                    <p class="summary-text">
+
+                        The incident follows a common reward scam
+                        pattern: bait, malicious redirection,
+                        social engineering and payment pressure.
+
+                    </p>
+
+
+                    <!-- Scam pattern -->
+
+                    <div class="pattern-flow">
+
+
+                        <div class="pattern-item">
+
+                            <div class="pattern-icon">
+                                ◆
+                            </div>
+
+                            <span>
+                                Reward Bait
+                            </span>
+
+                        </div>
+
+
+                        <div class="pattern-arrow">
+                            →
+                        </div>
+
+
+                        <div class="pattern-item">
+
+                            <div class="pattern-icon purple-pattern">
+                                ↗
+                            </div>
+
+                            <span>
+                                Suspicious Link
+                            </span>
+
+                        </div>
+
+
+                        <div class="pattern-arrow">
+                            →
+                        </div>
+
+
+                        <div class="pattern-item">
+
+                            <div class="pattern-icon purple-pattern">
+                                ▰
+                            </div>
+
+                            <span>
+                                Social<br>
+                                Engineering
+                            </span>
+
+                        </div>
+
+
+                        <div class="pattern-arrow">
+                            →
+                        </div>
+
+
+                        <div class="pattern-item">
+
+                            <div class="pattern-icon orange-pattern">
+                                ₹
+                            </div>
+
+                            <span>
+                                Payment
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ==================================================
+             RECOVERY PROGRESS
+        =================================================== -->
+
+        <section class="progress-card">
+
+
+            <div class="progress-title">
+
+                <h3>
+                    Recovery Progress
+                </h3>
+
+                <span class="divider"></span>
+
+                <span class="step-text">
+                    Step <strong id="currentStep">5</strong>
+                    of 6
+                </span>
+
+            </div>
+
+
+            <div class="progress-wrapper">
+
+                <div class="progress-bar">
+
+                    <div class="progress-segment active"></div>
+
+                    <div class="progress-segment active"></div>
+
+                    <div class="progress-segment active"></div>
+
+                    <div class="progress-segment active"></div>
+
+                    <div class="progress-segment active"></div>
+
+                    <div class="progress-segment"></div>
+
+                </div>
+
+                <span
+                    class="percentage"
+                    id="progressPercentage"
+                >
+                    83% Complete
+                </span>
+
+            </div>
+
+
+            <button
+                class="report-button"
+                id="reportButton"
+            >
+
+                <span>
+                    Generate Fraud Incident Report
+                </span>
+
+                <span class="button-arrow">
+                    →
+                </span>
+
+            </button>
+
+
+        </section>
+
+    </main>
+
+
+
+    <!-- ==================================================
+         REPORT MODAL
+    =================================================== -->
+
+    <div
+        class="modal-overlay"
+        id="reportModal"
+    >
+
+        <div class="report-modal">
+
+
+            <button
+                class="close-modal"
+                id="closeModal"
+            >
+                ×
+            </button>
+
+
+            <div class="modal-icon">
+                ✓
+            </div>
+
+
+            <h2>
+                Fraud Incident Report
+            </h2>
+
+
+            <p>
+                Your incident report has been prepared successfully.
+            </p>
+
+
+            <div class="report-details">
+
+
+                <div>
+
+                    <span>
+                        Transaction
+                    </span>
+
+                    <strong>
+                        Lucky Reward UPI
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Transaction ID
+                    </span>
+
+                    <strong>
+                        TXN123456
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Amount
+                    </span>
+
+                    <strong>
+                        ₹50,000
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Risk Level
+                    </span>
+
+                    <strong class="high-risk">
+                        HIGH
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+
+            <button
+                class="download-button"
+                id="downloadReport"
+            >
+                Download Report
+            </button>
+
+
+        </div>
+
+    </div>
+
+
+    <script src="scamtimeline recover.js"></script>
+
+</body>
+</html>

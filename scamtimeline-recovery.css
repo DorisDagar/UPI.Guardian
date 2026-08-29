@@ -1,0 +1,1473 @@
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+:root {
+
+    --background: #020a20;
+    --background-two: #04112d;
+
+    --card: rgba(7, 21, 51, 0.88);
+
+    --border: rgba(99, 76, 190, 0.60);
+
+    --blue: #00c8ff;
+    --blue-button: #087cff;
+
+    --purple: #a855f7;
+
+    --orange: #ffad25;
+
+    --red: #ff5b5b;
+
+    --text: #f3f5ff;
+    --muted: #aab5ca;
+
+}
+
+
+/* =====================================================
+   BODY
+===================================================== */
+
+body {
+
+    min-height: 100vh;
+
+    color: var(--text);
+
+    font-family:
+        Inter,
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background:
+        radial-gradient(
+            circle at 12% 50%,
+            rgba(25, 57, 145, 0.30),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 90% 50%,
+            rgba(93, 25, 150, 0.22),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #02091d,
+            #04112c 50%,
+            #02091d
+        );
+
+    overflow-x: hidden;
+
+}
+
+
+/* =====================================================
+   BACKGROUND
+===================================================== */
+
+.background-grid {
+
+    position: fixed;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    opacity: .35;
+
+    background-image:
+        linear-gradient(
+            rgba(0, 157, 255, .055) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(0, 157, 255, .055) 1px,
+            transparent 1px
+        );
+
+    background-size: 48px 48px;
+
+}
+
+
+.background-glow {
+
+    position: fixed;
+
+    width: 330px;
+    height: 330px;
+
+    border-radius: 50%;
+
+    filter: blur(100px);
+
+    opacity: .12;
+
+    pointer-events: none;
+
+}
+
+
+.glow-one {
+
+    left: -180px;
+    top: 250px;
+
+    background: #007bff;
+
+}
+
+
+.glow-two {
+
+    right: -180px;
+    top: 450px;
+
+    background: #a000ff;
+
+}
+
+
+/* =====================================================
+   TOP BAR
+===================================================== */
+
+.topbar {
+
+    height: 42px;
+
+    display: flex;
+
+    align-items: center;
+
+    padding: 0 20px;
+
+    background:
+        rgba(2, 8, 27, .80);
+
+    border-bottom:
+        1px solid rgba(70, 103, 165, .22);
+
+    backdrop-filter: blur(10px);
+
+}
+
+
+.brand {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+}
+
+
+.brand-name {
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    color: #f3f6ff;
+
+}
+
+
+/* =====================================================
+   NEW LOGO
+   Blue square + white shield
+===================================================== */
+
+.brand-logo {
+
+    width: 27px;
+    height: 27px;
+
+    border-radius: 5px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #087fff,
+            #1260d7
+        );
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    box-shadow:
+        0 0 10px rgba(0, 126, 255, .35);
+
+}
+
+
+.shield-svg {
+
+    width: 18px;
+    height: 20px;
+
+    display: block;
+
+}
+
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+.container {
+
+    width: min(1160px, calc(100% - 32px));
+
+    margin: 24px auto 32px;
+
+}
+
+
+/* =====================================================
+   PAGE HEADING
+===================================================== */
+
+.page-heading {
+
+    margin-left: 5px;
+
+    margin-bottom: 12px;
+
+}
+
+
+.mode-label {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.2px;
+
+    color: var(--blue);
+
+}
+
+
+.mode-label strong {
+
+    color: #c078ff;
+
+}
+
+
+.mode-arrow {
+
+    font-size: 22px;
+
+}
+
+
+.page-heading h1 {
+
+    font-size: 34px;
+
+    line-height: 1.1;
+
+    margin-top: 2px;
+
+    letter-spacing: -.6px;
+
+}
+
+
+.page-heading p {
+
+    margin-top: 4px;
+
+    color: #aeb8cc;
+
+    font-size: 14px;
+
+}
+
+
+/* =====================================================
+   DASHBOARD
+===================================================== */
+
+.dashboard-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1.55fr)
+        minmax(350px, 1fr);
+
+    gap: 14px;
+
+}
+
+
+/* =====================================================
+   CARDS
+===================================================== */
+
+.timeline-card,
+.info-card,
+.progress-card {
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(8, 25, 59, .91),
+            rgba(4, 15, 39, .84)
+        );
+
+    border: 1px solid var(--border);
+
+    border-radius: 11px;
+
+    box-shadow:
+        inset 0 0 22px rgba(75, 89, 180, .045);
+
+}
+
+
+.timeline-card {
+
+    padding: 15px 17px;
+
+    min-height: 520px;
+
+}
+
+
+.timeline-card h2,
+.info-card h2 {
+
+    font-size: 17px;
+
+    font-weight: 600;
+
+    margin-bottom: 10px;
+
+}
+
+
+/* =====================================================
+   TIMELINE
+===================================================== */
+
+.timeline {
+
+    position: relative;
+
+}
+
+
+.timeline::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 127px;
+
+    top: 44px;
+
+    bottom: 30px;
+
+    width: 2px;
+
+    background:
+        linear-gradient(
+            to bottom,
+            #00cfff,
+            #a544ff 55%,
+            #ff5c5c
+        );
+
+    box-shadow:
+        0 0 7px rgba(78, 122, 255, .7);
+
+}
+
+
+.timeline-event {
+
+    min-height: 88px;
+
+    display: grid;
+
+    grid-template-columns:
+        110px 58px 1fr;
+
+    align-items: center;
+
+    position: relative;
+
+}
+
+
+.time {
+
+    width: max-content;
+
+    padding: 6px 10px;
+
+    border-radius: 7px;
+
+    border: 1px solid rgba(72, 103, 160, .52);
+
+    background:
+        rgba(5, 18, 44, .82);
+
+    font-family:
+        "Courier New",
+        monospace;
+
+    font-size: 11px;
+
+    color: #edf1ff;
+
+}
+
+
+.timeline-marker {
+
+    display: flex;
+
+    justify-content: center;
+
+    z-index: 2;
+
+}
+
+
+.event-icon {
+
+    width: 44px;
+    height: 44px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    font-size: 20px;
+
+    font-weight: 600;
+
+    background:
+        radial-gradient(
+            circle,
+            #0d2b55,
+            #05142f
+        );
+
+}
+
+
+.blue-icon {
+
+    border: 2px solid #00c8ff;
+
+    box-shadow:
+        0 0 14px rgba(0, 198, 255, .65);
+
+}
+
+
+.purple-icon {
+
+    border: 2px solid #a94eff;
+
+    box-shadow:
+        0 0 14px rgba(169, 78, 255, .65);
+
+}
+
+
+.orange-icon {
+
+    border: 2px solid var(--orange);
+
+    box-shadow:
+        0 0 16px rgba(255, 172, 30, .65);
+
+}
+
+
+.red-icon {
+
+    border: 2px solid var(--red);
+
+    box-shadow:
+        0 0 16px rgba(255, 76, 76, .65);
+
+}
+
+
+.event-content {
+
+    padding: 10px 15px;
+
+    border-radius: 7px;
+
+    background:
+        rgba(5, 18, 46, .64);
+
+    border: 1px solid rgba(61, 98, 165, .52);
+
+}
+
+
+.event-content h3 {
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    line-height: 1.3;
+
+}
+
+
+.event-content p {
+
+    margin-top: 3px;
+
+    color: var(--muted);
+
+    font-size: 11px;
+
+}
+
+
+.payment-content {
+
+    border-color:
+        rgba(255, 171, 28, .78);
+
+}
+
+
+.fraud-content {
+
+    border-color:
+        rgba(255, 82, 82, .70);
+
+}
+
+
+/* =====================================================
+   RIGHT COLUMN
+===================================================== */
+
+.right-column {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 14px;
+
+}
+
+
+.info-card {
+
+    padding: 15px 17px;
+
+}
+
+
+.summary-shield,
+.pattern-shield {
+
+    width: 54px;
+    height: 54px;
+
+    margin: 0 auto 7px;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+}
+
+
+.summary-shield svg,
+.pattern-shield svg {
+
+    width: 48px;
+    height: 53px;
+
+}
+
+
+.summary-text {
+
+    max-width: 430px;
+
+    margin: 0 auto;
+
+    text-align: center;
+
+    color: #cbd2e2;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+
+}
+
+
+/* =====================================================
+   STATS
+===================================================== */
+
+.stats {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 7px;
+
+    margin-top: 11px;
+
+}
+
+
+.stat {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    padding: 8px;
+
+    border-radius: 7px;
+
+    background:
+        rgba(4, 16, 40, .74);
+
+    border:
+        1px solid rgba(68, 98, 155, .50);
+
+}
+
+
+.stat-icon {
+
+    font-size: 20px;
+
+    color: #edf3ff;
+
+}
+
+
+.stat span {
+
+    display: block;
+
+    color: #9faac0;
+
+    font-size: 9px;
+
+}
+
+
+.stat strong {
+
+    display: block;
+
+    margin-top: 2px;
+
+    font-size: 12px;
+
+}
+
+
+.stat.risk {
+
+    border-color:
+        rgba(255, 82, 82, .40);
+
+}
+
+
+.stat.risk .stat-icon,
+.stat.risk strong {
+
+    color: #ff6262;
+
+}
+
+
+/* =====================================================
+   PATTERN
+===================================================== */
+
+.pattern-card {
+
+    flex: 1;
+
+}
+
+
+.pattern-flow {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-top: 14px;
+
+}
+
+
+.pattern-item {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 4px;
+
+    text-align: center;
+
+    color: #d2d9e8;
+
+    font-size: 9px;
+
+}
+
+
+.pattern-icon {
+
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 50%;
+
+    font-size: 17px;
+
+    background: #071b3b;
+
+    border: 1px solid #00bdff;
+
+    box-shadow:
+        0 0 10px rgba(0, 190, 255, .32);
+
+}
+
+
+.purple-pattern {
+
+    border-color: #ad50ff;
+
+    box-shadow:
+        0 0 10px rgba(173, 80, 255, .35);
+
+}
+
+
+.orange-pattern {
+
+    border-color: #ffad27;
+
+    box-shadow:
+        0 0 10px rgba(255, 173, 39, .35);
+
+}
+
+
+.pattern-arrow {
+
+    font-size: 17px;
+
+    color: #e8ebf5;
+
+}
+
+
+/* =====================================================
+   PROGRESS CARD
+===================================================== */
+
+.progress-card {
+
+    margin-top: 11px;
+
+    padding: 12px 17px;
+
+    display: grid;
+
+    grid-template-columns:
+        275px 1fr 315px;
+
+    align-items: center;
+
+    gap: 20px;
+
+}
+
+
+.progress-title {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+}
+
+
+.progress-title h3 {
+
+    font-size: 14px;
+
+    white-space: nowrap;
+
+}
+
+
+.divider {
+
+    width: 1px;
+
+    height: 25px;
+
+    background:
+        rgba(130, 145, 177, .45);
+
+}
+
+
+.step-text {
+
+    color: #d0d7e7;
+
+    font-size: 11px;
+
+    white-space: nowrap;
+
+}
+
+
+.progress-wrapper {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+}
+
+
+.progress-bar {
+
+    flex: 1;
+
+    display: flex;
+
+    gap: 5px;
+
+}
+
+
+.progress-segment {
+
+    height: 7px;
+
+    flex: 1;
+
+    border-radius: 10px;
+
+    background: #172b4c;
+
+}
+
+
+.progress-segment.active {
+
+    background:
+        linear-gradient(
+            90deg,
+            #00bfff,
+            #884aff
+        );
+
+    box-shadow:
+        0 0 7px rgba(91, 89, 255, .55);
+
+}
+
+
+.percentage {
+
+    font-size: 11px;
+
+    color: #c5cede;
+
+    white-space: nowrap;
+
+}
+
+
+/* =====================================================
+   REPORT BUTTON
+===================================================== */
+
+.report-button {
+
+    height: 45px;
+
+    padding: 0 18px;
+
+    border-radius: 8px;
+
+    border: 1px solid #3797ff;
+
+    background:
+        linear-gradient(
+            100deg,
+            #087cff,
+            #a331ec
+        );
+
+    color: white;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    cursor: pointer;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    box-shadow:
+        0 0 18px rgba(54, 102, 255, .20);
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
+
+}
+
+
+.report-button:hover {
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 0 24px rgba(110, 70, 255, .45);
+
+}
+
+
+.button-arrow {
+
+    font-size: 20px;
+
+}
+
+
+/* =====================================================
+   RECOVERY EVENTS
+===================================================== */
+
+.recovery-event {
+
+    animation:
+        recoveryAppear .4s ease;
+
+}
+
+
+.recovery-event .event-content {
+
+    border-color:
+        rgba(0, 194, 255, .45);
+
+}
+
+
+@keyframes recoveryAppear {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(10px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0);
+
+    }
+
+}
+
+
+/* =====================================================
+   MODAL
+===================================================== */
+
+.modal-overlay {
+
+    position: fixed;
+
+    inset: 0;
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    background:
+        rgba(0, 3, 15, .80);
+
+    backdrop-filter: blur(7px);
+
+    z-index: 100;
+
+}
+
+
+.modal-overlay.active {
+
+    display: flex;
+
+}
+
+
+.report-modal {
+
+    width: min(450px, calc(100% - 28px));
+
+    padding: 27px;
+
+    position: relative;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #081b40,
+            #040f29
+        );
+
+    border:
+        1px solid rgba(153, 78, 255, .75);
+
+    box-shadow:
+        0 0 50px rgba(83, 52, 180, .35);
+
+    animation:
+        modalOpen .25s ease;
+
+}
+
+
+@keyframes modalOpen {
+
+    from {
+
+        opacity: 0;
+
+        transform: scale(.94);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: scale(1);
+
+    }
+
+}
+
+
+.close-modal {
+
+    position: absolute;
+
+    top: 8px;
+    right: 13px;
+
+    border: none;
+
+    background: none;
+
+    color: white;
+
+    font-size: 27px;
+
+    cursor: pointer;
+
+}
+
+
+.modal-icon {
+
+    width: 46px;
+    height: 46px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    border: 2px solid #00dca0;
+
+    color: #00e5a5;
+
+    margin-bottom: 14px;
+
+    font-size: 21px;
+
+}
+
+
+.report-modal h2 {
+
+    font-size: 21px;
+
+}
+
+
+.report-modal > p {
+
+    margin-top: 6px;
+
+    color: #aeb9d0;
+
+    font-size: 12px;
+
+}
+
+
+.report-details {
+
+    display: grid;
+
+    gap: 8px;
+
+    margin-top: 20px;
+
+}
+
+
+.report-details div {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    padding: 10px;
+
+    border-radius: 6px;
+
+    background:
+        rgba(2, 11, 32, .65);
+
+    font-size: 12px;
+
+}
+
+
+.report-details span {
+
+    color: #9ca8c0;
+
+}
+
+
+.high-risk {
+
+    color: #ff6262;
+
+}
+
+
+.download-button {
+
+    width: 100%;
+
+    margin-top: 18px;
+
+    padding: 11px;
+
+    border: none;
+
+    border-radius: 7px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #087eff,
+            #a735f0
+        );
+
+    color: white;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 1050px) {
+
+    .dashboard-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .progress-card {
+
+        grid-template-columns: 1fr;
+
+        gap: 13px;
+
+    }
+
+
+    .report-button {
+
+        width: 100%;
+
+    }
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 680px) {
+
+    .container {
+
+        width: calc(100% - 18px);
+
+        margin-top: 18px;
+
+    }
+
+
+    .page-heading h1 {
+
+        font-size: 28px;
+
+    }
+
+
+    .page-heading p {
+
+        font-size: 12px;
+
+    }
+
+
+    .timeline-card {
+
+        padding: 13px;
+
+    }
+
+
+    .timeline::before {
+
+        left: 32px;
+
+    }
+
+
+    .timeline-event {
+
+        grid-template-columns:
+            0 65px 1fr;
+
+        min-height: 100px;
+
+    }
+
+
+    .time {
+
+        position: absolute;
+
+        left: 50px;
+
+        top: 4px;
+
+        font-size: 9px;
+
+        padding: 4px 7px;
+
+        z-index: 3;
+
+    }
+
+
+    .timeline-marker {
+
+        grid-column: 2;
+
+    }
+
+
+    .event-icon {
+
+        width: 39px;
+        height: 39px;
+
+        font-size: 17px;
+
+    }
+
+
+    .event-content {
+
+        grid-column: 3;
+
+        padding: 9px;
+
+    }
+
+
+    .event-content h3 {
+
+        font-size: 12px;
+
+    }
+
+
+    .event-content p {
+
+        font-size: 10px;
+
+    }
+
+
+    .stats {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .pattern-flow {
+
+        gap: 3px;
+
+    }
+
+
+    .pattern-icon {
+
+        width: 32px;
+        height: 32px;
+
+        font-size: 14px;
+
+    }
+
+
+    .pattern-arrow {
+
+        font-size: 13px;
+
+    }
+
+
+    .progress-title {
+
+        flex-wrap: wrap;
+
+    }
+
+
+    .progress-wrapper {
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+    }
+
+
+    .percentage {
+
+        text-align: right;
+
+    }
+
+}
