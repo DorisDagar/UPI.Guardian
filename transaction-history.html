@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="UPI Guardian transaction history and fraud-risk review">
+  <title>Transaction History | UPI Guardian</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="transaction-history.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html" aria-label="UPI Guardian home">
+      <i class="fa-solid fa-shield-halved"></i>
+      <span>UPI Guardian</span>
+    </a>
+
+    <button class="mobile-menu" id="mobileMenu" aria-label="Open navigation" aria-expanded="false">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+
+    <nav class="main-nav" id="mainNav" aria-label="Primary navigation">
+      <a href="dashboard.html"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
+      <a href="send-money.html"><i class="fa-regular fa-paper-plane"></i> Send Money</a>
+      <a class="active" href="transaction-history.html"><i class="fa-regular fa-file-lines"></i> Transaction History</a>
+      <a href="scam-analyzer.html"><i class="fa-solid fa-shield-virus"></i> Scam Analyzer</a>
+      <a href="recovery-mode.html"><i class="fa-solid fa-arrows-rotate"></i> Recovery Mode</a>
+    </nav>
+
+    <div class="top-actions">
+      <button class="icon-button" aria-label="Notifications"><i class="fa-regular fa-bell"></i></button>
+      <button class="profile-button" aria-label="Open profile"><i class="fa-solid fa-user"></i></button>
+    </div>
+  </header>
+
+  <main class="page-shell">
+    <section class="page-heading">
+      <div>
+        <h1>Transaction History</h1>
+        <p>Review, search and understand all your UPI transactions.</p>
+      </div>
+      <button class="outline-button" id="downloadStatement">
+        <i class="fa-solid fa-download"></i> Download Statement
+      </button>
+    </section>
+
+    <section class="summary-grid" aria-label="Transaction summary">
+      <article class="summary-card blue">
+        <div><p>Total Transactions</p><strong id="totalTransactions">24</strong></div>
+        <img src="img/total-transactions.png" alt="Transactions">
+      </article>
+      <article class="summary-card purple">
+        <div><p>Total Amount Sent</p><strong id="totalAmount">₹1,24,500</strong></div>
+        <img src="img/total-amount.png" alt="Wallet">
+      </article>
+      <article class="summary-card amber">
+        <div><p>Flagged Transactions</p><strong id="flaggedTransactions">3</strong></div>
+        <img src="img/flagged-transactions.png" alt="Risk warning">
+      </article>
+      <article class="summary-card green">
+        <div><p>Safe Transactions</p><strong id="safeTransactions">21</strong></div>
+        <img src="img/safe-transactions.png" alt="Safe shield">
+      </article>
+    </section>
+
+    <section class="filter-panel" aria-label="Transaction filters">
+      <label class="search-box" for="searchInput">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input id="searchInput" type="search" placeholder="Search receiver or transaction ID" autocomplete="off">
+      </label>
+
+      <label class="select-wrap">
+        <span class="sr-only">Risk level</span>
+        <select id="riskFilter">
+          <option value="all">All Risk Levels</option>
+          <option value="high">High Risk</option>
+          <option value="medium">Medium Risk</option>
+          <option value="safe">Safe</option>
+        </select>
+        <i class="fa-solid fa-chevron-down"></i>
+      </label>
+
+      <label class="select-wrap">
+        <span class="sr-only">Date range</span>
+        <select id="dateFilter">
+          <option value="30">Last 30 Days</option>
+          <option value="7">Last 7 Days</option>
+          <option value="90">Last 90 Days</option>
+          <option value="all">All Time</option>
+        </select>
+        <i class="fa-solid fa-chevron-down"></i>
+      </label>
+
+      <button class="outline-button compact" id="filterButton"><i class="fa-solid fa-sliders"></i> Filter</button>
+      <button class="outline-button compact" id="exportButton"><i class="fa-regular fa-file-arrow-down"></i> Export</button>
+
+      <div class="advanced-filters" id="advancedFilters" hidden>
+        <label>Minimum amount <input id="minAmount" type="number" min="0" placeholder="₹0"></label>
+        <label>Payment bank <select id="bankFilter"><option value="all">All banks</option></select></label>
+        <button id="clearFilters" class="text-button">Clear all filters</button>
+      </div>
+    </section>
+
+    <section class="transactions-card">
+      <div class="table-heading">
+        <h2>Recent Transactions</h2>
+        <p id="resultCount" aria-live="polite">24 transactions found</p>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Receiver</th>
+              <th>Date &amp; Time</th>
+              <th>Transaction ID</th>
+              <th>Payment Method</th>
+              <th>Amount</th>
+              <th>Risk Level</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="transactionsBody"></tbody>
+        </table>
+        <div class="empty-state" id="emptyState" hidden>
+          <i class="fa-regular fa-folder-open"></i>
+          <h3>No transactions found</h3>
+          <p>Try changing your search or filters.</p>
+        </div>
+      </div>
+
+      <footer class="pagination-footer">
+        <p id="showingText">Showing 1–6 of 24 transactions</p>
+        <nav class="pagination" id="pagination" aria-label="Transaction pages"></nav>
+      </footer>
+    </section>
+  </main>
+
+  <div class="modal-backdrop" id="detailsModal" hidden>
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close" id="modalClose" aria-label="Close transaction details"><i class="fa-solid fa-xmark"></i></button>
+      <div class="modal-icon" id="modalIcon"></div>
+      <p class="eyebrow">Transaction details</p>
+      <h2 id="modalTitle">Receiver</h2>
+      <div class="modal-amount" id="modalAmount">₹0</div>
+      <dl id="modalDetails"></dl>
+      <div class="risk-explanation" id="riskExplanation"></div>
+    </section>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="transaction-history.js"></script>
+</body>
+</html>

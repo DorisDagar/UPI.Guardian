@@ -1,0 +1,1443 @@
+/* =========================================
+   RESET
+========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* =========================================
+   VARIABLES
+========================================= */
+
+:root {
+
+    --bg: #020a20;
+
+    --panel: #071633;
+
+    --panel-2: #06142f;
+
+    --blue: #168cff;
+
+    --purple: #7139e8;
+
+    --pink: #d83fd7;
+
+    --text: #f4f5fa;
+
+    --muted: #c4c9d8;
+
+    --green: #78df2d;
+
+    --red: #ff3d52;
+
+    --border: rgba(130, 153, 205, 0.32);
+}
+
+
+/* =========================================
+   BODY
+========================================= */
+
+html {
+    font-size: 14px;
+}
+
+body {
+
+    min-height: 100vh;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background: var(--bg);
+
+    color: var(--text);
+
+    overflow-x: hidden;
+}
+
+
+/* =========================================
+   PAGE
+========================================= */
+
+.page {
+    min-height: 100vh;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.top-header {
+
+    height: 52px;
+
+    padding: 0 28px;
+
+    display: flex;
+    align-items: center;
+
+    border-bottom:
+        1px solid rgba(255, 255, 255, 0.07);
+}
+
+
+.brand {
+
+    display: flex;
+    align-items: center;
+
+    gap: 9px;
+
+    font-size: 17px;
+
+    font-weight: 600;
+}
+
+
+/* =========================================
+   LOGO
+========================================= */
+
+.logo-box {
+
+    width: 31px;
+    height: 31px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #167ef3;
+
+    border-radius: 4px;
+
+    box-shadow:
+        0 4px 12px rgba(22, 126, 243, 0.28);
+}
+
+
+.logo-box i {
+
+    color: white;
+
+    font-size: 17px;
+}
+
+
+/* =========================================
+   MAIN CONTAINER
+========================================= */
+
+.container {
+
+    width:
+        min(1180px, calc(100% - 36px));
+
+    margin: 0 auto;
+
+    padding: 20px 0 24px;
+}
+
+
+/* =========================================
+   INTRO SECTION
+========================================= */
+
+.intro-section {
+
+    display: grid;
+
+    grid-template-columns:
+        45px
+        1fr
+        275px;
+
+    align-items: center;
+
+    column-gap: 12px;
+
+    margin-bottom: 17px;
+}
+
+
+.intro-icon {
+
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #139cff;
+
+    font-size: 34px;
+}
+
+
+.breadcrumb {
+
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    margin-bottom: 5px;
+
+    font-size: 14px;
+}
+
+
+.breadcrumb span {
+    color: #159fff;
+}
+
+
+.breadcrumb i {
+
+    color: #888ca2;
+
+    font-size: 11px;
+}
+
+
+.breadcrumb strong {
+
+    color: #dc76e8;
+
+    font-weight: 500;
+}
+
+
+.intro-content h1 {
+
+    margin-bottom: 5px;
+
+    font-size: 27px;
+
+    line-height: 1.15;
+
+    font-weight: 700;
+}
+
+
+.intro-content p {
+
+    color: #d7dbe6;
+
+    font-size: 14px;
+
+    line-height: 1.4;
+}
+
+
+/* =========================================
+   PROGRESS CARD
+========================================= */
+
+.progress-card {
+
+    padding: 14px 17px;
+
+    background: #06142f;
+
+    border:
+        1px solid rgba(133, 151, 197, 0.3);
+
+    border-radius: 11px;
+
+    box-shadow:
+        0 5px 18px rgba(0, 0, 0, 0.18);
+}
+
+
+.step-title {
+
+    margin-bottom: 10px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+}
+
+
+.progress-bars {
+
+    display: flex;
+
+    gap: 6px;
+
+    margin-bottom: 9px;
+}
+
+
+.bar {
+
+    height: 6px;
+
+    flex: 1;
+
+    border-radius: 10px;
+
+    background: #26344d;
+}
+
+
+.bar.blue {
+    background: #149cff;
+}
+
+
+.bar.purple {
+    background: #713fe5;
+}
+
+
+.bar.pink {
+    background: #c14bdb;
+}
+
+
+.progress-percent {
+
+    color: #bfc4d2;
+
+    font-size: 12px;
+}
+
+
+/* =========================================
+   TRANSACTION CARD
+========================================= */
+
+.transaction-card {
+
+    min-height: 91px;
+
+    display: grid;
+
+    grid-template-columns:
+        85px
+        1fr
+        1px
+        175px
+        1px
+        275px;
+
+    align-items: center;
+
+    padding: 11px 28px 11px 20px;
+
+    background: #06142f;
+
+    border:
+        1px solid #6852a2;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 0 18px rgba(105, 65, 220, 0.13);
+}
+
+
+/* =========================================
+   TRANSACTION ICON
+========================================= */
+
+.transaction-icon {
+
+    width: 65px;
+    height: 65px;
+
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #5425c7;
+
+    border:
+        1px solid #9b75f4;
+
+    box-shadow:
+        0 0 15px rgba(106, 57, 238, 0.28);
+}
+
+
+.transaction-icon > i {
+
+    color: white;
+
+    font-size: 30px;
+}
+
+
+.warning-icon {
+
+    position: absolute;
+
+    right: -4px;
+    bottom: -3px;
+
+    width: 23px;
+    height: 23px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: white;
+
+    background: #ffb700;
+
+    border-radius: 5px;
+
+    border:
+        2px solid #07132f;
+}
+
+
+.warning-icon i {
+    font-size: 10px;
+}
+
+
+/* =========================================
+   TRANSACTION TEXT
+========================================= */
+
+.transaction-info h3 {
+
+    margin-bottom: 4px;
+
+    font-size: 16px;
+
+    font-weight: 600;
+}
+
+
+.transaction-info p {
+
+    font-size: 15px;
+
+    font-weight: 600;
+}
+
+
+/* =========================================
+   DIVIDERS
+========================================= */
+
+.transaction-divider {
+
+    width: 1px;
+    height: 52px;
+
+    background:
+        rgba(179, 184, 204, 0.35);
+}
+
+
+/* =========================================
+   AMOUNT
+========================================= */
+
+.amount {
+
+    text-align: center;
+
+    font-size: 23px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================
+   TRANSACTION DETAILS
+========================================= */
+
+.transaction-details {
+
+    padding-left: 28px;
+
+    font-size: 13px;
+
+    line-height: 1.7;
+}
+
+
+.transaction-details p {
+    white-space: nowrap;
+}
+
+
+.transaction-details strong {
+
+    color: var(--red);
+
+    font-size: 14px;
+}
+
+
+/* =========================================
+   TRUSTED SECTION
+========================================= */
+
+.trusted-section {
+
+    margin-top: 14px;
+
+    padding: 17px 20px 11px;
+
+    background: #071633;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 12px;
+}
+
+
+/* =========================================
+   SECTION HEADING
+========================================= */
+
+.section-heading h2 {
+
+    margin-bottom: 5px;
+
+    font-size: 20px;
+
+    line-height: 1.2;
+}
+
+
+.section-heading p {
+
+    color: #cbd0df;
+
+    font-size: 13px;
+
+    line-height: 1.4;
+}
+
+
+/* =========================================
+   PEOPLE GRID
+========================================= */
+
+.people-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 14px;
+
+    margin-top: 14px;
+}
+
+
+/* =========================================
+   PERSON CARD
+========================================= */
+
+.person-card {
+
+    min-height: 99px;
+
+    padding: 12px 15px;
+
+    display: flex;
+    align-items: center;
+
+    position: relative;
+
+    cursor: pointer;
+
+    background: #071837;
+
+    border:
+        1px solid rgba(132, 151, 198, 0.35);
+
+    border-radius: 11px;
+
+    transition: 0.2s ease;
+}
+
+
+.person-card:hover {
+
+    border-color: #6086d8;
+
+    box-shadow:
+        0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+
+.person-card.selected {
+
+    background:
+        linear-gradient(
+            120deg,
+            #092654,
+            #21123e
+        );
+
+    border-color: #65aaff;
+
+    box-shadow:
+        0 0 15px rgba(55, 125, 255, 0.16);
+}
+
+
+/* =========================================
+   PERSON AVATAR
+========================================= */
+
+.person-avatar {
+
+    width: 58px;
+    height: 58px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-right: 13px;
+
+    border-radius: 50%;
+
+    border:
+        1px solid rgba(255, 255, 255, 0.3);
+}
+
+
+.person-avatar i {
+
+    color: white;
+
+    font-size: 27px;
+}
+
+
+.person-avatar.mom {
+    background: #5225c4;
+}
+
+
+.person-avatar.dad {
+    background: #155dcc;
+}
+
+
+.person-avatar.friend {
+    background: #128d9a;
+}
+
+
+/* =========================================
+   PERSON INFO
+========================================= */
+
+.person-info {
+
+    padding-right: 30px;
+}
+
+
+.person-info h3 {
+
+    margin-bottom: 5px;
+
+    font-size: 16px;
+
+    font-weight: 600;
+}
+
+
+.availability {
+
+    display: flex;
+    align-items: center;
+
+    gap: 6px;
+
+    color: #86df39;
+
+    font-size: 12px;
+}
+
+
+.availability span {
+
+    width: 9px;
+    height: 9px;
+
+    border-radius: 50%;
+
+    background: var(--green);
+}
+
+
+.selected-label {
+
+    display: inline-block;
+
+    margin-top: 5px;
+
+    padding: 3px 8px;
+
+    color: white;
+
+    background: #123d7d;
+
+    border-radius: 4px;
+
+    font-size: 10px;
+}
+
+
+/* =========================================
+   RADIO
+========================================= */
+
+.radio {
+
+    width: 28px;
+    height: 28px;
+
+    position: absolute;
+
+    top: 17px;
+    right: 14px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border:
+        1.5px solid #d8d9df;
+
+    border-radius: 50%;
+}
+
+
+.radio.checked {
+
+    background: #258bff;
+
+    border-color: white;
+
+    box-shadow:
+        0 0 10px rgba(37, 139, 255, 0.4);
+}
+
+
+.radio.checked i {
+
+    color: white;
+
+    font-size: 12px;
+}
+
+
+/* =========================================
+   INFORMATION BOX
+========================================= */
+
+.information-box {
+
+    display: grid;
+
+    grid-template-columns:
+        120px
+        1fr;
+
+    position: relative;
+
+    margin-top: 15px;
+
+    padding: 17px;
+
+    background: #061735;
+
+    border:
+        1px solid rgba(108, 133, 191, 0.4);
+
+    border-radius: 11px;
+}
+
+
+/* =========================================
+   INFORMATION SHIELD IMAGE
+========================================= */
+
+.information-icon {
+
+    width: 80px;
+    height: 85px;
+
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-right:
+        1px solid rgba(168, 174, 198, 0.3);
+}
+
+
+/*
+   YOUR SHIELD IMAGE
+*/
+
+.information-shield {
+
+    width: 62px;
+    height: 70px;
+
+    object-fit: contain;
+
+    display: block;
+}
+
+
+/* =========================================
+   SMALL CHECK ICON
+========================================= */
+
+.information-icon span {
+
+    position: absolute;
+
+    right: 4px;
+    bottom: 11px;
+
+    width: 25px;
+    height: 25px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #1769e5;
+
+    color: white;
+
+    border:
+        2px solid #061735;
+
+    border-radius: 50%;
+}
+
+
+.information-icon span i {
+
+    font-size: 10px;
+}
+
+
+/* =========================================
+   INFORMATION CONTENT
+========================================= */
+
+.information-content {
+
+    padding-left: 19px;
+}
+
+
+.information-content h3 {
+
+    margin-bottom: 8px;
+
+    font-size: 16px;
+
+    font-weight: 600;
+}
+
+
+/* =========================================
+   INFORMATION LIST
+========================================= */
+
+.information-list {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        1fr;
+
+    gap: 6px 25px;
+}
+
+
+.information-list div {
+
+    display: flex;
+    align-items: center;
+
+    gap: 9px;
+
+    font-size: 13px;
+}
+
+
+.information-list i {
+
+    color: #76df32;
+
+    font-size: 17px;
+}
+
+
+/* =========================================
+   INFORMATION BOTTOM
+========================================= */
+
+.information-bottom {
+
+    grid-column: 1 / -1;
+
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    margin-top: 13px;
+
+    padding-top: 11px;
+
+    color: #c9cedc;
+
+    font-size: 12px;
+
+    border-top:
+        1px solid rgba(150, 160, 190, 0.22);
+}
+
+
+.information-bottom i {
+
+    color: #4e9eff;
+
+    font-size: 19px;
+}
+
+
+/* =========================================
+   ACTIONS
+========================================= */
+
+.actions {
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    gap: 28px;
+
+    margin-top: 13px;
+}
+
+
+/* =========================================
+   CONTINUE BUTTON
+========================================= */
+
+.continue-btn {
+
+    padding: 10px;
+
+    background: transparent;
+
+    border: none;
+
+    color: #2998ff;
+
+    font-size: 14px;
+
+    cursor: pointer;
+}
+
+
+.continue-btn:hover {
+
+    color: #67b8ff;
+}
+
+
+/* =========================================
+   RECOVERY BUTTON
+========================================= */
+
+.recovery-btn {
+
+    width: 420px;
+    height: 55px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 16px;
+
+    background:
+        linear-gradient(
+            100deg,
+            #078fff,
+            #633ce7,
+            #ed43d4
+        );
+
+    border:
+        1px solid #aaa9ff;
+
+    border-radius: 12px;
+
+    color: white;
+
+    font-size: 18px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 7px 20px rgba(50, 84, 255, 0.25);
+
+    transition: 0.2s ease;
+}
+
+
+.recovery-btn:hover {
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 10px 25px rgba(50, 84, 255, 0.4);
+}
+
+
+.recovery-btn i:first-child,
+.recovery-btn i:last-child {
+
+    font-size: 21px;
+}
+
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.footer-message {
+
+    display: flex;
+
+    align-items: center;
+    justify-content: flex-end;
+
+    gap: 9px;
+
+    margin-top: 8px;
+
+    color: #bfc4d2;
+
+    font-size: 12px;
+}
+
+
+.footer-message i {
+
+    color: #62a7ff;
+
+    font-size: 22px;
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 1050px) {
+
+    .intro-section {
+
+        grid-template-columns:
+            40px
+            1fr
+            250px;
+    }
+
+
+    .transaction-card {
+
+        grid-template-columns:
+            75px
+            1fr
+            1px
+            140px
+            1px
+            220px;
+
+        padding-left: 16px;
+        padding-right: 18px;
+    }
+
+
+    .transaction-details {
+
+        padding-left: 18px;
+    }
+
+
+    .recovery-btn {
+
+        width: 360px;
+    }
+}
+
+
+/* =========================================
+   SMALL LAPTOP / TABLET
+========================================= */
+
+@media (max-width: 850px) {
+
+    .container {
+
+        width: calc(100% - 26px);
+    }
+
+
+    .intro-section {
+
+        grid-template-columns:
+            40px
+            1fr;
+    }
+
+
+    .progress-card {
+
+        grid-column: 2;
+
+        margin-top: 12px;
+    }
+
+
+    .transaction-card {
+
+        grid-template-columns:
+            75px
+            1fr;
+
+        row-gap: 8px;
+
+        padding: 15px;
+    }
+
+
+    .transaction-divider {
+
+        display: none;
+    }
+
+
+    .amount {
+
+        grid-column: 1 / -1;
+
+        text-align: left;
+    }
+
+
+    .transaction-details {
+
+        grid-column: 1 / -1;
+
+        padding-left: 0;
+    }
+
+
+    .people-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+
+    .actions {
+
+        gap: 10px;
+    }
+
+
+    .recovery-btn {
+
+        width: 330px;
+    }
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .top-header {
+
+        height: 48px;
+
+        padding: 0 14px;
+    }
+
+
+    .brand {
+
+        font-size: 15px;
+    }
+
+
+    .logo-box {
+
+        width: 29px;
+        height: 29px;
+    }
+
+
+    .logo-box i {
+
+        font-size: 15px;
+    }
+
+
+    .container {
+
+        width: calc(100% - 18px);
+
+        padding-top: 15px;
+    }
+
+
+    .intro-section {
+
+        display: block;
+    }
+
+
+    .intro-icon {
+
+        margin-bottom: 6px;
+    }
+
+
+    .intro-content h1 {
+
+        font-size: 23px;
+    }
+
+
+    .intro-content p {
+
+        font-size: 12px;
+    }
+
+
+    .progress-card {
+
+        margin-top: 12px;
+    }
+
+
+    .transaction-card {
+
+        margin-top: 12px;
+    }
+
+
+    .trusted-section {
+
+        padding: 14px 12px 10px;
+    }
+
+
+    .section-heading h2 {
+
+        font-size: 18px;
+    }
+
+
+    .section-heading p {
+
+        font-size: 12px;
+    }
+
+
+    /* Information box */
+
+    .information-box {
+
+        grid-template-columns: 1fr;
+
+        padding: 13px;
+    }
+
+
+    .information-icon {
+
+        width: 100%;
+        height: 65px;
+
+        border-right: none;
+
+        border-bottom:
+            1px solid rgba(168, 174, 198, 0.3);
+
+        margin-bottom: 12px;
+    }
+
+
+    .information-shield {
+
+        width: 48px;
+        height: 52px;
+    }
+
+
+    .information-content {
+
+        padding-left: 0;
+    }
+
+
+    .information-list {
+
+        grid-template-columns: 1fr;
+    }
+
+
+    .information-bottom {
+
+        align-items: flex-start;
+    }
+
+
+    /* Buttons */
+
+    .actions {
+
+        flex-direction: column-reverse;
+
+        width: 100%;
+    }
+
+
+    .continue-btn {
+
+        width: 100%;
+    }
+
+
+    .recovery-btn {
+
+        width: 100%;
+
+        height: 50px;
+
+        font-size: 16px;
+    }
+
+
+    .footer-message {
+
+        justify-content: flex-start;
+
+        font-size: 11px;
+    }
+}
+
+
+/* =========================================
+   VERY SMALL MOBILE
+========================================= */
+
+@media (max-width: 400px) {
+
+    .intro-content h1 {
+
+        font-size: 21px;
+    }
+
+
+    .transaction-info h3 {
+
+        font-size: 14px;
+    }
+
+
+    .transaction-info p {
+
+        font-size: 13px;
+    }
+
+
+    .amount {
+
+        font-size: 20px;
+    }
+
+
+    .person-card {
+
+        min-height: 90px;
+
+        padding: 10px;
+    }
+
+
+    .person-avatar {
+
+        width: 52px;
+        height: 52px;
+
+        margin-right: 10px;
+    }
+
+
+    .person-avatar i {
+
+        font-size: 23px;
+    }
+
+
+    .person-info h3 {
+
+        font-size: 14px;
+    }
+
+
+    .recovery-btn {
+
+        font-size: 15px;
+    }
+}

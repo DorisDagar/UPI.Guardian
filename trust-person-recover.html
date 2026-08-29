@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>UPI Guardian</title>
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="trust-person-recover.css">
+</head>
+
+<body>
+
+    <div class="page">
+
+        <!-- =====================================
+             HEADER
+        ====================================== -->
+
+        <header class="top-header">
+
+            <div class="brand">
+
+                <!-- Blue square logo -->
+                <div class="logo-box">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+
+                <span>UPI Guardian</span>
+
+            </div>
+
+        </header>
+
+
+        <!-- =====================================
+             MAIN
+        ====================================== -->
+
+        <main class="container">
+
+
+            <!-- =================================
+                 INTRO SECTION
+            ================================== -->
+
+            <section class="intro-section">
+
+
+                <!-- Recovery icon -->
+
+                <div class="intro-icon">
+                    <i class="fa-solid fa-arrow-rotate-left"></i>
+                </div>
+
+
+                <!-- Intro text -->
+
+                <div class="intro-content">
+
+                    <div class="breadcrumb">
+
+                        <span>Recovery Mode</span>
+
+                        <i class="fa-solid fa-slash"></i>
+
+                        <strong>Trusted Person</strong>
+
+                    </div>
+
+
+                    <h1>
+                        Keep Your Trusted Person in the Loop
+                    </h1>
+
+
+                    <p>
+                        Choose someone you trust to stay informed throughout your fraud recovery.
+                    </p>
+
+                </div>
+
+
+                <!-- Progress card -->
+
+                <div class="progress-card">
+
+                    <div class="step-title">
+                        Step 3 of 7
+                    </div>
+
+
+                    <div class="progress-bars">
+
+                        <span class="bar blue"></span>
+
+                        <span class="bar purple"></span>
+
+                        <span class="bar pink"></span>
+
+                        <span class="bar"></span>
+
+                        <span class="bar"></span>
+
+                        <span class="bar"></span>
+
+                    </div>
+
+
+                    <div class="progress-percent">
+                        43% Complete
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================
+                 SUSPICIOUS TRANSACTION
+            ================================== -->
+
+            <section class="transaction-card">
+
+
+                <!-- Gift icon -->
+
+                <div class="transaction-icon">
+
+                    <i class="fa-solid fa-gift"></i>
+
+
+                    <!-- Warning -->
+
+                    <span class="warning-icon">
+
+                        <i class="fa-solid fa-exclamation"></i>
+
+                    </span>
+
+                </div>
+
+
+                <!-- Transaction name -->
+
+                <div class="transaction-info">
+
+                    <h3>
+                        Suspicious Transaction
+                    </h3>
+
+                    <p>
+                        Lucky Reward UPI
+                    </p>
+
+                </div>
+
+
+                <div class="transaction-divider"></div>
+
+
+                <!-- Amount -->
+
+                <div class="amount">
+                    ₹50,000
+                </div>
+
+
+                <div class="transaction-divider"></div>
+
+
+                <!-- Details -->
+
+                <div class="transaction-details">
+
+                    <p>
+                        Transaction ID:
+                        <span>UPI12345678</span>
+                    </p>
+
+                    <p>
+                        Risk Level:
+                        <strong>HIGH</strong>
+                    </p>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================
+                 TRUSTED PERSON SECTION
+            ================================== -->
+
+            <section class="trusted-section">
+
+
+                <div class="section-heading">
+
+                    <h2>
+                        Select a Trusted Person
+                    </h2>
+
+                    <p>
+                        Your existing trusted persons can help you stay organized and informed during recovery.
+                    </p>
+
+                </div>
+
+
+
+                <!-- =================================
+                     PEOPLE
+                ================================== -->
+
+                <div class="people-grid">
+
+
+                    <!-- MOM -->
+
+                    <div
+                        class="person-card selected"
+                        data-person="Mom"
+                    >
+
+                        <div class="person-avatar mom">
+
+                            <i class="fa-solid fa-user"></i>
+
+                        </div>
+
+
+                        <div class="person-info">
+
+                            <h3>
+                                Mom
+                            </h3>
+
+
+                            <div class="availability">
+
+                                <span></span>
+
+                                Available
+
+                            </div>
+
+
+                            <div class="selected-label">
+                                Selected
+                            </div>
+
+                        </div>
+
+
+                        <div class="radio checked">
+
+                            <i class="fa-solid fa-check"></i>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- DAD -->
+
+                    <div
+                        class="person-card"
+                        data-person="Dad"
+                    >
+
+                        <div class="person-avatar dad">
+
+                            <i class="fa-solid fa-user"></i>
+
+                        </div>
+
+
+                        <div class="person-info">
+
+                            <h3>
+                                Dad
+                            </h3>
+
+
+                            <div class="availability">
+
+                                <span></span>
+
+                                Available
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="radio"></div>
+
+                    </div>
+
+
+
+                    <!-- BEST FRIEND -->
+
+                    <div
+                        class="person-card"
+                        data-person="Best Friend"
+                    >
+
+                        <div class="person-avatar friend">
+
+                            <i class="fa-solid fa-user"></i>
+
+                        </div>
+
+
+                        <div class="person-info">
+
+                            <h3>
+                                Best Friend
+                            </h3>
+
+
+                            <div class="availability">
+
+                                <span></span>
+
+                                Available
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="radio"></div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================
+                     INFORMATION BOX
+                ================================== -->
+
+                <div class="information-box">
+
+
+                    <!-- SHIELD IMAGE -->
+
+                    <div class="information-icon">
+
+                      
+
+                        <img
+                            src="img/tpr.png"
+                            alt="Security Shield"
+                            class="information-shield"
+                        >
+
+
+                        <!-- Small check remains Font Awesome -->
+
+                        <span>
+
+                            <i class="fa-solid fa-check"></i>
+
+                        </span>
+
+                    </div>
+
+
+
+                    <!-- Information -->
+
+                    <div class="information-content">
+
+                        <h3>
+                            Once connected, they'll stay informed
+                        </h3>
+
+
+                        <div class="information-list">
+
+
+                            <div>
+
+                                <i class="fa-solid fa-circle-check"></i>
+
+                                <span>
+                                    Fraud incident report
+                                </span>
+
+                            </div>
+
+
+                            <div>
+
+                                <i class="fa-solid fa-circle-check"></i>
+
+                                <span>
+                                    Scam timeline
+                                </span>
+
+                            </div>
+
+
+                            <div>
+
+                                <i class="fa-solid fa-circle-check"></i>
+
+                                <span>
+                                    Transaction details
+                                </span>
+
+                            </div>
+
+
+                            <div>
+
+                                <i class="fa-solid fa-circle-check"></i>
+
+                                <span>
+                                    Recovery progress updates
+                                </span>
+
+                            </div>
+
+
+                            <div>
+
+                                <i class="fa-solid fa-circle-check"></i>
+
+                                <span>
+                                    Evidence collected
+                                </span>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Information bottom -->
+
+                    <div class="information-bottom">
+
+                        <i class="fa-solid fa-lock"></i>
+
+                        <span>
+                            Only recovery information related to this incident will be shared.
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================
+                 ACTION BUTTONS
+            ================================== -->
+
+            <section class="actions">
+
+
+                <button
+                    class="continue-btn"
+                    id="continueBtn"
+                >
+                    Continue Without Trusted Person
+                </button>
+
+
+                <button
+                    class="recovery-btn"
+                    id="recoveryBtn"
+                >
+
+                    <i class="fa-solid fa-user-plus"></i>
+
+                    <span>
+                        Add to Recovery
+                    </span>
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </button>
+
+            </section>
+
+
+
+            <!-- =================================
+                 FOOTER
+            ================================== -->
+
+            <div class="footer-message">
+
+                <i class="fa-solid fa-shield-halved"></i>
+
+                <span>
+                    Your trusted person will remain connected to this recovery case until it is resolved.
+                </span>
+
+            </div>
+
+
+        </main>
+
+    </div>
+
+
+    <!-- JavaScript -->
+    <script src="trust-person-recover.js"></script>
+
+</body>
+
+</html>
