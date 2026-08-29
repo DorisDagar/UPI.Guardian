@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>UPI Guardian - Recovery Mode</title>
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="immediate-action.css">
+</head>
+
+<body>
+
+    <!-- =========================
+         HEADER
+    ========================== -->
+
+    <header class="topbar">
+
+        <div class="brand">
+
+            <!-- Square blue logo -->
+            <div class="brand-logo">
+                <i class="fa-solid fa-shield-halved"></i>
+            </div>
+
+            <span>UPI Guardian</span>
+
+        </div>
+
+    </header>
+
+
+    <main class="page">
+
+        <!-- =========================
+             HERO SECTION
+        ========================== -->
+
+        <section class="hero">
+
+            <div class="hero-left">
+
+                <div class="recovery-label">
+
+                    <div class="recovery-icon">
+                        <i class="fa-solid fa-arrow-rotate-left"></i>
+                    </div>
+
+                    <div>
+                        <span>Recovery</span> Mode
+                    </div>
+
+                </div>
+
+                <h1>Take Immediate Action</h1>
+
+                <p class="hero-description">
+                    Follow the steps below to protect your money and secure your account.
+                </p>
+
+            </div>
+
+
+            <!-- Progress -->
+            <div class="progress-card">
+
+                <div class="progress-title">
+                    Step <span id="currentStep">2</span> of 6
+                </div>
+
+                <div class="progress-bars">
+
+                    <div class="progress-bar active"></div>
+                    <div class="progress-bar active"></div>
+                    <div class="progress-bar"></div>
+                    <div class="progress-bar"></div>
+                    <div class="progress-bar"></div>
+                    <div class="progress-bar"></div>
+
+                </div>
+
+                <div class="progress-text">
+                    <span id="progressPercent">33</span>% Complete
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             TRANSACTION CARD
+        ========================== -->
+
+        <section class="transaction-card">
+
+            <div class="transaction-info">
+
+                <div class="transaction-icon">
+                    <i class="fa-solid fa-gift"></i>
+
+                    <span class="transaction-warning">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                    </span>
+                </div>
+
+
+                <div class="transaction-details">
+
+                    <h3>Suspicious Transaction</h3>
+
+                    <div class="transaction-name">
+                        Lucky Reward UPI
+                    </div>
+
+                    <div class="transaction-id">
+                        Transaction ID: UPI12345678
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="amount">
+                ₹50,000
+            </div>
+
+
+            <div class="risk">
+
+                <i class="fa-solid fa-triangle-exclamation"></i>
+
+                <span>
+                    Risk Level:
+                    <strong>HIGH</strong>
+                </span>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             WARNING
+        ========================== -->
+
+        <div class="warning">
+
+            <i class="fa-solid fa-triangle-exclamation warning-icon"></i>
+
+            <span>
+                This transaction looks suspicious. Take these steps immediately.
+            </span>
+
+        </div>
+
+
+        <!-- =========================
+             STEPS
+        ========================== -->
+
+        <section class="steps-grid">
+
+
+            <!-- STEP 1 -->
+
+            <article class="step" data-step="1">
+
+                <div class="step-number">1</div>
+
+                <img
+                    src="img/action1.png"
+                    alt="Report suspicious transaction"
+                    class="step-image"
+                >
+
+                <div class="step-content">
+
+                    <h2 class="step-title">
+                        Report the suspicious transaction
+                    </h2>
+
+                    <p class="step-description">
+                        Report it through your UPI app
+                        or payment provider.
+                    </p>
+
+                    <label class="check-control">
+
+                        <input
+                            type="checkbox"
+                            class="step-checkbox"
+                        >
+
+                        <span class="custom-checkbox">
+                            <i class="fa-solid fa-check"></i>
+                        </span>
+
+                        <span>Mark complete</span>
+
+                    </label>
+
+                </div>
+
+            </article>
+
+
+            <!-- STEP 2 -->
+
+            <article class="step" data-step="2">
+
+                <div class="step-number">2</div>
+
+                <img
+                    src="img/action2.png"
+                    alt="Contact your bank or UPI service"
+                    class="step-image"
+                >
+
+                <div class="step-content">
+
+                    <h2 class="step-title">
+                        Contact your bank or UPI service
+                    </h2>
+
+                    <p class="step-description">
+                        Call the official support number
+                        and request urgent help.
+                    </p>
+
+                    <label class="check-control">
+
+                        <input
+                            type="checkbox"
+                            class="step-checkbox"
+                        >
+
+                        <span class="custom-checkbox">
+                            <i class="fa-solid fa-check"></i>
+                        </span>
+
+                        <span>Mark complete</span>
+
+                    </label>
+
+                </div>
+
+            </article>
+
+
+            <!-- STEP 3 -->
+
+            <article class="step" data-step="3">
+
+                <div class="step-number">3</div>
+
+                <img
+                    src="img/action3.png"
+                    alt="Secure your account"
+                    class="step-image"
+                >
+
+                <div class="step-content">
+
+                    <h2 class="step-title">
+                        Secure your account
+                    </h2>
+
+                    <p class="step-description">
+                        Change your UPI PIN and review
+                        account access.
+                    </p>
+
+                    <label class="check-control">
+
+                        <input
+                            type="checkbox"
+                            class="step-checkbox"
+                        >
+
+                        <span class="custom-checkbox">
+                            <i class="fa-solid fa-check"></i>
+                        </span>
+
+                        <span>Mark complete</span>
+
+                    </label>
+
+                </div>
+
+            </article>
+
+
+            <!-- STEP 4 -->
+
+            <article class="step" data-step="4">
+
+                <div class="step-number">4</div>
+
+                <img
+                    src="img/action4.png"
+                    alt="Stop communicating with the scammer"
+                    class="step-image"
+                >
+
+                <div class="step-content">
+
+                    <h2 class="step-title">
+                        Stop communicating with the scammer
+                    </h2>
+
+                    <p class="step-description">
+                        Block the number and do not share
+                        any more information.
+                    </p>
+
+                    <label class="check-control">
+
+                        <input
+                            type="checkbox"
+                            class="step-checkbox"
+                        >
+
+                        <span class="custom-checkbox">
+                            <i class="fa-solid fa-check"></i>
+                        </span>
+
+                        <span>Mark complete</span>
+
+                    </label>
+
+                </div>
+
+            </article>
+
+        </section>
+
+
+        <!-- =========================
+             BOTTOM BAR
+        ========================== -->
+
+        <div class="bottom-bar">
+
+            <button
+                class="back-button"
+                type="button"
+                id="backButton"
+            >
+                <i class="fa-solid fa-arrow-left"></i>
+                <span>Back to Transaction</span>
+            </button>
+
+
+            <button
+                class="continue-button"
+                id="continueButton"
+                type="button"
+                disabled
+            >
+
+                <span>Continue to Trusted Person</span>
+
+                <i class="fa-solid fa-arrow-right"></i>
+
+            </button>
+
+        </div>
+
+    </main>
+    <!-- Custom JS -->
+    <script src="immediate-action.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Trusted Person Confirmation - UPI Guardian</title>
+
+    <link rel="stylesheet" href="trusted person.css">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+
+    <div class="dashboard-container">
+
+        <!-- ================= SIDEBAR ================= -->
+
+        <aside class="sidebar">
+
+            <!-- LOGO -->
+            <div class="logo-section">
+
+                <div class="logo-icon">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+
+                <div class="logo-text">
+                    <h2>UPI Guardian</h2>
+                    <p>Explain Before You Pay</p>
+                </div>
+
+            </div>
+
+
+            <!-- PROTECT -->
+            <div class="menu-section">
+
+                <p class="menu-title">PROTECT</p>
+
+                <a href="dashboard.html" class="nav-item">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    <span>Dashboard</span>
+                </a>
+
+                <a href="sendMoney.html" class="nav-item">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    <span>Send Money</span>
+                </a>
+
+                <a href="scan.html" class="nav-item">
+                    <i class="fa-solid fa-qrcode"></i>
+                    <span>Scan & Pay</span>
+                </a>
+
+                <a href="payment-request.html" class="nav-item">
+
+                    <i class="fa-solid fa-wallet"></i>
+
+                    <span>Payment Requests</span>
+
+                    <span class="notification-count">3</span>
+
+                </a>
+
+                <a href="message-analyzer.html" class="nav-item">
+                    <i class="fa-solid fa-message"></i>
+                    <span>Message Analyzer</span>
+                </a>
+
+                <a href="scam-timeline.html" class="nav-item">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                    <span>Scam Timeline</span>
+                </a>
+
+                <a href="recovery.html" class="nav-item">
+                    <i class="fa-solid fa-life-ring"></i>
+                    <span>Recovery Mode</span>
+                </a>
+
+            </div>
+
+
+            <!-- MANAGE -->
+            <div class="menu-section manage-section">
+
+                <p class="menu-title">MANAGE</p>
+
+                <a href="settings.html" class="nav-item">
+                    <i class="fa-solid fa-gear"></i>
+                    <span>Settings</span>
+                </a>
+
+                <a href="help.html" class="nav-item">
+                    <i class="fa-solid fa-circle-question"></i>
+                    <span>Help & Support</span>
+                </a>
+
+            </div>
+
+        </aside>
+
+
+        <!-- ================= MAIN CONTENT ================= -->
+
+        <main class="main-content">
+
+
+            <!-- TOP HEADER -->
+
+            <header class="top-header">
+
+                <div></div>
+
+                <div class="header-right">
+
+                    <div class="protection-status">
+
+                        <span class="green-dot"></span>
+
+                        Protection active
+
+                    </div>
+
+
+                    <div class="notification">
+
+                        <i class="fa-regular fa-bell"></i>
+
+                        <span>2</span>
+
+                    </div>
+
+
+                    <div class="profile">
+
+                        <div class="profile-avatar">
+                            G
+                        </div>
+
+                        <span>geetanshi</span>
+
+                        <i class="fa-solid fa-chevron-down"></i>
+
+                    </div>
+
+                </div>
+
+            </header>
+
+
+            <!-- BACK -->
+
+            <a href="risk-analysis.html" class="back-link">
+
+                <i class="fa-solid fa-chevron-left"></i>
+
+                Back to Risk Analysis
+
+            </a>
+
+
+            <!-- PAGE TITLE -->
+
+            <section class="page-title-section">
+
+                <div>
+
+                    <h1>Trusted Person Confirmation</h1>
+
+                    <p>
+                        Get a second opinion from someone you trust before
+                        completing this payment.
+                    </p>
+
+                </div>
+
+
+                <div class="security-message">
+
+                    <div class="security-icon">
+
+                        <i class="fa-solid fa-user-shield"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h4>Extra layer of security</h4>
+
+                        <p>for your peace of mind.</p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= MAIN GRID ================= -->
+
+            <div class="confirmation-grid">
+
+
+                <!-- ================= PAYMENT SUMMARY ================= -->
+
+                <section class="payment-summary card">
+
+                    <p class="section-title">
+                        PAYMENT SUMMARY
+                    </p>
+
+
+                    <div class="summary-list">
+
+
+                        <!-- PAYEE -->
+
+                        <div class="summary-item">
+
+                            <div class="summary-icon">
+
+                                <i class="fa-solid fa-user"></i>
+
+                            </div>
+
+                            <div>
+
+                                <span>Payee Name</span>
+
+                                <strong>Rahul Kumar</strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- UPI ID -->
+
+                        <div class="summary-item">
+
+                            <div class="summary-icon">
+
+                                <i class="fa-solid fa-id-badge"></i>
+
+                            </div>
+
+                            <div>
+
+                                <span>UPI ID</span>
+
+                                <strong>rahulkumar@upi</strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- AMOUNT -->
+
+                        <div class="summary-item">
+
+                            <div class="summary-icon amount-icon">
+                                ₹
+                            </div>
+
+                            <div>
+
+                                <span>Amount</span>
+
+                                <strong>₹24,000</strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- NOTE -->
+
+                        <div class="summary-item">
+
+                            <div class="summary-icon">
+
+                                <i class="fa-solid fa-note-sticky"></i>
+
+                            </div>
+
+                            <div>
+
+                                <span>Note / Remarks</span>
+
+                                <strong>Laptop advance payment</strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- RISK -->
+
+                        <div class="summary-item risk-summary">
+
+                            <div class="summary-icon risk-icon">
+
+                                <i class="fa-solid fa-shield-halved"></i>
+
+                            </div>
+
+                            <div>
+
+                                <span>Risk Score</span>
+
+                                <strong>
+                                    82/100
+                                    <small>(High Risk)</small>
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ALERT -->
+
+                    <div class="high-risk-alert">
+
+                        <div class="alert-icon">
+
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+
+                        </div>
+
+                        <div>
+
+                            <h3>High risk transaction detected</h3>
+
+                            <p>
+                                We recommend confirming with a trusted
+                                person before proceeding.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- ================= TRUSTED PERSON ================= -->
+
+                <section class="trusted-confirmation card">
+
+                    <p class="section-title">
+                        CONFIRM WITH A TRUSTED PERSON
+                    </p>
+
+
+                    <!-- STEPS -->
+
+                    <div class="steps-container">
+
+                        <div class="step active-step">
+
+                            <div class="step-number">
+                                1
+                            </div>
+
+                            <h4>Send Request</h4>
+
+                            <p>Share details securely</p>
+
+                        </div>
+
+
+                        <div class="step-line"></div>
+
+
+                        <div class="step">
+
+                            <div class="step-number">
+                                2
+                            </div>
+
+                            <h4>Get Confirmation</h4>
+
+                            <p>Wait for their response</p>
+
+                        </div>
+
+
+                        <div class="step-line"></div>
+
+
+                        <div class="step">
+
+                            <div class="step-number">
+                                3
+                            </div>
+
+                            <h4>Complete Payment</h4>
+
+                            <p>Proceed with confidence</p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- SELECT PERSON -->
+
+                    <div class="trusted-selection">
+
+                        <label>Select Trusted Person</label>
+
+
+                        <!-- SEARCH -->
+
+                        <div class="search-box">
+
+                            <input
+                                type="text"
+                                placeholder="Search from your trusted contacts..."
+                            >
+
+                            <i class="fa-solid fa-magnifying-glass"></i>
+
+                        </div>
+
+
+                        <!-- CONTACTS -->
+
+                        <div class="contacts-list">
+
+
+                            <!-- MOM -->
+
+                            <div class="contact selected">
+
+                                <div class="contact-left">
+
+                                    <div class="contact-avatar mom">
+                                        MA
+                                    </div>
+
+                                    <div>
+
+                                        <h4>Mom</h4>
+
+                                        <p>+91 98765 43210</p>
+
+                                    </div>
+
+                                    <span class="most-trusted">
+                                        Most Trusted
+                                    </span>
+
+                                </div>
+
+
+                                <div class="radio selected-radio">
+
+                                    <div></div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- ARJUN -->
+
+                            <div class="contact">
+
+                                <div class="contact-left">
+
+                                    <div class="contact-avatar arjun">
+                                        AR
+                                    </div>
+
+                                    <div>
+
+                                        <h4>Arjun (Brother)</h4>
+
+                                        <p>+91 91234 56789</p>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="radio"></div>
+
+                            </div>
+
+
+                            <!-- NEHA -->
+
+                            <div class="contact">
+
+                                <div class="contact-left">
+
+                                    <div class="contact-avatar neha">
+                                        NE
+                                    </div>
+
+                                    <div>
+
+                                        <h4>Neha (Best Friend)</h4>
+
+                                        <p>+91 99887 66554</p>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="radio"></div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- SECURITY NOTE -->
+
+                        <div class="secure-note">
+
+                            <i class="fa-solid fa-shield-halved"></i>
+
+                            <p>
+                                They will receive the payment details securely
+                                and won't be able to make any changes.
+                            </p>
+
+                        </div>
+
+
+                        <!-- ACTION BUTTONS -->
+
+                        <div class="confirmation-actions">
+
+                            <button class="cancel-btn">
+                                Cancel
+                            </button>
+
+                            <button class="send-request-btn">
+
+                                Send Confirmation Request
+
+                                <i class="fa-solid fa-paper-plane"></i>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </div>
+
+
+            <!-- ================= SAFETY CARD ================= -->
+
+            <section class="safety-card card">
+
+                <div class="safety-left">
+
+                    <div class="safety-icon">
+
+                        <i class="fa-solid fa-lock"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h4>Your safety is in control</h4>
+
+                        <p>
+                            UPI Guardian never shares your UPI PIN,
+                            OTP or personal data with anyone.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="learn-trusted">
+
+                    Learn more about trusted confirmations
+
+                    <span>
+
+                        <i class="fa-solid fa-chevron-right"></i>
+
+                    </span>
+
+                </div>
+
+            </section>
+
+
+        </main>
+
+    </div>
+
+</body>
+
+</html>

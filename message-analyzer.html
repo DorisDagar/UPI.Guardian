@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scam Message Analyzer | UPI Guardian</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="message-analyzer.css">
+</head>
+
+<body>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <a class="brand" href="index.html">
+        <span class="brand-shield"><i class="fa-solid fa-indian-rupee-sign"></i></span>
+        <span>
+          <strong>UPI Guardian</strong>
+          <small>Explain Before You Pay</small>
+        </span>
+      </a>
+
+      <nav class="sidebar-nav" aria-label="Primary navigation">
+        <a href="dashboard.html"><i class="fa-solid fa-house"></i><span>Dashboard</span></a>
+        <a href="send money.html"><i class="fa-regular fa-paper-plane"></i><span>Send Money</span></a>
+        <a href="#"><i class="fa-solid fa-qrcode"></i><span>Scan &amp; Pay</span></a>
+        <a href="#"><i class="fa-regular fa-clipboard"></i><span>Payment Requests</span></a>
+        <a href="#"><i class="fa-solid fa-list"></i><span>Transactions</span></a>
+        <a class="active" href="message-analyzer.html"><i class="fa-regular fa-comment-dots"></i><span>Message Analyzer</span></a>
+        <a href="#"><i class="fa-solid fa-chart-simple"></i><span>Insights</span></a>
+        <a href="#"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+        <a href="#"><i class="fa-regular fa-circle-question"></i><span>Help &amp; Support</span></a>
+      </nav>
+
+      <section class="sidebar-safety">
+        <span class="mini-shield"><i class="fa-solid fa-indian-rupee-sign"></i></span>
+        <h3>Stay Safe, Pay Smart.</h3>
+        <p>UPI Guardian protects you from fraud and helps you make safe payments.</p>
+        <span class="safety-wave"></span>
+      </section>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <h1>Message Analyzer</h1>
+          <p>Analyze suspicious messages and detect scams</p>
+        </div>
+
+        <div class="topbar-actions">
+          <span class="protection-status"><i class="fa-solid fa-circle"></i>Protection active</span>
+          <button class="notification-button" type="button" aria-label="Notifications">
+            <i class="fa-regular fa-bell"></i><span>2</span>
+          </button>
+          <div class="profile">
+            <span class="profile-avatar">G</span>
+            <span>Geetanshi</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+        </div>
+
+        <img class="top-illustration" src="img/analyze.png" alt="Message analysis and payment protection">
+      </header>
+
+      <section class="workspace-grid">
+        <article class="panel analyzer-panel">
+          <div class="panel-heading">
+            <h2>Analyze a Message</h2>
+            <p>Paste a message or upload a screenshot</p>
+          </div>
+
+          <form>
+            <label class="field-label" for="message">Paste Message</label>
+            <div class="message-field">
+              <textarea id="message" name="message" maxlength="1000" placeholder="Paste the suspicious message here..."></textarea>
+              <span class="character-count">0/1000</span>
+            </div>
+
+            <div class="divider"><span>OR</span></div>
+
+            <label class="field-label" for="screenshot">Upload Screenshot</label>
+            <label class="upload-box" for="screenshot">
+              <input id="screenshot" name="screenshot" type="file" accept=".png,.jpg,.jpeg,image/png,image/jpeg">
+              <i class="fa-solid fa-cloud-arrow-up"></i>
+              <strong>Click to upload or drag and drop</strong>
+              <small>PNG, JPG, JPEG (Max. 5MB)</small>
+            </label>
+
+            <button class="analyze-button" type="button">
+              <i class="fa-solid fa-shield"></i>Analyze Message
+            </button>
+          </form>
+        </article>
+
+        <section class="results-column">
+          <article class="panel result-panel">
+            <h2>Analysis Result</h2>
+            <div class="result-summary">
+              <div class="risk-score"><span>85%</span></div>
+              <div class="risk-copy">
+                <h3>High Risk</h3>
+                <p>This message is likely a scam.</p>
+                <span class="caution-badge"><i class="fa-solid fa-circle-exclamation"></i>Be cautious!</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="panel risk-panel">
+            <h2>Risk Factors</h2>
+            <ul class="risk-list">
+              <li><span><i class="risk-dot high"></i>Urgent payment request</span><strong class="risk-label high">High</strong></li>
+              <li><span><i class="risk-dot high"></i>Suspicious link detected</span><strong class="risk-label high">High</strong></li>
+              <li><span><i class="risk-dot medium"></i>Unknown sender</span><strong class="risk-label medium">Medium</strong></li>
+              <li><span><i class="risk-dot medium"></i>Reward / lottery mentioned</span><strong class="risk-label medium">Medium</strong></li>
+            </ul>
+          </article>
+
+          <article class="panel detected-panel">
+            <h2>Detected Elements</h2>
+            <div class="detected-row">
+              <span class="detected-icon"><i class="fa-solid fa-link"></i></span>
+              <span>http://bit.ly/claim-reward</span>
+              <strong>Suspicious Link</strong>
+            </div>
+            <div class="detected-row">
+              <span class="detected-icon"><i class="fa-solid fa-tag"></i></span>
+              <span>Lottery, Reward, Cash Prize</span>
+              <strong>Scam Keywords</strong>
+            </div>
+          </article>
+        </section>
+      </section>
+
+      <section class="tips-panel">
+        <div class="tips-title"><i class="fa-solid fa-shield-heart"></i><h2>Stay Safe Tips</h2></div>
+
+        <div class="tips-grid">
+          <article class="tip-card">
+            <img src="img/protect.png" alt="Secure phone and account">
+            <div><h3>Protect your account</h3><p>Never share OTP or UPI PIN with anyone.</p></div>
+          </article>
+
+          <article class="tip-card">
+            <img src="img/check.png" alt="Suspicious link warning">
+            <div><h3>Check every link</h3><p>Avoid clicking links from unknown senders.</p></div>
+          </article>
+
+          <article class="tip-card">
+            <img src="img/verify.png" alt="Verified sender">
+            <div><h3>Verify the sender</h3><p>Confirm payment requests through official channels.</p></div>
+          </article>
+
+          <article class="tip-card">
+            <img src="img/stay.png" alt="Alert notification bell">
+            <div><h3>Stay alert</h3><p>Report suspicious messages and possible scams.</p></div>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
