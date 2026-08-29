@@ -7,10 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("recoveryBtn");
 
     const continueButton =
-    document.getElementById("continueBtn");
-
-    const whatsappInput =
-    document.getElementById("trustedWhatsapp");
+        document.getElementById("continueBtn");
 
 
     let selectedPerson = "Mom";
@@ -90,78 +87,52 @@ document.addEventListener("DOMContentLoaded", () => {
 
     recoveryButton.addEventListener("click", () => {
 
-    if (!selectedPerson) {
+        if (!selectedPerson) {
 
-        alert("Please select a trusted person.");
+            alert("Please select a trusted person.");
 
-        return;
-    }
-
-
-    const whatsappNumber =
-        whatsappInput.value.trim();
+            return;
+        }
 
 
-    // Check if number was entered
-    if (!whatsappNumber) {
+        /*
+         * Save the selected trusted person.
+         * This allows the Evidence Locker page
+         * to access the selected person if needed.
+         */
 
-        alert(
-            "Please enter the trusted person's WhatsApp number."
+        localStorage.setItem(
+            "trustedPerson",
+            selectedPerson
         );
 
-        whatsappInput.focus();
 
-        return;
-    }
+        /*
+         * Change button temporarily to show
+         * that the person has been added.
+         */
 
-
-    // Check Indian 10-digit number
-    if (!/^[6-9]\d{9}$/.test(whatsappNumber)) {
-
-        alert(
-            "Please enter a valid 10 digit WhatsApp number."
-        );
-
-        whatsappInput.focus();
-
-        return;
-    }
+        recoveryButton.innerHTML = `
+            <i class="fa-solid fa-circle-check"></i>
+            <span>Added to Recovery</span>
+        `;
 
 
-    // Save trusted person
-    localStorage.setItem(
-        "trustedPerson",
-        selectedPerson
-    );
+        recoveryButton.disabled = true;
 
 
-    // Save WhatsApp number
-    localStorage.setItem(
-        "trustedPersonWhatsapp",
-        whatsappNumber
-    );
+        /*
+         * Open Evidence Locker page
+         */
 
+        setTimeout(() => {
 
-    // Show success
-    recoveryButton.innerHTML = `
-        <i class="fa-solid fa-circle-check"></i>
-        <span>Added to Recovery</span>
-    `;
+            window.location.href =
+                "evidence-locker.html";
 
+        }, 600);
 
-    recoveryButton.disabled = true;
-
-
-    // Continue to Evidence Locker
-    setTimeout(() => {
-
-        window.location.href =
-            "evidence-locker.html";
-
-    }, 600);
-
-});
-
+    });
 
 
 

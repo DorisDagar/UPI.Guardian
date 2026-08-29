@@ -7,11 +7,13 @@ const authRoutes = require("./routes/auth");
 const dashboardRoutes = require("./routes/dashboard");
 const whatsappRoutes = require("./routes/whatsapp");
 
-// ADDED: Import the payment-risk routes.
+// Payment-risk routes
 const riskRoutes = require("./routes/risk");
 
-const app = express();
+// Message Analyzer routes
+const analyzerRoutes = require("./routes/analyzer");
 
+const app = express();
 
 // ===============================
 // MIDDLEWARE
@@ -27,11 +29,21 @@ app.use(express.json());
 // ===============================
 
 app.use("/api/auth", authRoutes);
+
 app.use("/api/dashboard", dashboardRoutes);
+
 app.use("/api/whatsapp", whatsappRoutes);
 
-// ADDED: Register the payment-risk API.
+// Payment-risk API
 app.use("/api/risk", riskRoutes);
+
+// Message Analyzer API
+app.use("/api/analyzer", analyzerRoutes);
+
+
+// ===============================
+// STATIC FILES
+// ===============================
 
 // Serve the existing HTML, CSS, JavaScript and image files.
 app.use(express.static(path.join(__dirname, "..")));
