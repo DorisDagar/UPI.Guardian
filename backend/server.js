@@ -5,6 +5,10 @@ require("dotenv").config();
 
 const authRoutes = require("./routes/auth");
 const dashboardRoutes = require("./routes/dashboard");
+const whatsappRoutes = require("./routes/whatsapp");
+
+// ADDED: Import the payment-risk routes.
+const riskRoutes = require("./routes/risk");
 
 const app = express();
 
@@ -24,6 +28,10 @@ app.use(express.json());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/dashboard", dashboardRoutes);
+app.use("/api/whatsapp", whatsappRoutes);
+
+// ADDED: Register the payment-risk API.
+app.use("/api/risk", riskRoutes);
 
 // Serve the existing HTML, CSS, JavaScript and image files.
 app.use(express.static(path.join(__dirname, "..")));
