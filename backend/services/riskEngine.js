@@ -31,6 +31,7 @@ function calculateFactualRisk({
   amount,
   analysisTime,
   transactionHistory,
+  previousPaymentsToReceiverCount,
 }) {
   const normalizedUpiId = receiverUpiId.trim().toLowerCase();
   const numericAmount = Number(amount);
@@ -48,7 +49,15 @@ function calculateFactualRisk({
     );
   });
 
-  const isNewPayee = previousPaymentsToReceiver.length === 0;
+  const allTimeReceiverPaymentCount =
+    Number.isFinite(
+      Number(previousPaymentsToReceiverCount)
+    )
+      ? Number(previousPaymentsToReceiverCount)
+      : previousPaymentsToReceiver.length;
+
+  const isNewPayee =
+    allTimeReceiverPaymentCount === 0;
 
   // Suspicious words sometimes found in impersonation UPI IDs.
   const suspiciousReceiverPattern =
@@ -280,7 +289,7 @@ function calculateFactualRisk({
       isNewPayee,
       hasSuspiciousReceiverName,
       previousPaymentsToReceiver:
-        previousPaymentsToReceiver.length,
+        allTimeReceiverPaymentCount,
       usualMinimumAmount: Number(
         usualMinimumAmount.toFixed(2)
       ),
@@ -323,7 +332,7 @@ function calculateFactualRisk({
         amountDeviationPercentage.toFixed(1)
       ),
       previousPaymentsToReceiver:
-        previousPaymentsToReceiver.length,
+        allTimeReceiverPaymentCount,
       recentTransactionsChecked: history.length,
     },
   };

@@ -138,6 +138,7 @@ async function createPaymentRiskAnalysis({
   amount,
   paymentNote,
   transactionHistory,
+  previousPaymentsToReceiverCount,
 }) {
   const analysisTime = new Date();
 
@@ -148,6 +149,7 @@ async function createPaymentRiskAnalysis({
     amount,
     analysisTime,
     transactionHistory,
+    previousPaymentsToReceiverCount,
   });
 
   // 2. Ask Gemini to understand the payment context.

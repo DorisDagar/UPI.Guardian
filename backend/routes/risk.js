@@ -96,21 +96,45 @@ router.post("/analyze", async (req, res) => {
     // The JWT created during login stores the ID as userId.
     const userId = req.user.userId;
 
-    // Load the logged-in user's last 20 transactions.
-    const historyResult = await pool.query(
-      `
-        SELECT
-          receiver_upi_id,
-          amount,
-          transaction_time
-        FROM transactions
-        WHERE user_id = $1
-          AND transaction_status = 'completed'
-        ORDER BY transaction_time DESC
-        LIMIT 20
-      `,
-      [userId]
-    );
+    // Amount patterns use the latest 20 completed payments,
+    // while receiver familiarity checks every completed
+    // payment ever made by this user to this exact UPI ID.
+    const [
+      historyResult,
+      receiverHistoryResult,
+    ] = await Promise.all([
+      pool.query(
+        `
+          SELECT
+            receiver_upi_id,
+            amount,
+            transaction_time
+          FROM transactions
+          WHERE user_id = $1
+            AND transaction_status = 'completed'
+          ORDER BY transaction_time DESC
+          LIMIT 20
+        `,
+        [userId]
+      ),
+
+      pool.query(
+        `
+          SELECT COUNT(*)::int AS payment_count
+          FROM transactions
+          WHERE user_id = $1
+            AND transaction_status = 'completed'
+            AND LOWER(TRIM(receiver_upi_id)) = $2
+        `,
+        [userId, receiverUpiId]
+      ),
+    ]);
+
+    const previousPaymentsToReceiverCount =
+      Number(
+        receiverHistoryResult.rows[0]
+          ?.payment_count || 0
+      );
 
     // Run the complete hybrid risk engine.
     const analysis =
@@ -120,6 +144,7 @@ router.post("/analyze", async (req, res) => {
         amount,
         paymentNote,
         transactionHistory: historyResult.rows,
+        previousPaymentsToReceiverCount,
       });
 
     // Save the result in Supabase.
