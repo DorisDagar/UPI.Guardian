@@ -1289,3 +1289,12 @@ a {
   .modal-card { padding: 22px; }
   .request-top, .modal-transaction { align-items: flex-start; flex-direction: column; }
 }
+
+/* Direct payments that skipped risk analysis */
+
+.not-analyzed-tag {
+  min-width: 88px;
+
+  color: #70d7ff;
+  background: rgba(82, 192, 255, 0.14);
+}

@@ -29,7 +29,7 @@
       <nav class="sidebar-menu">
         <a href="#" class="menu-item active" data-action="dashboard"><i class="fa-solid fa-chart-pie"></i><span>Dashboard</span></a>
         <a href="send%20money.html" class="menu-item"><i class="fa-solid fa-paper-plane"></i><span>Send Money</span></a>
-        <a href="#" class="menu-item" data-action="scan"><i class="fa-solid fa-qrcode"></i><span>Scan & Pay</span></a>
+        <a href="scan and pay.html" class="menu-item" data-action="scan"><i class="fa-solid fa-qrcode"></i><span>Scan & Pay</span></a>
         <a href="#" class="menu-item" data-action="requests"><i class="fa-solid fa-inbox"></i><span>Payment Requests</span><span class="menu-badge" id="requestBadge">3</span></a>
         <a href="#" class="menu-item" data-action="message"><i class="fa-solid fa-message"></i><span>Message Analyzer</span></a>
         <a href="#" class="menu-item" data-action="timeline"><i class="fa-solid fa-clock-rotate-left"></i><span>Scam Timeline</span></a>
@@ -239,7 +239,7 @@
                 </span>
                 <i class="fa-solid fa-arrow-right"></i>
               </a>
-              <a href="#" data-action="scan"><span class="quick-icon purple-icon"><i class="fa-solid fa-qrcode"></i></span>
+              <a href="scan and pay.html" data-action="scan"><span class="quick-icon purple-icon"><i class="fa-solid fa-qrcode"></i></span>
                 <span>
                   <strong>Scan a QR</strong>
                   <small>Verify payment direction</small>
@@ -329,7 +329,42 @@
             <a href="#" data-action="transactions">View all<i class="fa-solid fa-arrow-right"></i></a>
           </div>
           <div class="transaction-list" id="transactionList">
-            <div class="empty-state">Loading transactions...</div>
+            <div class="transaction-row">
+              <div class="transaction-avatar green-avatar"><i class="fa-solid fa-user"></i></div>
+              <div class="transaction-info">
+                <h4>Aarav Mehta</h4>
+                <p>aarav.mehta@axis</p>
+              </div>
+              <div class="transaction-amount">
+                <strong>₹1,200</strong>
+                <small>Today, 11:42 AM</small>
+              </div>
+              <span class="risk-tag safe-tag">Safe</span>
+            </div>
+            <div class="transaction-row">
+              <div class="transaction-avatar red-avatar"><i class="fa-solid fa-user-slash"></i></div>
+              <div class="transaction-info">
+                <h4>Unknown Receiver</h4>
+                <p>xyz123@upi</p>
+              </div>
+              <div class="transaction-amount">
+                <strong>₹25,000</strong>
+                <small>Yesterday, 6:18 PM</small>
+              </div>
+              <span class="risk-tag blocked-tag">Blocked</span>
+            </div>
+            <div class="transaction-row">
+              <div class="transaction-avatar amber-avatar"><i class="fa-solid fa-cart-shopping"></i></div>
+              <div class="transaction-info">
+                <h4>FreshMart Online</h4>
+                <p>freshmart@okicici</p>
+              </div>
+              <div class="transaction-amount">
+                <strong>₹2,840</strong>
+                <small>Yesterday, 1:05 PM</small>
+              </div>
+              <span class="risk-tag review-tag">Review</span>
+            </div>
           </div>
         </section>
       </section>

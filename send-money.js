@@ -18,6 +18,11 @@ const paymentNoteInput =
 const analyzeButton =
   paymentForm?.querySelector(".analyze-button");
 
+const directPayButton =
+  paymentForm?.querySelector(
+    ".direct-pay-button"
+  );
+
 // ==========================================
 // DISPLAY A MESSAGE
 // ==========================================
@@ -36,10 +41,14 @@ function showPaymentMessage(message, type = "error") {
     messageBox.style.fontSize = "14px";
     messageBox.style.lineHeight = "1.5";
 
-    analyzeButton.insertAdjacentElement(
-      "afterend",
-      messageBox
-    );
+    const paymentActions =
+  document.querySelector(".payment-actions");
+
+(paymentActions || analyzeButton)
+  .insertAdjacentElement(
+    "afterend",
+    messageBox
+  );
   }
 
   messageBox.textContent = message;
@@ -165,6 +174,7 @@ paymentForm?.addEventListener(
       analyzeButton.innerHTML;
 
     analyzeButton.disabled = true;
+    directPayButton.disabled = true;
 
     analyzeButton.innerHTML = `
       <i class="fa-solid fa-spinner fa-spin"></i>
@@ -234,7 +244,165 @@ paymentForm?.addEventListener(
       }
     } finally {
       analyzeButton.disabled = false;
+      directPayButton.disabled = false;
+
       analyzeButton.innerHTML =
+        originalButtonContent;
+    }
+  }
+);
+
+// ==========================================
+// MAKE A DIRECT PAYMENT
+// ==========================================
+
+directPayButton?.addEventListener(
+  "click",
+  async () => {
+    const token = localStorage.getItem(
+      "upiGuardianToken"
+    );
+
+    if (!token) {
+      showPaymentMessage(
+        "Please log in before making a payment."
+      );
+
+      setTimeout(() => {
+        window.location.href = "login.html";
+      }, 1200);
+
+      return;
+    }
+
+    const paymentData = {
+      receiverName:
+        receiverNameInput.value.trim(),
+
+      receiverUpiId:
+        receiverUpiIdInput.value
+          .trim()
+          .toLowerCase(),
+
+      amount:
+        Number(paymentAmountInput.value),
+
+      paymentNote:
+        paymentNoteInput.value.trim(),
+    };
+
+    if (
+      !paymentData.receiverName ||
+      !paymentData.receiverUpiId ||
+      !Number.isFinite(paymentData.amount) ||
+      paymentData.amount <= 0
+    ) {
+      showPaymentMessage(
+        "Please enter the receiver name, UPI ID and payment amount."
+      );
+
+      return;
+    }
+
+    const formattedAmount =
+      new Intl.NumberFormat(
+        "en-IN",
+        {
+          style: "currency",
+          currency: "INR",
+          maximumFractionDigits: 2,
+        }
+      ).format(paymentData.amount);
+
+    const confirmed = window.confirm(
+      `Pay ${formattedAmount} directly to ${paymentData.receiverName}?\n\n` +
+      `UPI ID: ${paymentData.receiverUpiId}\n\n` +
+      "This payment will continue without risk analysis."
+    );
+
+    if (!confirmed) {
+      showPaymentMessage(
+        "Direct payment was not started."
+      );
+
+      return;
+    }
+
+    const originalButtonContent =
+      directPayButton.innerHTML;
+
+    directPayButton.disabled = true;
+    analyzeButton.disabled = true;
+
+    directPayButton.innerHTML = `
+      <i class="fa-solid fa-spinner fa-spin"></i>
+      Processing...
+    `;
+
+    try {
+      const response = await fetch(
+        `${API_BASE_URL}/api/payments/direct`,
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+
+          body: JSON.stringify(paymentData),
+        }
+      );
+
+      const data = await response.json();
+
+      if (response.status === 401) {
+        localStorage.removeItem(
+          "upiGuardianToken"
+        );
+
+        localStorage.removeItem(
+          "upiGuardianUser"
+        );
+
+        throw new Error(
+          "Your session has expired. Please log in again."
+        );
+      }
+
+      if (!response.ok) {
+        throw new Error(
+          data.message ||
+            "Unable to complete the payment."
+        );
+      }
+
+      showPaymentMessage(
+        `Payment successful. Transaction ID: ${data.transaction.transactionReference}`,
+        "success"
+      );
+
+      paymentForm.reset();
+
+      
+    } catch (error) {
+      showPaymentMessage(error.message);
+
+      if (
+        error.message.includes(
+          "session has expired"
+        )
+      ) {
+        setTimeout(() => {
+          window.location.href =
+            "login.html";
+        }, 1200);
+      }
+    } finally {
+      directPayButton.disabled = false;
+      analyzeButton.disabled = false;
+
+      directPayButton.innerHTML =
         originalButtonContent;
     }
   }

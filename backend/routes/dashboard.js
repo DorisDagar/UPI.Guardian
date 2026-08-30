@@ -128,10 +128,12 @@ router.get("/summary", async (req, res) => {
     const transactions = recentResult.rows.map((row) => {
       const isBlocked = row.transaction_status === "blocked";
       const status = isBlocked
-        ? "Blocked"
-        : row.risk_level === "safe"
-          ? "Safe"
-          : "Review";
+  ? "Blocked"
+  : row.risk_level === "safe"
+    ? "Safe"
+    : row.risk_level === "not_analyzed"
+      ? "Not analyzed"
+      : "Review";
 
       return {
         id: row.id,

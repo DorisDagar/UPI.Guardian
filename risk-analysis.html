@@ -951,7 +951,153 @@
                 </div>
 
             </div>
+        <!-- ==========================================
+     PAYMENT DECISION
+=========================================== -->
 
+<section
+  class="payment-decision-card"
+  aria-labelledby="paymentDecisionTitle"
+>
+  <div class="decision-heading">
+
+    <div class="decision-heading-icon">
+      <i class="fa-solid fa-shield-halved"></i>
+    </div>
+
+    <div>
+      <p class="decision-label">
+        YOUR DECISION
+      </p>
+
+      <h2 id="paymentDecisionTitle">
+        What would you like to do?
+      </h2>
+
+      <p>
+        Review the analysis carefully. You remain in control of the final payment decision.
+      </p>
+    </div>
+
+  </div>
+
+
+  <div class="decision-buttons">
+
+    <button
+      class="decision-button cancel-payment-button"
+      id="cancelPaymentButton"
+      type="button"
+    >
+      <i class="fa-solid fa-xmark"></i>
+      Cancel payment
+    </button>
+
+    <button
+      class="decision-button verify-payment-button"
+      id="verifyPaymentButton"
+      type="button"
+    >
+      <i class="fa-solid fa-user-check"></i>
+      Verify receiver
+    </button>
+
+    <button
+      class="decision-button proceed-payment-button"
+      id="proceedPaymentButton"
+      type="button"
+    >
+      Proceed anyway
+      <i class="fa-solid fa-arrow-right"></i>
+    </button>
+
+  </div>
+
+
+  <!-- Receiver verification panel -->
+
+  <div
+    class="receiver-verification-panel"
+    id="receiverVerificationPanel"
+    hidden
+  >
+    <div class="verification-title">
+
+      <div class="verification-icon">
+        <i class="fa-solid fa-user-shield"></i>
+      </div>
+
+      <div>
+        <p class="decision-label">
+          INDEPENDENT VERIFICATION
+        </p>
+
+        <h3>Verify before you proceed</h3>
+      </div>
+
+    </div>
+
+
+    <div class="verification-receiver">
+
+      <span>Receiver</span>
+
+      <strong id="verificationReceiverName">
+        Loading...
+      </strong>
+
+      <small id="verificationReceiverUpiId">
+        Loading...
+      </small>
+
+    </div>
+
+
+    <div class="verification-warning">
+      <i class="fa-solid fa-triangle-exclamation"></i>
+
+      <p id="verificationWarning">
+        UPI Guardian cannot officially verify the receiver’s identity.
+      </p>
+    </div>
+
+
+    <ul
+      class="verification-checklist"
+      id="verificationChecklist"
+    ></ul>
+
+
+    <div class="verification-actions">
+
+      <button
+        class="verification-back-button"
+        id="closeVerificationButton"
+        type="button"
+      >
+        Back to analysis
+      </button>
+
+      <button
+        class="verified-proceed-button"
+        id="verifiedProceedButton"
+        type="button"
+      >
+        <i class="fa-solid fa-circle-check"></i>
+        I verified — Proceed
+      </button>
+
+    </div>
+  </div>
+
+
+  <div
+    class="payment-decision-message"
+    id="paymentDecisionMessage"
+    hidden
+  ></div>
+
+</section>
         </main>
 
     </div>

@@ -1,454 +1,769 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
   <title>Send Money | UPI Guardian</title>
 
-  <link rel="stylesheet" href="send money.css" />
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
 
   <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-  />
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
 
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
     rel="stylesheet"
-  />
+  >
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="send money.css?v=2"
+  >
 </head>
 
 <body>
 
-  <div class="page-layout">
+  <div class="app-layout">
 
-    <!-- Sidebar -->
+    <!-- =========================================
+         SIDEBAR
+    ========================================== -->
+
     <aside class="sidebar">
 
-      <div class="logo-area">
-        <div class="logo-shield">
+      <div class="sidebar-brand">
+
+        <div class="brand-icon">
           <i class="fa-solid fa-shield-halved"></i>
         </div>
 
         <div>
-          <h2>UPI Guardian</h2>
+          <h1>UPI Guardian</h1>
           <p>Explain Before You Pay</p>
         </div>
+
       </div>
 
-      <p class="menu-title">PROTECT</p>
+      <nav class="sidebar-navigation">
 
-      <nav class="sidebar-menu">
+        <p class="navigation-label">
+          Protect
+        </p>
 
-        <a href="dashboard.html" class="menu-item">
+        <a
+          class="navigation-link"
+          href="dashboard.html"
+        >
           <i class="fa-solid fa-chart-pie"></i>
           <span>Dashboard</span>
         </a>
 
-        <a href="send money.html" class="menu-item active">
+        <a
+          class="navigation-link active"
+          href="send%20money.html"
+          aria-current="page"
+        >
           <i class="fa-solid fa-paper-plane"></i>
           <span>Send Money</span>
         </a>
 
-        <a href="#" class="menu-item">
+        <a
+          class="navigation-link"
+          href="scan and pay.html"
+        >
           <i class="fa-solid fa-qrcode"></i>
-          <span>Scan & Pay</span>
+          <span>Scan &amp; Pay</span>
         </a>
 
-        <a href="#" class="menu-item">
+        <a
+          class="navigation-link"
+          href="#"
+        >
           <i class="fa-solid fa-inbox"></i>
           <span>Payment Requests</span>
-          <span class="menu-badge">3</span>
+
+          <span class="navigation-count">
+            3
+          </span>
         </a>
 
-        <a href="#" class="menu-item">
+        <a
+          class="navigation-link"
+          href="#"
+        >
           <i class="fa-solid fa-message"></i>
           <span>Message Analyzer</span>
         </a>
 
-        <a href="#" class="menu-item">
+        <a
+          class="navigation-link"
+          href="#"
+        >
           <i class="fa-solid fa-clock-rotate-left"></i>
           <span>Scam Timeline</span>
         </a>
 
-        <a href="#" class="menu-item">
+        <a
+          class="navigation-link"
+          href="#"
+        >
           <i class="fa-solid fa-life-ring"></i>
           <span>Recovery Mode</span>
         </a>
 
-      </nav>
+        <p class="navigation-label manage-label">
+          Manage
+        </p>
 
-      <p class="menu-title manage-title">MANAGE</p>
-
-      <nav class="sidebar-menu">
-
-        <a href="#" class="menu-item">
+        <a
+          class="navigation-link"
+          href="#"
+        >
           <i class="fa-solid fa-gear"></i>
           <span>Settings</span>
         </a>
 
-        <a href="#" class="menu-item">
+        <a
+          class="navigation-link"
+          href="#"
+        >
           <i class="fa-solid fa-circle-question"></i>
-          <span>Help & Support</span>
+          <span>Help &amp; Support</span>
         </a>
 
       </nav>
 
-      <div class="sidebar-bottom">
+      <div class="sidebar-protection-card">
 
-        <div class="safety-box">
-          <div class="safety-icon">
-            <i class="fa-solid fa-shield-heart"></i>
-          </div>
-
-          <h4>Your safety comes first</h4>
-          <p>Pause. Verify. Then pay.</p>
+        <div class="protection-card-icon">
+          <i class="fa-solid fa-shield"></i>
         </div>
 
-        <div class="profile-box">
-          <div class="profile-avatar">A</div>
-
-          <div>
-            <h4>Arjun Sharma</h4>
-            <p>Personal account</p>
-          </div>
-
-          <i class="fa-solid fa-chevron-down profile-arrow"></i>
+        <div>
+          <strong>Guardian protection</strong>
+          <p>
+            Payment safety checks are ready.
+          </p>
         </div>
 
       </div>
 
     </aside>
 
+    <!-- =========================================
+         MAIN CONTENT
+    ========================================== -->
 
-    <!-- Main Content -->
     <main class="main-content">
+
+      <!-- =======================================
+           TOP BAR
+      ======================================== -->
 
       <header class="topbar">
 
-        <div class="mobile-title">
+        <div class="mobile-brand">
           <i class="fa-solid fa-shield-halved"></i>
-          UPI Guardian
+          <span>UPI Guardian</span>
         </div>
 
-        <div class="topbar-right">
+        <div class="topbar-status">
 
-          <div class="protection-status">
-            <span class="status-dot"></span>
-            Protection active
-          </div>
+          <span class="status-dot"></span>
 
-          <button class="notification-button" type="button">
+          <span>
+            Guardian is monitoring your payment
+          </span>
+
+        </div>
+
+        <div class="topbar-actions">
+
+          <button
+            class="topbar-button"
+            type="button"
+            aria-label="Notifications"
+          >
             <i class="fa-regular fa-bell"></i>
-            <span class="notification-badge">2</span>
           </button>
 
-          <div class="top-profile">
-            <div class="small-avatar">A</div>
-            <span>Arjun</span>
-            <i class="fa-solid fa-chevron-down"></i>
-          </div>
+          <a
+            class="dashboard-button"
+            href="dashboard.html"
+          >
+            <i class="fa-solid fa-arrow-left"></i>
+            <span>Dashboard</span>
+          </a>
 
         </div>
 
       </header>
 
+      <div class="page-container">
 
-      <section class="page-container">
+        <!-- =====================================
+             PAGE INTRODUCTION
+        ====================================== -->
 
-        <!-- Page Heading -->
-        <div class="page-heading">
+        <section class="page-introduction">
 
           <div>
-            <p class="breadcrumb">
-              <a href="dashboard.html">Dashboard</a>
-              <i class="fa-solid fa-chevron-right"></i>
-              Send Money
+
+            <div class="eyebrow">
+              <i class="fa-solid fa-lock"></i>
+              Secure payment workspace
+            </div>
+
+            <h2>
+              Send money with confidence
+            </h2>
+
+            <p>
+              Enter the receiver's details, then choose whether
+              you want to pay directly or analyze the payment first.
             </p>
 
-            <h1>Send money safely</h1>
-
-            <p class="heading-description">
-              Enter the payment details. Guardian will explain the risk before
-              you continue.
-            </p>
           </div>
 
-          <div class="step-indicator">
-            <span class="step active">1</span>
-            <span class="step-line"></span>
-            <span class="step">2</span>
-            <span class="step-line"></span>
-            <span class="step">3</span>
+          <div class="control-reminder">
+
+            <i class="fa-solid fa-hand"></i>
+
+            <div>
+              <strong>You stay in control</strong>
+              <span>
+                Guardian never completes a payment without your decision.
+              </span>
+            </div>
+
           </div>
 
-        </div>
+        </section>
 
+        <!-- =====================================
+             PAYMENT WORKSPACE
+        ====================================== -->
 
-        <!-- Main Send Money Area -->
-        <section class="send-money-grid">
+        <section class="payment-workspace">
 
-          <!-- Payment Form -->
-          <div class="payment-card">
+          <!-- ===================================
+               PAYMENT FORM
+          ==================================== -->
 
-            <div class="card-title">
-              <div class="title-icon blue-icon">
-                <i class="fa-solid fa-paper-plane"></i>
+          <article class="payment-card">
+
+            <div class="card-heading">
+
+              <div class="card-heading-icon">
+                <i class="fa-solid fa-indian-rupee-sign"></i>
               </div>
 
               <div>
-                <p class="small-label">STEP 1 OF 3</p>
-                <h2>Who do you want to pay?</h2>
+                <span>Payment details</span>
+                <h3>Who are you paying?</h3>
               </div>
+
             </div>
 
+            <form id="paymentForm">
 
-            <form class="payment-form" id="paymentForm">
+              <!-- Receiver name -->
 
-              <label>
-                Receiver name
+              <div class="form-group">
 
-                <input
-                  id="receiverName"
-                  name="receiverName"
-                  type="text"
-                  placeholder="Enter receiver name"
-                  autocomplete="name"
-                  maxlength="150"
-                  required
-                />
-              </label>
+                <label for="receiverName">
+                  Receiver name
+                </label>
 
+                <div class="input-control">
 
-              <label>
-                UPI ID
+                  <i class="fa-regular fa-user"></i>
 
-                <span class="input-help">
-                  Example: name@upi
-                </span>
+                  <input
+                    id="receiverName"
+                    name="receiverName"
+                    type="text"
+                    placeholder="Enter receiver's full name"
+                    autocomplete="name"
+                    required
+                  >
 
-                <div class="input-with-icon">
+                </div>
+
+              </div>
+
+              <!-- UPI ID -->
+
+              <div class="form-group">
+
+                <div class="label-row">
+
+                  <label for="receiverUpiId">
+                    Receiver UPI ID
+                  </label>
+
+                  <span class="required-label">
+                    Required
+                  </span>
+
+                </div>
+
+                <div class="input-control">
+
                   <i class="fa-solid fa-at"></i>
 
                   <input
                     id="receiverUpiId"
                     name="receiverUpiId"
                     type="text"
-                    placeholder="receiver@upi"
+                    placeholder="example@upi"
                     autocomplete="off"
-                    maxlength="150"
+                    spellcheck="false"
                     required
-                  />
+                  >
+
                 </div>
-              </label>
 
+                <p class="field-help">
+                  Check every character carefully before continuing.
+                </p>
 
-              <label>
-                Amount
+              </div>
 
-                <div class="amount-input">
-                  <span>₹</span>
+              <!-- Amount -->
+
+              <div class="form-group">
+
+                <label for="paymentAmount">
+                  Amount
+                </label>
+
+                <div class="amount-control">
+
+                  <span class="currency-symbol">
+                    ₹
+                  </span>
 
                   <input
                     id="paymentAmount"
-                    name="amount"
+                    name="paymentAmount"
                     type="number"
-                    placeholder="0.00"
                     min="1"
-                    max="10000000"
                     step="0.01"
+                    placeholder="0"
+                    inputmode="decimal"
                     required
-                  />
+                  >
+
                 </div>
-              </label>
 
+                <div
+                  class="quick-amounts"
+                  aria-label="Quick amount selection"
+                >
 
-              <div class="quick-amounts">
-                <button type="button">₹500</button>
-                <button type="button">₹1,000</button>
-                <button type="button">₹2,000</button>
-                <button type="button">₹5,000</button>
+                  <button
+                    type="button"
+                    data-amount="500"
+                  >
+                    ₹500
+                  </button>
+
+                  <button
+                    type="button"
+                    data-amount="1000"
+                  >
+                    ₹1,000
+                  </button>
+
+                  <button
+                    type="button"
+                    data-amount="2000"
+                  >
+                    ₹2,000
+                  </button>
+
+                  <button
+                    type="button"
+                    data-amount="5000"
+                  >
+                    ₹5,000
+                  </button>
+
+                </div>
+
               </div>
 
+              <!-- Payment note -->
 
-              <label>
-                Payment note
-                <span class="optional">Optional</span>
+              <div class="form-group">
 
-                <input
-                  id="paymentNote"
-                  name="paymentNote"
-                  type="text"
-                  placeholder="What is this payment for?"
-                  maxlength="500"
-                />
-              </label>
+                <div class="label-row">
 
+                  <label for="paymentNote">
+                    Payment note
+                  </label>
 
-              <div class="security-note">
-                <i class="fa-solid fa-lock"></i>
+                  <span class="optional-label">
+                    Optional
+                  </span>
+
+                </div>
+
+                <div class="input-control">
+
+                  <i class="fa-regular fa-note-sticky"></i>
+
+                  <input
+                    id="paymentNote"
+                    name="paymentNote"
+                    type="text"
+                    maxlength="200"
+                    placeholder="Example: Rent, dinner or invoice"
+                    autocomplete="off"
+                  >
+
+                </div>
+
+              </div>
+
+              <!-- Security reminder -->
+
+              <div class="pin-warning">
+
+                <div class="pin-warning-icon">
+                  <i class="fa-solid fa-lock"></i>
+                </div>
+
+                <div>
+                  <strong>Never enter your UPI PIN here</strong>
+
+                  <p>
+                    Guardian will never ask for your UPI PIN,
+                    OTP or banking password.
+                  </p>
+                </div>
+
+              </div>
+
+              <!-- Payment choice -->
+
+              <div class="decision-heading">
+
+                <span>Choose how to continue</span>
 
                 <p>
-                  Never enter your UPI PIN here. Guardian will never ask for
-                  your PIN.
+                  Both choices use the same payment details above.
                 </p>
+
               </div>
 
+              <!--
+                IMPORTANT:
+                These two existing button classes are preserved
+                because send-money.js uses them.
+              -->
 
-              <button class="analyze-button" type="submit">
-                Analyze payment
-                <i class="fa-solid fa-arrow-right"></i>
-              </button>
+              <div class="payment-actions">
+
+                <button
+                  class="direct-pay-button"
+                  type="button"
+                >
+                  <span class="action-button-icon">
+                    <i class="fa-solid fa-bolt"></i>
+                  </span>
+
+                  <span class="action-button-text">
+                    <strong>Pay directly</strong>
+                    <small>Skip the risk analysis</small>
+                  </span>
+                </button>
+
+                <button
+                  class="analyze-button"
+                  type="submit"
+                >
+                  <span class="action-button-icon">
+                    <i class="fa-solid fa-shield-halved"></i>
+                  </span>
+
+                  <span class="action-button-text">
+                    <strong>Analyze before paying</strong>
+                    <small>Recommended by Guardian</small>
+                  </span>
+
+                  <i class="fa-solid fa-arrow-right action-arrow"></i>
+                </button>
+
+              </div>
+
+              <p class="payment-choice-note">
+
+                <i class="fa-solid fa-circle-info"></i>
+
+                Risk analysis helps you understand possible
+                warning signs before paying.
+
+              </p>
 
             </form>
 
-          </div>
+          </article>
 
+          <!-- ===================================
+               GUARDIAN INFORMATION PANEL
+          ==================================== -->
 
-          <!-- Right Information Panel -->
-          <aside class="safety-panel">
+          <aside class="guardian-panel">
 
-            <div class="safety-panel-heading">
-              <p class="small-label">BEFORE YOU PAY</p>
-              <h2>Guardian checks the context.</h2>
+            <div class="guardian-panel-top">
+
+              <span class="guardian-badge">
+                <i class="fa-solid fa-sparkles"></i>
+                Guardian preflight
+              </span>
+
+              <div class="guardian-visual">
+
+                <div class="guardian-shield">
+                  <i class="fa-solid fa-shield-halved"></i>
+                </div>
+
+                <span class="guardian-orbit orbit-one"></span>
+                <span class="guardian-orbit orbit-two"></span>
+                <span class="guardian-orbit orbit-three"></span>
+
+              </div>
+
+              <h3>
+                A quick check can prevent a costly mistake
+              </h3>
 
               <p>
-                A payment is more than just an amount. We look at the complete
-                picture before showing you the next step.
+                If you analyze first, Guardian combines transaction
+                history, safety rules and AI payment-context analysis.
               </p>
+
             </div>
 
+            <div class="analysis-preview">
 
-            <div class="payment-visual">
-              <img
-                src="img/protect.png"
-                alt="Payment protected by UPI Guardian"
-              />
-            </div>
+              <div class="preview-item">
 
+                <div class="preview-icon blue">
+                  <i class="fa-solid fa-user-check"></i>
+                </div>
 
-            <div class="check-list">
+                <div>
+                  <strong>Receiver patterns</strong>
+                  <span>
+                    Checks whether the receiver appears unusual.
+                  </span>
+                </div>
 
-              <div class="check-item">
-                <span class="check-icon">
-                  <i class="fa-solid fa-user"></i>
-                </span>
+                <i class="fa-solid fa-check preview-check"></i>
 
-                <span>
-                  <strong>Receiver context</strong>
-                  <small>Is this a new or unfamiliar UPI ID?</small>
-                </span>
               </div>
 
+              <div class="preview-item">
 
-              <div class="check-item">
-                <span class="check-icon">
+                <div class="preview-icon violet">
                   <i class="fa-solid fa-chart-line"></i>
-                </span>
+                </div>
 
-                <span>
-                  <strong>Amount pattern</strong>
-                  <small>Is this amount unusual for you?</small>
-                </span>
+                <div>
+                  <strong>Transaction history</strong>
+                  <span>
+                    Compares the payment with your previous activity.
+                  </span>
+                </div>
+
+                <i class="fa-solid fa-check preview-check"></i>
+
               </div>
 
+              <div class="preview-item">
 
-              <div class="check-item">
-                <span class="check-icon">
-                  <i class="fa-solid fa-circle-info"></i>
-                </span>
+                <div class="preview-icon green">
+                  <i class="fa-solid fa-brain"></i>
+                </div>
 
-                <span>
-                  <strong>Clear explanation</strong>
-                  <small>See why a payment may need attention.</small>
-                </span>
+                <div>
+                  <strong>Payment context</strong>
+                  <span>
+                    Examines the reason and context behind the payment.
+                  </span>
+                </div>
+
+                <i class="fa-solid fa-check preview-check"></i>
+
               </div>
 
             </div>
 
+            <div class="analysis-flow">
 
-            <div class="control-message">
-              <i class="fa-solid fa-hand-pointer"></i>
+              <p class="analysis-flow-label">
+                If you analyze first
+              </p>
 
-              <div>
-                <strong>You stay in control</strong>
+              <div class="flow-steps">
 
-                <p>
-                  Guardian explains the risk. You decide whether to verify,
-                  cancel or continue.
-                </p>
+                <div class="flow-step active">
+                  <span>1</span>
+                  <small>Details</small>
+                </div>
+
+                <div class="flow-line"></div>
+
+                <div class="flow-step">
+                  <span>2</span>
+                  <small>Analysis</small>
+                </div>
+
+                <div class="flow-line"></div>
+
+                <div class="flow-step">
+                  <span>3</span>
+                  <small>Decision</small>
+                </div>
+
               </div>
+
+            </div>
+
+            <div class="guardian-tip">
+
+              <i class="fa-solid fa-lightbulb"></i>
+
+              <p>
+                <strong>Guardian tip:</strong>
+                Verify the receiver through a trusted channel
+                whenever a payment feels urgent or unexpected.
+              </p>
+
             </div>
 
           </aside>
 
         </section>
 
+        <!-- =====================================
+             RECENT RECEIVERS
+        ====================================== -->
 
-        <!-- Recent Receiver Section -->
         <section class="recent-section">
 
           <div class="section-heading">
+
             <div>
-              <p class="small-label">YOUR PAYMENT HISTORY</p>
-              <h2>Recent receivers</h2>
+              <span>Quick access</span>
+              <h3>Recent receivers</h3>
             </div>
 
-            <a href="#">
-              View all
-              <i class="fa-solid fa-arrow-right"></i>
-            </a>
-          </div>
+            <p>
+              Select a receiver to fill their details automatically.
+            </p>
 
+          </div>
 
           <div class="receiver-grid">
 
-            <div class="receiver-card">
-              <div class="receiver-avatar green-avatar">AM</div>
+            <!--
+              IMPORTANT:
+              receiver-card, h3 and p are preserved
+              because send-money.js reads them.
+            -->
 
-              <div>
-                <h3>Aarav Mehta</h3>
-                <p>aarav.mehta@axis</p>
-              </div>
+            <button
+              class="receiver-card"
+              type="button"
+            >
 
-              <i class="fa-solid fa-chevron-right"></i>
-            </div>
+              <span class="receiver-avatar receiver-purple">
+                A
+              </span>
 
+              <span class="receiver-details">
+                <h3>Arjun Mehta</h3>
+                <p>arjun@upi</p>
+              </span>
 
-            <div class="receiver-card">
-              <div class="receiver-avatar purple-avatar">FM</div>
+              <span class="receiver-arrow">
+                <i class="fa-solid fa-arrow-right"></i>
+              </span>
 
-              <div>
-                <h3>FreshMart Online</h3>
-                <p>freshmart@okicici</p>
-              </div>
+            </button>
 
-              <i class="fa-solid fa-chevron-right"></i>
-            </div>
+            <button
+              class="receiver-card"
+              type="button"
+            >
 
+              <span class="receiver-avatar receiver-blue">
+                P
+              </span>
 
-            <div class="receiver-card">
-              <div class="receiver-avatar blue-avatar">RK</div>
+              <span class="receiver-details">
+                <h3>Priya Sharma</h3>
+                <p>priya@upi</p>
+              </span>
 
-              <div>
-                <h3>Riya Kapoor</h3>
-                <p>riya.k@hdfcbank</p>
-              </div>
+              <span class="receiver-arrow">
+                <i class="fa-solid fa-arrow-right"></i>
+              </span>
 
-              <i class="fa-solid fa-chevron-right"></i>
-            </div>
+            </button>
+
+            <button
+              class="receiver-card"
+              type="button"
+            >
+
+              <span class="receiver-avatar receiver-green">
+                R
+              </span>
+
+              <span class="receiver-details">
+                <h3>Rahul Verma</h3>
+                <p>rahul@upi</p>
+              </span>
+
+              <span class="receiver-arrow">
+                <i class="fa-solid fa-arrow-right"></i>
+              </span>
+
+            </button>
 
           </div>
 
         </section>
 
-      </section>
+      </div>
 
     </main>
 
   </div>
 
-  <script src="./send-money.js?v=1"></script>
+  <!-- Keep the existing JavaScript functionality unchanged. -->
+  <script src="./send-money.js?v=2"></script>
+
 </body>
 </html>

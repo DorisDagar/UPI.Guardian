@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scan & Pay | UPI Guardian</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="scan and pay.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <a class="brand" href="../dashboard.html">
+        <span class="brand-icon"><i class="fa-solid fa-shield-halved"></i></span>
+        <span>UPI <b>Guardian</b></span>
+      </a>
+      <div class="topbar-right">
+        <span class="protection"><i class="fa-solid fa-circle-check"></i> Protection Active</span>
+        <a href="../dashboard.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Dashboard</a>
+      </div>
+    </header>
+
+    <main class="main">
+      <section class="hero">
+        <div>
+          <div class="eyebrow"><i class="fa-solid fa-qrcode"></i> PRE-PAYMENT PROTECTION</div>
+          <h1>Scan & <span>Pay</span></h1>
+          <p>Scan a UPI QR before you pay. UPI Guardian extracts the payment details, understands the intent, checks your transaction pattern and explains the risk before money leaves your account.</p>
+        </div>
+        <div class="guardian-chip">
+          <i class="fa-solid fa-shield-heart"></i>
+          <div><strong>Explain Before You Pay</strong><small>AI + transaction-history protection</small></div>
+        </div>
+      </section>
+
+      <section class="scan-options">
+        <button class="option-card primary" id="scanBtn">
+          <span class="option-icon"><i class="fa-solid fa-camera"></i></span>
+          <span class="option-text"><strong>Scan QR</strong><small>Use your camera to scan a UPI QR</small></span>
+          <i class="fa-solid fa-chevron-right arrow"></i>
+        </button>
+
+        <button class="option-card" id="uploadBtn">
+          <span class="option-icon"><i class="fa-solid fa-cloud-arrow-up"></i></span>
+          <span class="option-text"><strong>Upload QR</strong><small>Upload a QR screenshot or image</small></span>
+          <i class="fa-solid fa-chevron-right arrow"></i>
+        </button>
+
+        <button class="option-card demo" id="demoBtn">
+          <span class="option-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></span>
+          <span class="option-text"><strong>Try Demo</strong><small>Test the complete risk-analysis flow</small></span>
+          <span class="demo-badge">DEMO</span>
+        </button>
+      </section>
+
+      <input type="file" id="qrFile" accept="image/*" hidden>
+
+      <section class="workspace">
+        <div class="empty-state" id="emptyState">
+          <div class="qr-visual"><i class="fa-solid fa-qrcode"></i></div>
+          <h2>Ready to check a QR?</h2>
+          <p>Choose <b>Scan QR</b>, upload a QR image, or use <b>Try Demo</b>. Nothing is paid from this page.</p>
+          <div class="safe-points">
+            <span><i class="fa-solid fa-check"></i> Extract receiver</span>
+            <span><i class="fa-solid fa-check"></i> Understand intent</span>
+            <span><i class="fa-solid fa-check"></i> Compare amount</span>
+            <span><i class="fa-solid fa-check"></i> Explain risk</span>
+          </div>
+        </div>
+
+        <div class="analysis-layout hidden" id="analysisLayout">
+          <div class="left-column">
+            <div class="card extracted-card">
+              <div class="card-heading">
+                <div><span class="section-label">QR EXTRACTED</span><h2>Payment details</h2></div>
+                <span class="verified-pill"><i class="fa-solid fa-bolt"></i> Decoded</span>
+              </div>
+
+              <div class="receiver-block">
+                <div class="receiver-avatar" id="receiverAvatar">?</div>
+                <div><small>Payee</small><h3 id="receiverName">Unknown receiver</h3><p id="receiverUpi">—</p></div>
+              </div>
+
+              <div class="detail-grid">
+                <div class="detail"><span>Amount in QR</span><strong id="qrAmount">Not specified</strong></div>
+                <div class="detail"><span>Payment intent / note</span><strong id="qrNote">No note provided</strong></div>
+                <div class="detail"><span>QR type</span><strong id="qrType">UPI payment</strong></div>
+                <div class="detail"><span>Source</span><strong id="qrSource">QR image</strong></div>
+              </div>
+
+              <div class="amount-entry">
+                <label for="payAmount">Amount you want to pay</label>
+                <div class="amount-input">
+                  <span>₹</span><input id="payAmount" type="number" min="1" step="0.01" placeholder="Enter amount">
+                </div>
+                <small id="amountHint">If the QR does not contain a fixed amount, enter the amount before analysis.</small>
+              </div>
+
+              <button class="analyze-btn" id="analyzeBtn"><i class="fa-solid fa-shield-halved"></i> Analyze Before Paying</button>
+              <div class="error-box hidden" id="errorBox"></div>
+            </div>
+
+            <div class="card intent-card">
+              <div class="card-heading"><div><span class="section-label">WHAT DOES THIS QR REQUEST?</span><h2>Payment intent</h2></div><i class="fa-solid fa-brain heading-icon"></i></div>
+              <p id="intentText">AI will explain the likely purpose of this payment after analysis.</p>
+              <div class="signal-list" id="signalList"></div>
+            </div>
+          </div>
+
+          <div class="right-column">
+            <div class="card risk-card" id="riskCard">
+              <div class="risk-top">
+                <div><span class="section-label">GUARDIAN VERDICT</span><h2 id="riskTitle">Waiting for analysis</h2></div>
+                <div class="risk-score" id="riskScore">—</div>
+              </div>
+              <div class="risk-meter"><span id="riskMeter"></span></div>
+              <p class="risk-summary" id="riskSummary">Analyze the payment to see how UPI Guardian evaluates it.</p>
+              <div class="risk-reasons" id="riskReasons"></div>
+            </div>
+
+            <div class="card history-card">
+              <div class="card-heading"><div><span class="section-label">YOUR TRANSACTION PATTERN</span><h2>Amount comparison</h2></div><i class="fa-solid fa-chart-line heading-icon"></i></div>
+              <div class="range-box">
+                <div class="range-value"><span>Typical amount range</span><strong id="usualRange">—</strong></div>
+                <div class="range-track"><span id="rangeMarker"></span></div>
+                <div class="range-labels"><span>Lower</span><span>Higher</span></div>
+              </div>
+              <div class="comparison-grid">
+                <div><span>Your amount</span><strong id="comparisonAmount">—</strong></div>
+                <div><span>Recent average</span><strong id="comparisonAverage">—</strong></div>
+                <div><span>Transactions checked</span><strong id="comparisonCount">—</strong></div>
+                <div><span>vs. your average</span><strong id="comparisonRatio">—</strong></div>
+              </div>
+              <div class="history-note" id="historyNote"><i class="fa-solid fa-database"></i> The comparison uses your authenticated transaction history.</div>
+            </div>
+
+            <div class="card action-card hidden" id="actionCard">
+              <div class="action-warning"><i class="fa-solid fa-triangle-exclamation"></i><div><strong>Pause before paying</strong><p id="actionText">Review the explanation and verify the receiver independently.</p></div></div>
+              <div class="action-buttons">
+                <button class="secondary-btn" id="rescanBtn"><i class="fa-solid fa-rotate"></i> Scan Another</button>
+                <button class="danger-btn hidden" id="blockBtn"><i class="fa-solid fa-hand"></i> Don't Pay</button>
+                <button class="safe-btn hidden" id="proceedBtn"><i class="fa-solid fa-arrow-right"></i> Continue to Payment</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal hidden" id="cameraModal">
+    <div class="modal-panel">
+      <div class="modal-header"><div><span class="section-label">LIVE SCANNER</span><h2>Scan UPI QR</h2></div><button id="closeCamera" class="close-btn"><i class="fa-solid fa-xmark"></i></button></div>
+      <div class="camera-wrap">
+        <video id="cameraVideo" autoplay playsinline></video>
+        <div class="scan-frame"><span></span><span></span><span></span><span></span></div>
+        <canvas id="cameraCanvas" hidden></canvas>
+      </div>
+      <p id="cameraStatus">Point your camera at a UPI QR code.</p>
+    </div>
+  </div>
+
+  <div class="modal hidden" id="demoModal">
+    <div class="modal-panel demo-panel">
+      <div class="modal-header"><div><span class="section-label">UPI GUARDIAN DEMO</span><h2>Sample QR</h2></div><button id="closeDemo" class="close-btn"><i class="fa-solid fa-xmark"></i></button></div>
+      <div id="demoQr" class="demo-qr"></div>
+      <div class="demo-details"><strong>Prize Claims Desk</strong><span>claim-prize@upi</span><span>₹9,999 · "Refund verification"</span></div>
+      <button class="analyze-btn" id="useDemoBtn"><i class="fa-solid fa-shield-halved"></i> Analyze This Demo</button>
+    </div>
+  </div>
+
+  <div class="toast hidden" id="toast"></div>
+  <script src="scan and pay.js"></script>
+</body>
+</html>

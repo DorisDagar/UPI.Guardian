@@ -863,3 +863,431 @@ function escapeHtml(value) {
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
 }
+
+// ==========================================
+// PAYMENT DECISION ACTIONS
+// ==========================================
+
+document.addEventListener(
+  "DOMContentLoaded",
+  setupPaymentDecisionActions
+);
+
+
+function setupPaymentDecisionActions() {
+  const cancelButton =
+    document.getElementById(
+      "cancelPaymentButton"
+    );
+
+  const verifyButton =
+    document.getElementById(
+      "verifyPaymentButton"
+    );
+
+  const proceedButton =
+    document.getElementById(
+      "proceedPaymentButton"
+    );
+
+  const verifiedProceedButton =
+    document.getElementById(
+      "verifiedProceedButton"
+    );
+
+  const closeVerificationButton =
+    document.getElementById(
+      "closeVerificationButton"
+    );
+
+  const verificationPanel =
+    document.getElementById(
+      "receiverVerificationPanel"
+    );
+
+  if (
+    !cancelButton ||
+    !verifyButton ||
+    !proceedButton ||
+    !verifiedProceedButton ||
+    !closeVerificationButton ||
+    !verificationPanel
+  ) {
+    return;
+  }
+
+
+  // ========================================
+  // CANCEL PAYMENT
+  // ========================================
+
+  cancelButton.addEventListener(
+    "click",
+    async () => {
+      const confirmed = window.confirm(
+        "Cancel this payment?\n\nNo payment will be made."
+      );
+
+      if (!confirmed) {
+        return;
+      }
+
+      await completePaymentDecision({
+        decision: "cancel",
+        receiverVerified: false,
+        loadingButton: cancelButton,
+        loadingText: "Cancelling...",
+      });
+    }
+  );
+
+
+  // ========================================
+  // PROCEED WITHOUT VERIFICATION
+  // ========================================
+
+  proceedButton.addEventListener(
+    "click",
+    async () => {
+      const confirmed = window.confirm(
+        "Proceed with this payment?\n\n" +
+        "You are choosing to continue after reviewing the risk analysis."
+      );
+
+      if (!confirmed) {
+        return;
+      }
+
+      await completePaymentDecision({
+        decision: "proceed",
+        receiverVerified: false,
+        loadingButton: proceedButton,
+        loadingText: "Processing...",
+      });
+    }
+  );
+
+
+  // ========================================
+  // OPEN VERIFICATION PANEL
+  // ========================================
+
+  verifyButton.addEventListener(
+    "click",
+    async () => {
+      const originalContent =
+        verifyButton.innerHTML;
+
+      setDecisionButtonsDisabled(true);
+
+      verifyButton.innerHTML = `
+        <i class="fa-solid fa-spinner fa-spin"></i>
+        Loading...
+      `;
+
+      try {
+        const data =
+          await requestPaymentDecision(
+            "verify",
+            false
+          );
+
+        const verification =
+          data.verification || {};
+
+        document.getElementById(
+          "verificationReceiverName"
+        ).textContent =
+          verification.receiverName ||
+          "Receiver";
+
+        document.getElementById(
+          "verificationReceiverUpiId"
+        ).textContent =
+          verification.receiverUpiId ||
+          "UPI ID unavailable";
+
+        document.getElementById(
+          "verificationWarning"
+        ).textContent =
+          verification.warning ||
+          "Verify the receiver using an independent trusted source.";
+
+        const checklist =
+          document.getElementById(
+            "verificationChecklist"
+          );
+
+        const checks =
+          Array.isArray(verification.checks)
+            ? verification.checks
+            : [];
+
+        checklist.innerHTML = checks
+          .map(
+            (check) =>
+              `<li>${escapeHtml(check)}</li>`
+          )
+          .join("");
+
+        verificationPanel.hidden = false;
+
+        showPaymentDecisionMessage(
+          "Verification does not make the payment. Confirm the receiver independently, then choose whether to proceed.",
+          "info"
+        );
+
+        verificationPanel.scrollIntoView({
+          behavior: "smooth",
+          block: "nearest",
+        });
+      } catch (error) {
+        showPaymentDecisionMessage(
+          error.message,
+          "error"
+        );
+      } finally {
+        verifyButton.innerHTML =
+          originalContent;
+
+        setDecisionButtonsDisabled(false);
+      }
+    }
+  );
+
+
+  // ========================================
+  // VERIFIED AND PROCEED
+  // ========================================
+
+  verifiedProceedButton.addEventListener(
+    "click",
+    async () => {
+      const confirmed = window.confirm(
+        "Have you independently confirmed the receiver name, UPI ID and payment purpose?"
+      );
+
+      if (!confirmed) {
+        return;
+      }
+
+      await completePaymentDecision({
+        decision: "proceed",
+        receiverVerified: true,
+        loadingButton:
+          verifiedProceedButton,
+        loadingText: "Processing...",
+      });
+    }
+  );
+
+
+  // ========================================
+  // CLOSE VERIFICATION PANEL
+  // ========================================
+
+  closeVerificationButton.addEventListener(
+    "click",
+    () => {
+      verificationPanel.hidden = true;
+
+      showPaymentDecisionMessage(
+        "No decision has been made yet.",
+        "info"
+      );
+    }
+  );
+}
+
+
+// ==========================================
+// SEND DECISION TO BACKEND
+// ==========================================
+
+async function requestPaymentDecision(
+  decision,
+  receiverVerified
+) {
+  const params =
+    new URLSearchParams(
+      window.location.search
+    );
+
+  const analysisId =
+    params.get("analysisId");
+
+  const token =
+    localStorage.getItem(
+      "upiGuardianToken"
+    );
+
+  if (!analysisId) {
+    throw new Error(
+      "Analysis ID is missing. Please analyze the payment again."
+    );
+  }
+
+  if (!token) {
+    throw new Error(
+      "Your login session was not found. Please log in again."
+    );
+  }
+
+  const response = await fetch(
+    `${API_BASE_URL}/api/payments/analysis/${encodeURIComponent(
+      analysisId
+    )}/decision`,
+    {
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+
+      body: JSON.stringify({
+        decision,
+        receiverVerified,
+      }),
+    }
+  );
+
+  const data = await response.json();
+
+  if (response.status === 401) {
+    localStorage.removeItem(
+      "upiGuardianToken"
+    );
+
+    localStorage.removeItem(
+      "upiGuardianUser"
+    );
+
+    setTimeout(() => {
+      window.location.href =
+        "login.html";
+    }, 1000);
+
+    throw new Error(
+      "Your session has expired. Please log in again."
+    );
+  }
+
+  if (!response.ok) {
+    throw new Error(
+      data.message ||
+        "Unable to process your decision."
+    );
+  }
+
+  return data;
+}
+
+
+// ==========================================
+// COMPLETE PROCEED OR CANCEL
+// ==========================================
+
+async function completePaymentDecision({
+  decision,
+  receiverVerified,
+  loadingButton,
+  loadingText,
+}) {
+  const originalContent =
+    loadingButton.innerHTML;
+
+  setDecisionButtonsDisabled(true);
+
+  loadingButton.innerHTML = `
+    <i class="fa-solid fa-spinner fa-spin"></i>
+    ${loadingText}
+  `;
+
+  try {
+    const data =
+      await requestPaymentDecision(
+        decision,
+        receiverVerified
+      );
+
+    const verificationPanel =
+      document.getElementById(
+        "receiverVerificationPanel"
+      );
+
+    if (verificationPanel) {
+      verificationPanel.hidden = true;
+    }
+
+    showPaymentDecisionMessage(
+      data.message ||
+        "Your payment decision was recorded.",
+      "success"
+    );
+
+    // Keep all buttons disabled because the
+    // final decision has now been recorded.
+    setDecisionButtonsDisabled(true);
+  } catch (error) {
+    showPaymentDecisionMessage(
+      error.message,
+      "error"
+    );
+
+    setDecisionButtonsDisabled(false);
+  } finally {
+    loadingButton.innerHTML =
+      originalContent;
+  }
+}
+
+
+// ==========================================
+// ENABLE OR DISABLE DECISION BUTTONS
+// ==========================================
+
+function setDecisionButtonsDisabled(
+  disabled
+) {
+  [
+    "cancelPaymentButton",
+    "verifyPaymentButton",
+    "proceedPaymentButton",
+    "verifiedProceedButton",
+    "closeVerificationButton",
+  ].forEach((id) => {
+    const button =
+      document.getElementById(id);
+
+    if (button) {
+      button.disabled = disabled;
+    }
+  });
+}
+
+
+// ==========================================
+// DISPLAY DECISION MESSAGE
+// ==========================================
+
+function showPaymentDecisionMessage(
+  message,
+  type
+) {
+  const messageBox =
+    document.getElementById(
+      "paymentDecisionMessage"
+    );
+
+  if (!messageBox) {
+    return;
+  }
+
+  messageBox.hidden = false;
+
+  messageBox.className =
+    `payment-decision-message ${type}`;
+
+  messageBox.textContent = message;
+}
