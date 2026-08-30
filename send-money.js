@@ -608,6 +608,11 @@ directPayButton?.addEventListener(
         "success"
       );
 
+      localStorage.setItem(
+        "upiGuardianDashboardNeedsRefresh",
+        "true"
+      );
+
       paymentForm.reset();
 
       

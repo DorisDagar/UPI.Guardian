@@ -10,6 +10,12 @@ const API_BASE_URL =
     ? ""
     : "http://localhost:5000";
 
+const DASHBOARD_REFRESH_KEY =
+  "upiGuardianDashboardNeedsRefresh";
+
+let dashboardIsInitializing = false;
+let dashboardRefreshPromise = null;
+
 
 // ======================================================
 // STATE
@@ -1586,6 +1592,8 @@ function handleAction(action) {
 // ======================================================
 
 async function initializeDashboard() {
+  dashboardIsInitializing = true;
+
   updateDate();
 
   const cachedUser =
@@ -1630,6 +1638,10 @@ async function initializeDashboard() {
       dashboard;
 
     renderDashboard();
+
+    localStorage.removeItem(
+      DASHBOARD_REFRESH_KEY
+    );
   } catch (error) {
     if (
       error.message !==
@@ -1639,8 +1651,75 @@ async function initializeDashboard() {
         error.message
       );
     }
+  } finally {
+    dashboardIsInitializing = false;
   }
 }
+
+
+// ======================================================
+// REFRESH DASHBOARD AFTER A PAYMENT
+// ======================================================
+
+async function refreshDashboardIfNeeded() {
+  if (
+    dashboardIsInitializing ||
+    document.visibilityState === "hidden" ||
+    localStorage.getItem(
+      DASHBOARD_REFRESH_KEY
+    ) !== "true"
+  ) {
+    return;
+  }
+
+  if (dashboardRefreshPromise) {
+    return dashboardRefreshPromise;
+  }
+
+  dashboardRefreshPromise = (async () => {
+    try {
+      const dashboard = await api(
+        "/api/dashboard/summary"
+      );
+
+      state.dashboard = dashboard;
+      renderDashboard();
+
+      localStorage.removeItem(
+        DASHBOARD_REFRESH_KEY
+      );
+    } catch (error) {
+      if (
+        error.message !== "Session expired"
+      ) {
+        showToast(error.message);
+      }
+    } finally {
+      dashboardRefreshPromise = null;
+    }
+  })();
+
+  return dashboardRefreshPromise;
+}
+
+window.addEventListener(
+  "pageshow",
+  refreshDashboardIfNeeded
+);
+
+document.addEventListener(
+  "visibilitychange",
+  () => {
+    if (document.visibilityState === "visible") {
+      refreshDashboardIfNeeded();
+    }
+  }
+);
+
+window.addEventListener(
+  "focus",
+  refreshDashboardIfNeeded
+);
 
 
 // ======================================================

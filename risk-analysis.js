@@ -1333,6 +1333,11 @@ async function completePaymentDecision({
     }
 
     if (decision === "proceed") {
+      localStorage.setItem(
+        "upiGuardianDashboardNeedsRefresh",
+        "true"
+      );
+
       showPaymentSuccessPopup(
         data.message ||
           "Payment completed successfully.",
