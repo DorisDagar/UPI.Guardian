@@ -807,254 +807,6 @@ function closeModal() {
 
 
 // ======================================================
-// MESSAGE ANALYZER
-// ======================================================
-
-function openMessageAnalyzer() {
-  openModal(
-    "Scam Message Analyzer",
-    "message",
-    `
-      <p>
-        Paste an SMS or WhatsApp message.
-        Guardian checks common scam patterns
-        locally through the Express API.
-      </p>
-
-      <form
-        class="modal-form"
-        id="messageForm"
-      >
-
-        <label for="messageText">
-          Suspicious message
-        </label>
-
-        <textarea
-          id="messageText"
-          rows="6"
-          placeholder="Example: Your KYC expires today. Click this link immediately..."
-          required
-        ></textarea>
-
-        <button
-          class="modal-primary"
-          type="submit"
-        >
-          Analyze message
-        </button>
-
-      </form>
-
-      <div id="messageResult"></div>
-    `
-  );
-
-  document
-    .getElementById(
-      "messageForm"
-    )
-    ?.addEventListener(
-      "submit",
-      async (event) => {
-        event.preventDefault();
-
-        const button =
-          event.currentTarget.querySelector(
-            "button"
-          );
-
-        button.disabled =
-          true;
-
-        button.textContent =
-          "Analyzing...";
-
-        try {
-          const data =
-            await api(
-              "/api/dashboard/analyze-message",
-              {
-                method: "POST",
-
-                body:
-                  JSON.stringify({
-                    message:
-                      document.getElementById(
-                        "messageText"
-                      ).value,
-                  }),
-              }
-            );
-
-          const result =
-            data.analysis;
-
-          document.getElementById(
-            "messageResult"
-          ).innerHTML = `
-            <div class="result-panel ${result.risk.toLowerCase()}">
-
-              <strong>
-                ${escapeHtml(
-                  result.risk
-                )}
-                risk ·
-                ${result.score}/100
-              </strong>
-
-              ${
-                result.signals.length
-                  ? `
-                      <ul>
-                        ${result.signals
-                          .map(
-                            (signal) => `
-                              <li>
-                                ${escapeHtml(
-                                  signal
-                                )}
-                              </li>
-                            `
-                          )
-                          .join("")}
-                      </ul>
-                    `
-                  : `
-                      <p>
-                        No strong scam phrases detected.
-                      </p>
-                    `
-              }
-
-              <p>
-                ${escapeHtml(
-                  result.advice
-                )}
-              </p>
-
-            </div>
-          `;
-        } catch (error) {
-          showToast(
-            error.message
-          );
-        } finally {
-          button.disabled =
-            false;
-
-          button.textContent =
-            "Analyze message";
-        }
-      }
-    );
-}
-
-
-// ======================================================
-// OLD SCAN CHECK MODAL
-// ======================================================
-
-function openScanCheck() {
-  openModal(
-    "Scan & Pay Check",
-    "qrcode",
-    `
-      <p>
-        Enter the UPI ID encoded in a QR
-        to perform a quick naming-risk
-        check before paying.
-      </p>
-
-      <form
-        class="modal-form"
-        id="upiCheckForm"
-      >
-
-        <label for="upiIdInput">
-          Receiver UPI ID
-        </label>
-
-        <input
-          id="upiIdInput"
-          placeholder="receiver@bank"
-          autocomplete="off"
-          required
-        >
-
-        <button
-          class="modal-primary"
-          type="submit"
-        >
-          Check receiver
-        </button>
-
-      </form>
-
-      <div id="upiResult"></div>
-    `
-  );
-
-  document
-    .getElementById(
-      "upiCheckForm"
-    )
-    ?.addEventListener(
-      "submit",
-      async (event) => {
-        event.preventDefault();
-
-        try {
-          const data =
-            await api(
-              "/api/dashboard/check-upi",
-              {
-                method: "POST",
-
-                body:
-                  JSON.stringify({
-                    upiId:
-                      document.getElementById(
-                        "upiIdInput"
-                      ).value,
-                  }),
-              }
-            );
-
-          const result =
-            data.result;
-
-          document.getElementById(
-            "upiResult"
-          ).innerHTML = `
-            <div class="result-panel ${result.risk.toLowerCase()}">
-
-              <strong>
-                ${escapeHtml(
-                  result.risk
-                )}
-                naming risk
-              </strong>
-
-              <p>
-                ${escapeHtml(
-                  result.explanation
-                )}
-              </p>
-
-            </div>
-          `;
-        } catch (error) {
-          showToast(
-            error.message
-          );
-        }
-      }
-    );
-}
-
-
-// ======================================================
 // PAYMENT REQUESTS
 // ======================================================
 
@@ -1147,6 +899,10 @@ function openRequests() {
         return;
       }
 
+      const requests =
+        state.dashboard
+          ?.paymentRequests || [];
+
       modalBody.innerHTML = `
         <p>
           Review the sender and risk
@@ -1155,12 +911,17 @@ function openRequests() {
 
         <div class="request-list">
           ${
-            state.dashboard
-              .paymentRequests
-              .map(
-                requestMarkup
-              )
-              .join("")
+            requests.length
+              ? requests
+                  .map(
+                    requestMarkup
+                  )
+                  .join("")
+              : `
+                  <div class="empty-state">
+                    No payment requests.
+                  </div>
+                `
           }
         </div>
       `;
@@ -1198,9 +959,11 @@ function openRequests() {
                           data.request.id
                       );
 
-                  state.dashboard
-                    .paymentRequests[index] =
+                  if (index !== -1) {
+                    state.dashboard
+                      .paymentRequests[index] =
                       data.request;
+                  }
 
                   renderDashboard();
                   draw();
@@ -1226,113 +989,6 @@ function openRequests() {
   );
 
   draw();
-}
-
-
-// ======================================================
-// RECOVERY
-// ======================================================
-
-function openRecovery() {
-  openModal(
-    "Recovery Mode",
-    "life-ring",
-    `
-      <p>
-        If money has already left your account,
-        create an immediate recovery checklist
-        and evidence reference.
-      </p>
-
-      <form
-        class="modal-form"
-        id="recoveryForm"
-      >
-
-        <label for="transactionReference">
-          UPI transaction reference
-        </label>
-
-        <input
-          id="transactionReference"
-          placeholder="Example: 426812345678"
-          required
-        >
-
-        <button
-          class="modal-primary"
-          type="submit"
-        >
-          Start recovery
-        </button>
-
-      </form>
-
-      <div id="recoveryResult"></div>
-    `
-  );
-
-  document
-    .getElementById(
-      "recoveryForm"
-    )
-    ?.addEventListener(
-      "submit",
-      async (event) => {
-        event.preventDefault();
-
-        try {
-          const data =
-            await api(
-              "/api/dashboard/recovery",
-              {
-                method: "POST",
-
-                body:
-                  JSON.stringify({
-                    transactionReference:
-                      document.getElementById(
-                        "transactionReference"
-                      ).value,
-                  }),
-              }
-            );
-
-          document.getElementById(
-            "recoveryResult"
-          ).innerHTML = `
-            <div class="result-panel medium">
-
-              <strong>
-                Recovery reference:
-                ${escapeHtml(
-                  data.ticketId
-                )}
-              </strong>
-
-              <ol>
-                ${data.steps
-                  .map(
-                    (step) => `
-                      <li>
-                        ${escapeHtml(
-                          step
-                        )}
-                      </li>
-                    `
-                  )
-                  .join("")}
-              </ol>
-
-            </div>
-          `;
-        } catch (error) {
-          showToast(
-            error.message
-          );
-        }
-      }
-    );
 }
 
 
@@ -1534,6 +1190,7 @@ function openHelp() {
 
 function handleAction(action) {
   const handlers = {
+
     dashboard: () =>
       window.scrollTo({
         top: 0,
@@ -1542,19 +1199,11 @@ function handleAction(action) {
 
     "new-payment": () => {
       window.location.href =
-        "send%20money.html";
-    },
-
-    scan: () => {
-      window.location.href =
-        "scan%20and%20pay.html";
+        "send money.html";
     },
 
     requests:
       openRequests,
-
-    message:
-      openMessageAnalyzer,
 
     timeline: () => {
       const timelineSection =
@@ -1569,9 +1218,6 @@ function handleAction(action) {
         });
       }
     },
-
-    recovery:
-      openRecovery,
 
     transactions:
       openTransactions,
@@ -1596,13 +1242,19 @@ async function initializeDashboard() {
 
   updateDate();
 
-  const cachedUser =
-    JSON.parse(
-      localStorage.getItem(
-        "upiGuardianUser"
-      ) ||
-      "null"
-    );
+  let cachedUser = null;
+
+  try {
+    cachedUser =
+      JSON.parse(
+        localStorage.getItem(
+          "upiGuardianUser"
+        ) ||
+        "null"
+      );
+  } catch {
+    cachedUser = null;
+  }
 
   setUser(
     cachedUser
@@ -1676,45 +1328,59 @@ async function refreshDashboardIfNeeded() {
     return dashboardRefreshPromise;
   }
 
-  dashboardRefreshPromise = (async () => {
-    try {
-      const dashboard = await api(
-        "/api/dashboard/summary"
-      );
+  dashboardRefreshPromise =
+    (async () => {
+      try {
+        const dashboard =
+          await api(
+            "/api/dashboard/summary"
+          );
 
-      state.dashboard = dashboard;
-      renderDashboard();
+        state.dashboard =
+          dashboard;
 
-      localStorage.removeItem(
-        DASHBOARD_REFRESH_KEY
-      );
-    } catch (error) {
-      if (
-        error.message !== "Session expired"
-      ) {
-        showToast(error.message);
+        renderDashboard();
+
+        localStorage.removeItem(
+          DASHBOARD_REFRESH_KEY
+        );
+      } catch (error) {
+        if (
+          error.message !==
+          "Session expired"
+        ) {
+          showToast(
+            error.message
+          );
+        }
+      } finally {
+        dashboardRefreshPromise =
+          null;
       }
-    } finally {
-      dashboardRefreshPromise = null;
-    }
-  })();
+    })();
 
   return dashboardRefreshPromise;
 }
+
 
 window.addEventListener(
   "pageshow",
   refreshDashboardIfNeeded
 );
 
+
 document.addEventListener(
   "visibilitychange",
   () => {
-    if (document.visibilityState === "visible") {
+    if (
+      document.visibilityState ===
+      "visible"
+    ) {
       refreshDashboardIfNeeded();
     }
   }
 );
+
 
 window.addEventListener(
   "focus",
@@ -1725,6 +1391,22 @@ window.addEventListener(
 // ======================================================
 // DASHBOARD ACTION LISTENERS
 // ======================================================
+//
+// IMPORTANT:
+//
+// If an element has a REAL href such as:
+//
+// href="message-analyzer.html"
+// href="recovery.html"
+// href="send money.html"
+// href="scan and pay.html"
+//
+// app.js will NOT prevent the browser from
+// navigating to that page.
+//
+// Only href="#" dashboard actions are handled
+// by JavaScript.
+// ======================================================
 
 document
   .querySelectorAll(
@@ -1732,13 +1414,38 @@ document
   )
   .forEach(
     (element) => {
+
       element.addEventListener(
         "click",
         (event) => {
-          event.preventDefault();
 
           const action =
             element.dataset.action;
+
+          const href =
+            element.getAttribute(
+              "href"
+            );
+
+          // ------------------------------------------------
+          // IMPORTANT:
+          // Allow real page links to work normally.
+          // This fixes Message Analyzer and Recovery Mode.
+          // ------------------------------------------------
+
+          if (
+            href &&
+            href !== "#" &&
+            !href.startsWith("javascript:")
+          ) {
+            return;
+          }
+
+          // ------------------------------------------------
+          // Dashboard-only actions
+          // ------------------------------------------------
+
+          event.preventDefault();
 
           if (
             !state.dashboard &&
@@ -1896,6 +1603,7 @@ document
 document.addEventListener(
   "click",
   () => {
+
     if (notificationDropdown) {
       notificationDropdown.hidden =
         true;
