@@ -1325,3 +1325,544 @@ body {
     }
 
 }
+/* =====================================================
+   EVIDENCE ACTION BUTTONS
+===================================================== */
+
+.evidence-actions {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+
+    width: 100%;
+
+    margin-top: 2px;
+}
+
+
+/* =====================================================
+   TEXT EVIDENCE BUTTON
+===================================================== */
+
+.text-evidence-button {
+    width: 255px;
+    height: 53px;
+
+    border:
+        1px solid
+        rgba(110, 80, 255, 0.75);
+
+    border-radius: 9px;
+
+    color: #ffffff;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+    background:
+        rgba(48, 34, 105, 0.7);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+
+.text-evidence-button:hover {
+    transform: translateY(-2px);
+
+    background:
+        rgba(76, 49, 158, 0.8);
+
+    box-shadow:
+        0 8px 22px
+        rgba(100, 65, 255, 0.25);
+}
+
+
+.text-evidence-button i {
+    margin-right: 8px;
+}
+
+
+/* =====================================================
+   EVIDENCE MODAL
+===================================================== */
+
+.evidence-modal {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 10000;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+}
+
+
+/* =====================================================
+   MODAL OVERLAY
+===================================================== */
+
+.evidence-modal-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        rgba(0, 0, 0, 0.72);
+
+    backdrop-filter:
+        blur(5px);
+}
+
+
+/* =====================================================
+   MODAL BOX
+===================================================== */
+
+.evidence-modal-box {
+    position: relative;
+
+    z-index: 2;
+
+    width:
+        min(
+            560px,
+            100%
+        );
+
+    max-height:
+        calc(100vh - 40px);
+
+    overflow-y: auto;
+
+    padding: 28px;
+
+    border-radius: 16px;
+
+    border:
+        1px solid
+        rgba(91, 127, 194, 0.38);
+
+    background:
+        linear-gradient(
+            145deg,
+            #081735,
+            #061127
+        );
+
+    box-shadow:
+        0 25px 70px
+        rgba(0, 0, 0, 0.5),
+
+        0 0 35px
+        rgba(74, 65, 255, 0.12);
+}
+
+
+/* =====================================================
+   MODAL CLOSE BUTTON
+===================================================== */
+
+.evidence-modal-close {
+    position: absolute;
+
+    top: 14px;
+    right: 14px;
+
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255, 255, 255, 0.06);
+
+    color: #aeb9cc;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+
+.evidence-modal-close:hover {
+    background:
+        rgba(255, 255, 255, 0.12);
+
+    color: #ffffff;
+}
+
+
+/* =====================================================
+   MODAL ICON
+===================================================== */
+
+.evidence-modal-icon {
+    width: 52px;
+    height: 52px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 14px;
+
+    border-radius: 14px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #167fff,
+            #713cff
+        );
+
+    color: #ffffff;
+
+    font-size: 22px;
+
+    box-shadow:
+        0 0 22px
+        rgba(80, 72, 255, 0.25);
+}
+
+
+/* =====================================================
+   MODAL HEADING
+===================================================== */
+
+.evidence-modal-box h2 {
+    margin-bottom: 7px;
+
+    color: #f4f7fc;
+
+    font-size: 25px;
+
+    font-weight: 500;
+}
+
+
+.evidence-modal-box > p {
+    margin-bottom: 22px;
+
+    color: #9facbf;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+}
+
+
+/* =====================================================
+   MODAL LABELS
+===================================================== */
+
+.evidence-modal-box label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #cdd6e6;
+
+    font-size: 13px;
+
+    font-weight: 500;
+}
+
+
+/* =====================================================
+   MODAL SELECT
+===================================================== */
+
+#textEvidenceType {
+    width: 100%;
+
+    height: 45px;
+
+    margin-bottom: 18px;
+
+    padding:
+        0 13px;
+
+    border:
+        1px solid
+        rgba(74, 106, 163, 0.45);
+
+    border-radius: 8px;
+
+    outline: none;
+
+    background:
+        #081a3b;
+
+    color: #e1e8f5;
+
+    font-size: 14px;
+
+    cursor: pointer;
+}
+
+
+/* =====================================================
+   MODAL TEXTAREA
+===================================================== */
+
+#evidenceContent {
+    width: 100%;
+
+    min-height: 150px;
+
+    resize: vertical;
+
+    margin-bottom: 18px;
+
+    padding: 13px;
+
+    border:
+        1px solid
+        rgba(74, 106, 163, 0.45);
+
+    border-radius: 8px;
+
+    outline: none;
+
+    background:
+        #081a3b;
+
+    color: #e8eef8;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+}
+
+
+#evidenceContent::placeholder {
+    color: #64738d;
+}
+
+
+#evidenceContent:focus,
+#textEvidenceType:focus,
+#evidenceDescription:focus {
+    border-color:
+        rgba(74, 145, 255, 0.85);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(55, 128, 255, 0.08);
+}
+
+
+/* =====================================================
+   DESCRIPTION INPUT
+===================================================== */
+
+#evidenceDescription {
+    width: 100%;
+
+    height: 45px;
+
+    margin-bottom: 20px;
+
+    padding:
+        0 13px;
+
+    border:
+        1px solid
+        rgba(74, 106, 163, 0.45);
+
+    border-radius: 8px;
+
+    outline: none;
+
+    background:
+        #081a3b;
+
+    color: #e8eef8;
+
+    font-size: 14px;
+}
+
+
+#evidenceDescription::placeholder {
+    color: #64738d;
+}
+
+
+/* =====================================================
+   MODAL ACTIONS
+===================================================== */
+
+.modal-actions {
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 10px;
+}
+
+
+/* =====================================================
+   MODAL CANCEL
+===================================================== */
+
+.modal-cancel,
+.modal-save {
+    height: 45px;
+
+    padding:
+        0 19px;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+
+.modal-cancel {
+    border:
+        1px solid
+        rgba(80, 109, 161, 0.45);
+
+    background:
+        rgba(17, 37, 75, 0.8);
+
+    color: #bfc9d9;
+}
+
+
+.modal-cancel:hover {
+    background:
+        rgba(29, 52, 95, 0.95);
+
+    color: #ffffff;
+}
+
+
+/* =====================================================
+   MODAL SAVE
+===================================================== */
+
+.modal-save {
+    border: none;
+
+    background:
+        linear-gradient(
+            90deg,
+            #087fff,
+            #6040ff,
+            #b33be1
+        );
+
+    color: #ffffff;
+
+    box-shadow:
+        0 7px 18px
+        rgba(60, 67, 255, 0.2);
+}
+
+
+.modal-save:hover {
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 10px 25px
+        rgba(70, 66, 255, 0.35);
+}
+
+
+.modal-save i {
+    margin-right: 7px;
+}
+
+
+/* =====================================================
+   DISABLED SAVE BUTTON
+===================================================== */
+
+.modal-save:disabled {
+    opacity: 0.5;
+
+    cursor: not-allowed;
+
+    transform: none;
+
+    box-shadow: none;
+}
+
+
+/* =====================================================
+   MOBILE MODAL
+===================================================== */
+
+@media (max-width: 600px) {
+
+    .evidence-actions {
+        flex-direction: column;
+    }
+
+
+    .browse-button,
+    .text-evidence-button {
+        width: 100%;
+    }
+
+
+    .evidence-modal {
+        padding: 12px;
+    }
+
+
+    .evidence-modal-box {
+        padding: 22px 18px;
+    }
+
+
+    .evidence-modal-box h2 {
+        font-size: 22px;
+    }
+
+
+    .modal-actions {
+        flex-direction: column-reverse;
+    }
+
+
+    .modal-cancel,
+    .modal-save {
+        width: 100%;
+    }
+
+}
