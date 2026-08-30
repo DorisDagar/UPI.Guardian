@@ -1,5 +1,6 @@
 const crypto = require("crypto");
 const express = require("express");
+const pool = require("../config/db");
 const requireAuth = require("../middleware/auth");
 
 const router = express.Router();
@@ -19,14 +20,6 @@ const notifications = [
     time: "2 hours ago",
     unread: true,
   },
-];
-
-const transactions = [
-  { id: 1, name: "Aarav Mehta", upiId: "aarav.mehta@axis", amount: 1200, time: "Today, 11:42 AM", status: "Safe", icon: "user" },
-  { id: 2, name: "Unknown Receiver", upiId: "xyz123@upi", amount: 25000, time: "Yesterday, 6:18 PM", status: "Blocked", icon: "user-slash" },
-  { id: 3, name: "FreshMart Online", upiId: "freshmart@okicici", amount: 2840, time: "Yesterday, 1:05 PM", status: "Review", icon: "cart-shopping" },
-  { id: 4, name: "Metro Recharge", upiId: "dmrc@paytm", amount: 500, time: "26 Aug, 8:20 AM", status: "Safe", icon: "train-subway" },
-  { id: 5, name: "Prize Claims Desk", upiId: "claim-prize@upi", amount: 9999, time: "25 Aug, 4:44 PM", status: "Blocked", icon: "triangle-exclamation" },
 ];
 
 const timeline = [
@@ -69,25 +62,111 @@ function analyzeMessage(message) {
 
 router.use(requireAuth);
 
-router.get("/summary", (req, res) => {
-  const reviewed = transactions.length + 19;
-  const prevented = transactions
-    .filter((item) => item.status === "Blocked")
-    .reduce((total, item) => total + item.amount, 0);
+router.get("/summary", async (req, res) => {
+  try {
+    const userId = req.user.userId;
 
-  return res.json({
-    protectionActive: true,
-    stats: {
-      safetyScore: 86,
-      paymentsReviewed: reviewed,
-      riskPrevented: prevented,
-      paymentsStopped: transactions.filter((item) => item.status === "Blocked").length,
-    },
-    notifications,
-    transactions,
-    timeline,
-    paymentRequests,
-  });
+    // Supabase uses PostgreSQL, so the existing pg pool can query it directly.
+    // Always filter by the authenticated user's ID: one user must never receive
+    // another user's transaction history.
+    const [recentResult, statsResult] = await Promise.all([
+      pool.query(
+        `
+          SELECT
+            id,
+            receiver_name,
+            receiver_upi_id,
+            amount,
+            transaction_time,
+            risk_level,
+            receiver_category,
+            transaction_status
+          FROM transactions
+          WHERE user_id = $1
+          ORDER BY transaction_time DESC
+          LIMIT 50
+        `,
+        [userId]
+      ),
+      pool.query(
+        `
+          SELECT
+            COUNT(*)::int AS payments_reviewed,
+            COUNT(*) FILTER (
+              WHERE transaction_status = 'blocked'
+            )::int AS payments_stopped,
+            COALESCE(
+              SUM(amount) FILTER (
+                WHERE transaction_status = 'blocked'
+              ),
+              0
+            ) AS risk_prevented,
+            CASE
+              WHEN COUNT(*) = 0 THEN 100
+              ELSE ROUND(
+                100.0 * COUNT(*) FILTER (
+                  WHERE risk_level = 'safe'
+                    AND transaction_status <> 'blocked'
+                ) / COUNT(*)
+              )::int
+            END AS safety_score
+          FROM transactions
+          WHERE user_id = $1
+        `,
+        [userId]
+      ),
+    ]);
+
+    const iconByCategory = {
+      merchant: "cart-shopping",
+      shopping: "cart-shopping",
+      transport: "train-subway",
+      bill: "file-invoice-dollar",
+      person: "user",
+    };
+
+    const transactions = recentResult.rows.map((row) => {
+      const isBlocked = row.transaction_status === "blocked";
+      const status = isBlocked
+        ? "Blocked"
+        : row.risk_level === "safe"
+          ? "Safe"
+          : "Review";
+
+      return {
+        id: row.id,
+        name: row.receiver_name,
+        upiId: row.receiver_upi_id || "UPI ID unavailable",
+        amount: Number(row.amount),
+        transactionTime: row.transaction_time,
+        status,
+        icon: isBlocked
+          ? "user-slash"
+          : iconByCategory[row.receiver_category] || "user",
+      };
+    });
+
+    const stats = statsResult.rows[0];
+
+    return res.json({
+      protectionActive: true,
+      stats: {
+        safetyScore: Number(stats.safety_score),
+        paymentsReviewed: Number(stats.payments_reviewed),
+        riskPrevented: Number(stats.risk_prevented),
+        paymentsStopped: Number(stats.payments_stopped),
+      },
+      notifications,
+      transactions,
+      timeline,
+      paymentRequests,
+    });
+  } catch (error) {
+    console.error("Dashboard summary failed:", error.message);
+    return res.status(500).json({
+      message: "Unable to load dashboard transactions right now.",
+    });
+  }
 });
 
 router.post("/analyze-message", (req, res) => {

@@ -33,6 +33,38 @@ function formatMoney(amount) {
   }).format(amount);
 }
 
+function formatTransactionTime(value) {
+  const transactionDate = new Date(value);
+
+  if (Number.isNaN(transactionDate.getTime())) return "Date unavailable";
+
+  const now = new Date();
+  const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const startOfTransactionDay = new Date(
+    transactionDate.getFullYear(),
+    transactionDate.getMonth(),
+    transactionDate.getDate()
+  );
+  const daysAgo = Math.round(
+    (startOfToday - startOfTransactionDay) / (24 * 60 * 60 * 1000)
+  );
+  const time = transactionDate.toLocaleTimeString("en-IN", {
+    hour: "numeric",
+    minute: "2-digit",
+  });
+
+  if (daysAgo === 0) return `Today, ${time}`;
+  if (daysAgo === 1) return `Yesterday, ${time}`;
+
+  return transactionDate.toLocaleDateString("en-IN", {
+    day: "numeric",
+    month: "short",
+    year: transactionDate.getFullYear() === now.getFullYear() ? undefined : "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+  });
+}
+
 async function api(path, options = {}) {
   const response = await fetch(`${API_BASE_URL}${path}`, {
     ...options,
@@ -129,7 +161,7 @@ function transactionMarkup(item) {
         <h4>${escapeHtml(item.name)}</h4><p>${escapeHtml(item.upiId)}</p>
       </div>
       <div class="transaction-amount">
-        <strong>${formatMoney(item.amount)}</strong><small>${escapeHtml(item.time)}</small>
+        <strong>${formatMoney(item.amount)}</strong><small>${escapeHtml(formatTransactionTime(item.transactionTime))}</small>
       </div>
       <span class="risk-tag ${statusClass}-tag">${escapeHtml(item.status)}</span>
     </div>`;
@@ -305,11 +337,12 @@ function openRecovery() {
 }
 
 function openTransactions() {
+  const items = state.dashboard.transactions || [];
   openModal("All Transactions", "clock-rotate-left", `<div class="all-transactions">
-    ${state.dashboard.transactions.map((item) => `<div class="modal-transaction">
-      <div><strong>${escapeHtml(item.name)}</strong><small>${escapeHtml(item.upiId)} · ${escapeHtml(item.time)}</small></div>
+    ${items.length ? items.map((item) => `<div class="modal-transaction">
+      <div><strong>${escapeHtml(item.name)}</strong><small>${escapeHtml(item.upiId)} · ${escapeHtml(formatTransactionTime(item.transactionTime))}</small></div>
       <div><strong>${formatMoney(item.amount)}</strong><small>${escapeHtml(item.status)}</small></div>
-    </div>`).join("")}</div>`);
+    </div>`).join("") : '<div class="empty-state">No transactions yet.</div>'}</div>`);
 }
 
 function openSettings() {
