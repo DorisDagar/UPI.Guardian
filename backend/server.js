@@ -15,6 +15,7 @@ const whatsappRoutes = require("./routes/whatsapp");
 const riskRoutes = require("./routes/risk");
 const analyzerRoutes = require("./routes/analyzer");
 const transactionRoutes = require("./routes/transactions");
+const paymentRoutes = require("./routes/payments");
 const evidenceRoutes = require("./routes/evidence");
 
 
@@ -115,6 +116,24 @@ app.use(
 app.use(
     "/api/transactions",
     transactionRoutes
+);
+
+
+// ======================================================
+// PAYMENT ROUTES
+// ======================================================
+//
+// POST:
+// /api/payments/direct
+//
+// POST:
+// /api/payments/analysis/:analysisId/decision
+//
+// ======================================================
+
+app.use(
+    "/api/payments",
+    paymentRoutes
 );
 
 
@@ -581,6 +600,14 @@ app.listen(
 
         console.log(
             "  POST /api/transactions/fake-payment"
+        );
+
+        console.log(
+            "  POST /api/payments/direct"
+        );
+
+        console.log(
+            "  POST /api/payments/analysis/:analysisId/decision"
         );
 
         console.log(
