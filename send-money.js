@@ -216,7 +216,7 @@ paymentForm?.addEventListener(
 
       setTimeout(() => {
         window.location.href =
-          `risk%20analysis.html?analysisId=${encodeURIComponent(
+          `risk-analysis.html?analysisId=${encodeURIComponent(
             data.analysisId
           )}`;
       }, 600);

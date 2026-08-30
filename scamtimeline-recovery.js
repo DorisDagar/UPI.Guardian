@@ -1,184 +1,217 @@
-/* =====================================================
-   UPI GUARDIAN
-   SCAM TIMELINE - JAVASCRIPT
-===================================================== */
+document.addEventListener("DOMContentLoaded", function () {
 
+    /* ==========================================
+       BACK BUTTON
+       Opens trust person recover.html
+    ========================================== */
 
-/* =====================================================
-   INCIDENT DATA
-===================================================== */
+    const backBtn = document.getElementById("backBtn");
 
-const incident = {
-    transaction: "Lucky Reward UPI",
-    amount: 50000,
-    transactionId: "TXN123456",
-    risk: "HIGH",
-    duration: "23 min",
-    recoveryStep: 5,
-    totalSteps: 6
-};
-
-
-/* =====================================================
-   RECOVERY EVENTS
-===================================================== */
-
-const recoveryEvents = [
-
-    {
-        time: "09:45 AM",
-        title: "Transaction reported",
-        description: "Fraudulent transaction reported for recovery",
-        icon: "↗"
-    },
-
-    {
-        time: "10:00 AM",
-        title: "Trusted person connected",
-        description: "Recovery assistance connected with the user",
-        icon: "✓"
-    },
-
-    {
-        time: "10:15 AM",
-        title: "Evidence uploaded",
-        description: "Transaction and scam evidence submitted",
-        icon: "↑"
+    if (backBtn) {
+        backBtn.addEventListener("click", function () {
+            window.location.href = "trust person recover.html";
+        });
     }
 
-];
 
+    /* ==========================================
+       CONTINUE BUTTON
+       Opens scamtimeline.html
+    ========================================== */
 
-/* =====================================================
-   GET ELEMENTS
-===================================================== */
+    const continueBtn = document.getElementById("continueBtn");
 
-const recoveryContainer =
-    document.getElementById("recoveryEvents");
-
-const reportButton =
-    document.getElementById("reportButton");
-
-
-/* =====================================================
-   RENDER RECOVERY EVENTS
-===================================================== */
-
-function renderRecoveryEvents() {
-
-    // Check whether the recovery container exists
-    if (!recoveryContainer) {
-        return;
+    if (continueBtn) {
+        continueBtn.addEventListener("click", function () {
+            window.location.href = "scamtimeline-recovery.html";
+        });
     }
 
-    // Clear existing events
-    recoveryContainer.innerHTML = "";
+
+    /* ==========================================
+       FILE UPLOAD
+    ========================================== */
+
+    const browseBtn = document.getElementById("browseBtn");
+    const fileInput = document.getElementById("fileInput");
+    const uploadCard = document.getElementById("uploadCard");
 
 
-    recoveryEvents.forEach((event, index) => {
+    if (browseBtn && fileInput) {
 
-        const eventElement =
-            document.createElement("div");
-
-
-        eventElement.className =
-            "timeline-event recovery-event";
+        browseBtn.addEventListener("click", function () {
+            fileInput.click();
+        });
 
 
-        eventElement.style.animationDelay =
-            `${index * 0.12}s`;
+        fileInput.addEventListener("change", function () {
+
+            const files = Array.from(fileInput.files);
+
+            if (files.length === 0) {
+                return;
+            }
+
+            console.log("Selected files:");
+
+            files.forEach(function (file) {
+                console.log(file.name);
+            });
+
+        });
+
+    }
 
 
-        eventElement.innerHTML = `
+    /* ==========================================
+       DRAG AND DROP
+    ========================================== */
 
-            <div class="time">
-                ${event.time}
-            </div>
+    if (uploadCard && fileInput) {
 
-            <div class="timeline-marker">
+        uploadCard.addEventListener("dragover", function (event) {
 
-                <div class="event-icon blue-icon">
+            event.preventDefault();
 
-                    <span>
-                        ${event.icon}
-                    </span>
+            uploadCard.classList.add("drag-active");
 
-                </div>
-
-            </div>
-
-            <div class="event-content">
-
-                <h3>
-                    ${event.title}
-                </h3>
-
-                <p>
-                    ${event.description}
-                </p>
-
-            </div>
-
-        `;
+        });
 
 
-        recoveryContainer.appendChild(
-            eventElement
-        );
+        uploadCard.addEventListener("dragleave", function () {
+
+            uploadCard.classList.remove("drag-active");
+
+        });
+
+
+        uploadCard.addEventListener("drop", function (event) {
+
+            event.preventDefault();
+
+            uploadCard.classList.remove("drag-active");
+
+            const files = Array.from(
+                event.dataTransfer.files
+            );
+
+            if (files.length === 0) {
+                return;
+            }
+
+            console.log("Dropped files:");
+
+            files.forEach(function (file) {
+                console.log(file.name);
+            });
+
+        });
+
+    }
+
+
+    /* ==========================================
+       EVIDENCE CATEGORY CLICK
+    ========================================== */
+
+    const categories =
+        document.querySelectorAll(".category");
+
+
+    categories.forEach(function (category) {
+
+        category.addEventListener("click", function () {
+
+            const title =
+                category.querySelector(":scope > span");
+
+            if (title) {
+
+                console.log(
+                    "Selected category:",
+                    title.textContent.trim()
+                );
+
+            }
+
+        });
 
     });
 
-}
+
+    /* ==========================================
+       PREVIEW BUTTONS
+    ========================================== */
+
+    const previewButtons =
+        document.querySelectorAll(".preview-btn");
 
 
-/* =====================================================
-   OPEN FRAUD REPORT PAGE
-===================================================== */
+    previewButtons.forEach(function (button) {
 
-function openFraudReport() {
+        button.addEventListener("click", function (event) {
 
-    /*
-       This opens the separate fraud-report.html page.
-    */
+            event.stopPropagation();
 
-    window.location.href = "fraud-report.html";
+            const row =
+                button.closest(".evidence-row");
 
-}
+            if (!row) {
+                return;
+            }
 
+            const file =
+                row.querySelector(".file-name");
 
-/* =====================================================
-   GENERATE FRAUD REPORT BUTTON
-===================================================== */
+            if (file) {
 
-if (reportButton) {
+                console.log(
+                    "Preview:",
+                    file.textContent.trim()
+                );
 
-    reportButton.addEventListener(
-        "click",
-        openFraudReport
-    );
+            }
 
-}
+        });
 
-
-/* =====================================================
-   OPTIONAL:
-   STORE INCIDENT DATA FOR FRAUD REPORT PAGE
-===================================================== */
-
-function storeIncidentData() {
-
-    localStorage.setItem(
-        "upiGuardianIncident",
-        JSON.stringify(incident)
-    );
-
-}
+    });
 
 
-/* =====================================================
-   INITIALIZE
-===================================================== */
+    /* ==========================================
+       MORE OPTIONS BUTTONS
+    ========================================== */
 
-storeIncidentData();
+    const menuButtons =
+        document.querySelectorAll(".menu-btn");
 
-renderRecoveryEvents();
+
+    menuButtons.forEach(function (button) {
+
+        button.addEventListener("click", function (event) {
+
+            event.stopPropagation();
+
+            const row =
+                button.closest(".evidence-row");
+
+            if (!row) {
+                return;
+            }
+
+            const file =
+                row.querySelector(".file-name");
+
+            if (file) {
+
+                console.log(
+                    "Options:",
+                    file.textContent.trim()
+                );
+
+            }
+
+        });
+
+    });
+
+});
