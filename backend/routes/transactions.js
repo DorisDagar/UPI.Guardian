@@ -1,4 +1,3 @@
-
 const express = require("express");
 const pool = require("../config/db");
 const requireAuth = require("../middleware/auth");
@@ -8,6 +7,11 @@ const router = express.Router();
 // ======================================================
 // TRANSACTION ROUTE HEALTH CHECK
 // GET /api/transactions/health
+// ======================================================
+//
+// This is intentionally before requireAuth so we can
+// confirm that this router is actually connected.
+//
 // ======================================================
 
 router.get("/health", (req, res) => {
@@ -24,6 +28,84 @@ router.get("/health", (req, res) => {
 // ======================================================
 
 router.use(requireAuth);
+
+
+// ======================================================
+// RECENT RECEIVERS
+// GET /api/transactions/recent-receivers
+// ======================================================
+
+router.get("/recent-receivers", async (req, res) => {
+
+    try {
+
+        const userId = req.user.userId;
+
+        const requestedLimit =
+            Number(req.query.limit) || 6;
+
+        const limit =
+            Math.min(
+                Math.max(requestedLimit, 1),
+                12
+            );
+
+
+        const result = await pool.query(
+            `
+            SELECT DISTINCT ON (receiver_upi_id)
+                receiver_name,
+                receiver_upi_id,
+                transaction_time
+            FROM transactions
+            WHERE user_id = $1
+              AND receiver_upi_id IS NOT NULL
+              AND receiver_upi_id <> ''
+            ORDER BY receiver_upi_id, transaction_time DESC
+            LIMIT $2
+            `,
+            [
+                userId,
+                limit
+            ]
+        );
+
+
+        const receivers = result.rows
+            .sort(
+                (a, b) =>
+                    new Date(b.transaction_time) -
+                    new Date(a.transaction_time)
+            )
+            .map((receiver) => ({
+                name: receiver.receiver_name,
+                upiId: receiver.receiver_upi_id,
+                lastTransactionTime:
+                    receiver.transaction_time
+            }));
+
+
+        return res.status(200).json({
+            success: true,
+            receivers
+        });
+
+    } catch (error) {
+
+        console.error(
+            "❌ Loading recent receivers failed:",
+            error
+        );
+
+        return res.status(500).json({
+            success: false,
+            message:
+                "Unable to load recent receivers."
+        });
+
+    }
+
+});
 
 
 // ======================================================
@@ -44,14 +126,19 @@ router.get("/", async (req, res) => {
 
         const userId = req.user.userId;
 
-        let limit = Number(req.query.limit);
+        let limit =
+            Number(req.query.limit);
+
 
         if (
             !Number.isInteger(limit) ||
             limit <= 0
         ) {
+
             limit = 10;
+
         }
+
 
         // Prevent excessively large requests
         limit = Math.min(limit, 50);
@@ -235,9 +322,17 @@ router.post("/fake-payment", async (req, res) => {
 
     try {
 
-        // User ID comes from authenticated JWT
-        const userId = req.user.userId;
+        // ==================================================
+        // USER ID FROM AUTHENTICATED JWT
+        // ==================================================
 
+        const userId =
+            req.user.userId;
+
+
+        // ==================================================
+        // REQUEST DATA
+        // ==================================================
 
         const receiverName =
             req.body?.receiverName?.trim();
@@ -279,6 +374,7 @@ router.post("/fake-payment", async (req, res) => {
         // VALIDATION
         // ==================================================
 
+        // Receiver name
         if (
             !receiverName ||
             receiverName.length < 2
@@ -296,6 +392,7 @@ router.post("/fake-payment", async (req, res) => {
         }
 
 
+        // Receiver name length
         if (
             receiverName.length > 150
         ) {
@@ -312,6 +409,7 @@ router.post("/fake-payment", async (req, res) => {
         }
 
 
+        // UPI ID
         if (
             !receiverUpiId ||
             !/^[a-z0-9._-]{2,}@[a-z0-9.-]{2,}$/i.test(
@@ -331,6 +429,7 @@ router.post("/fake-payment", async (req, res) => {
         }
 
 
+        // Amount
         if (
             !Number.isFinite(amount) ||
             amount <= 0
@@ -348,6 +447,7 @@ router.post("/fake-payment", async (req, res) => {
         }
 
 
+        // Maximum supported amount
         if (
             amount > 10000000
         ) {
@@ -364,6 +464,7 @@ router.post("/fake-payment", async (req, res) => {
         }
 
 
+        // Risk level
         if (
             ![
                 "safe",
@@ -397,7 +498,7 @@ router.post("/fake-payment", async (req, res) => {
 
 
         // ==================================================
-        // INSERT INTO POSTGRESQL
+        // INSERT INTO EXISTING POSTGRESQL TABLE
         // ==================================================
 
         const result =
@@ -463,11 +564,19 @@ router.post("/fake-payment", async (req, res) => {
             );
 
 
+        // ==================================================
+        // SUCCESS LOG
+        // ==================================================
+
         console.log(
             "✅ Scan & Pay transaction saved:",
             result.rows[0]
         );
 
+
+        // ==================================================
+        // SUCCESS RESPONSE
+        // ==================================================
 
         return res.status(201).json({
 
@@ -482,6 +591,10 @@ router.post("/fake-payment", async (req, res) => {
         });
 
     } catch (error) {
+
+        // ==================================================
+        // ERROR HANDLING
+        // ==================================================
 
         console.error(
             "❌ Saving Scan & Pay transaction failed:",
@@ -506,5 +619,8 @@ router.post("/fake-payment", async (req, res) => {
 });
 
 
-module.exports = router;
+// ======================================================
+// EXPORT ROUTER
+// ======================================================
 
+module.exports = router;
