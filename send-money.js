@@ -24,6 +24,118 @@ const directPayButton =
   );
 
 // ==========================================
+// LOAD RECENT RECEIVERS FROM SUPABASE
+// ==========================================
+
+function escapeHtml(value) {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+async function loadRecentReceivers() {
+  const recentSection =
+    document.querySelector(".recent-section");
+
+  const receiverGrid =
+    document.querySelector(".receiver-grid");
+
+  const token = localStorage.getItem(
+    "upiGuardianToken"
+  );
+
+  if (!recentSection || !receiverGrid || !token) {
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      `${API_BASE_URL}/api/transactions/recent-receivers?limit=6`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Unable to load recent receivers.");
+    }
+
+    const data = await response.json();
+    const receivers = Array.isArray(data.receivers)
+      ? data.receivers
+      : [];
+
+    if (!receivers.length) {
+      recentSection.hidden = true;
+      return;
+    }
+
+    const avatarClasses = [
+      "receiver-purple",
+      "receiver-blue",
+      "receiver-green",
+    ];
+
+    receiverGrid.innerHTML = receivers
+      .map((receiver, index) => {
+        const name = String(receiver.name || "Receiver");
+        const upiId = String(receiver.upiId || "");
+        const avatarClass =
+          avatarClasses[index % avatarClasses.length];
+        const initial = escapeHtml(
+          name.trim().charAt(0).toUpperCase()
+        );
+
+        return `
+          <button class="receiver-card" type="button">
+            <span class="receiver-avatar ${avatarClass}">${initial}</span>
+            <span class="receiver-details">
+              <h3>${escapeHtml(name)}</h3>
+              <p>${escapeHtml(upiId)}</p>
+            </span>
+            <span class="receiver-arrow">
+              <i class="fa-solid fa-arrow-right"></i>
+            </span>
+          </button>
+        `;
+      })
+      .join("");
+
+    receiverGrid
+      .querySelectorAll(".receiver-card")
+      .forEach((card) => {
+        card.addEventListener("click", () => {
+          const name = card
+            .querySelector("h3")
+            ?.textContent.trim();
+
+          const upiId = card
+            .querySelector("p")
+            ?.textContent.trim();
+
+          if (name) receiverNameInput.value = name;
+          if (upiId) receiverUpiIdInput.value = upiId;
+
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
+        });
+      });
+
+    recentSection.hidden = false;
+  } catch (error) {
+    // Recent receivers are optional and should not affect payments.
+    recentSection.hidden = true;
+  }
+}
+
+// ==========================================
 // DISPLAY A MESSAGE
 // ==========================================
 
@@ -66,6 +178,117 @@ function showPaymentMessage(message, type = "error") {
     messageBox.style.border =
       "1px solid rgba(244, 63, 94, 0.35)";
   }
+}
+
+// ==========================================
+// DIRECT PAYMENT OUTCOME POPUP
+// ==========================================
+
+function showDirectPaymentPopup(
+  message,
+  type = "success"
+) {
+  const popupTypes = {
+    success: {
+      label: "Payment completed",
+      title: "Payment successful!",
+      icon: "fa-check",
+      button: "Done",
+    },
+    cancelled: {
+      label: "Payment stopped",
+      title: "Payment cancelled",
+      icon: "fa-xmark",
+      button: "Close",
+    },
+    error: {
+      label: "Payment not completed",
+      title: "Payment failed",
+      icon: "fa-triangle-exclamation",
+      button: "Try again",
+    },
+  };
+
+  const popupType =
+    popupTypes[type] || popupTypes.error;
+
+  document
+    .getElementById("directPaymentOverlay")
+    ?.remove();
+
+  const existingMessage =
+    document.getElementById(
+      "paymentFormMessage"
+    );
+
+  if (existingMessage) {
+    existingMessage.hidden = true;
+  }
+
+  const overlay =
+    document.createElement("div");
+
+  overlay.id = "directPaymentOverlay";
+  overlay.className =
+    `direct-payment-overlay ${type}`;
+
+  overlay.innerHTML = `
+    <div
+      class="direct-payment-popup"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="directPaymentTitle"
+    >
+      <div class="direct-payment-icon">
+        <i class="fa-solid ${popupType.icon}"></i>
+      </div>
+
+      <p class="direct-payment-label">
+        ${popupType.label}
+      </p>
+
+      <h2 id="directPaymentTitle">
+        ${popupType.title}
+      </h2>
+
+      <p class="direct-payment-message"></p>
+
+      <button
+        class="direct-payment-close"
+        type="button"
+      >
+        ${popupType.button}
+      </button>
+    </div>
+  `;
+
+  overlay.querySelector(
+    ".direct-payment-message"
+  ).textContent = message;
+
+  const closePopup = () => {
+    overlay.classList.add("closing");
+
+    setTimeout(() => {
+      overlay.remove();
+    }, 180);
+  };
+
+  overlay
+    .querySelector(".direct-payment-close")
+    .addEventListener("click", closePopup);
+
+  overlay.addEventListener("click", (event) => {
+    if (event.target === overlay) {
+      closePopup();
+    }
+  });
+
+  document.body.appendChild(overlay);
+
+  overlay
+    .querySelector(".direct-payment-close")
+    .focus();
 }
 
 // ==========================================
@@ -264,13 +487,14 @@ directPayButton?.addEventListener(
     );
 
     if (!token) {
-      showPaymentMessage(
-        "Please log in before making a payment."
+      showDirectPaymentPopup(
+        "Please log in before making a payment.",
+        "error"
       );
 
       setTimeout(() => {
         window.location.href = "login.html";
-      }, 1200);
+      }, 2500);
 
       return;
     }
@@ -297,8 +521,9 @@ directPayButton?.addEventListener(
       !Number.isFinite(paymentData.amount) ||
       paymentData.amount <= 0
     ) {
-      showPaymentMessage(
-        "Please enter the receiver name, UPI ID and payment amount."
+      showDirectPaymentPopup(
+        "Please enter the receiver name, UPI ID and payment amount.",
+        "error"
       );
 
       return;
@@ -321,8 +546,9 @@ directPayButton?.addEventListener(
     );
 
     if (!confirmed) {
-      showPaymentMessage(
-        "Direct payment was not started."
+      showDirectPaymentPopup(
+        "No payment was made and no transaction was recorded.",
+        "cancelled"
       );
 
       return;
@@ -377,8 +603,8 @@ directPayButton?.addEventListener(
         );
       }
 
-      showPaymentMessage(
-        `Payment successful. Transaction ID: ${data.transaction.transactionReference}`,
+      showDirectPaymentPopup(
+        `Your payment was completed successfully. Transaction ID: ${data.transaction.transactionReference}`,
         "success"
       );
 
@@ -386,7 +612,10 @@ directPayButton?.addEventListener(
 
       
     } catch (error) {
-      showPaymentMessage(error.message);
+      showDirectPaymentPopup(
+        error.message,
+        "error"
+      );
 
       if (
         error.message.includes(
@@ -396,7 +625,7 @@ directPayButton?.addEventListener(
         setTimeout(() => {
           window.location.href =
             "login.html";
-        }, 1200);
+        }, 2500);
       }
     } finally {
       directPayButton.disabled = false;
@@ -407,3 +636,5 @@ directPayButton?.addEventListener(
     }
   }
 );
+
+loadRecentReceivers();

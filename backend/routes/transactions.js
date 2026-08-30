@@ -29,6 +29,60 @@ router.get("/health", (req, res) => {
 router.use(requireAuth);
 
 // ======================================================
+// RECENT RECEIVERS
+// GET /api/transactions/recent-receivers
+// ======================================================
+
+router.get("/recent-receivers", async (req, res) => {
+    try {
+        const userId = req.user.userId;
+        const requestedLimit = Number(req.query.limit) || 6;
+        const limit = Math.min(Math.max(requestedLimit, 1), 12);
+
+        const result = await pool.query(
+            `
+            SELECT DISTINCT ON (receiver_upi_id)
+                receiver_name,
+                receiver_upi_id,
+                transaction_time
+            FROM transactions
+            WHERE user_id = $1
+              AND receiver_upi_id IS NOT NULL
+              AND receiver_upi_id <> ''
+            ORDER BY receiver_upi_id, transaction_time DESC
+            LIMIT $2
+            `,
+            [userId, limit]
+        );
+
+        const receivers = result.rows
+            .sort(
+                (a, b) =>
+                    new Date(b.transaction_time) -
+                    new Date(a.transaction_time)
+            )
+            .map((receiver) => ({
+                name: receiver.receiver_name,
+                upiId: receiver.receiver_upi_id,
+                lastTransactionTime:
+                    receiver.transaction_time,
+            }));
+
+        return res.status(200).json({
+            success: true,
+            receivers,
+        });
+    } catch (error) {
+        console.error("❌ Loading recent receivers failed:", error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Unable to load recent receivers.",
+        });
+    }
+});
+
+// ======================================================
 // SAVE FAKE SCAN & PAY PAYMENT
 // POST /api/transactions/fake-payment
 // ======================================================

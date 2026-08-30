@@ -46,14 +46,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // BACKEND URL
   // ========================================
 
-  // Your frontend is running using VS Code
-  // Live Server on port 5500.
-  //
-  // Your backend is running using:
-  // node server.js
-  //
-  // Backend port = 5000
-
   const API_URL =
     "http://localhost:5000/api/analyzer/analyze";
 
@@ -377,6 +369,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
       // ====================================
+      // CHECK LOGIN TOKEN
+      // ====================================
+
+      const token =
+        localStorage.getItem("upiGuardianToken");
+
+      if (!token) {
+
+        alert(
+          "Please log in before using the Scam Message Analyzer."
+        );
+
+        return;
+      }
+
+
+      // ====================================
       // LOADING STATE
       // ====================================
 
@@ -438,12 +447,22 @@ document.addEventListener("DOMContentLoaded", () => {
           API_URL
         );
 
+        console.log(
+          "Authenticated request: YES"
+        );
+
 
         const response =
           await fetch(
             API_URL,
             {
               method: "POST",
+
+              headers: {
+                Authorization:
+                  `Bearer ${token}`
+              },
+
               body: formData
             }
           );
@@ -489,6 +508,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         // ==================================
+        // AUTHENTICATION ERROR
+        // ==================================
+
+        if (
+          response.status === 401
+        ) {
+
+          // The token may be expired or invalid.
+          localStorage.removeItem(
+            "upiGuardianToken"
+          );
+
+          throw new Error(
+            "Your login session has expired. Please log in again."
+          );
+
+        }
+
+
+        // ==================================
         // SERVER ERROR
         // ==================================
 
@@ -503,6 +542,20 @@ document.addEventListener("DOMContentLoaded", () => {
           );
 
         }
+
+
+        // ==================================
+        // SUCCESS
+        // ==================================
+
+        console.log(
+          "✅ Analysis successful."
+        );
+
+        console.log(
+          "Analysis ID:",
+          data.analysisId
+        );
 
 
         // ==================================

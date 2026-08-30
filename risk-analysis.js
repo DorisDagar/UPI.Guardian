@@ -1220,17 +1220,25 @@ async function completePaymentDecision({
       verificationPanel.hidden = true;
     }
 
-    showPaymentDecisionMessage(
-      data.message ||
-        "Your payment decision was recorded.",
-      "success"
-    );
+    if (decision === "proceed") {
+      showPaymentSuccessPopup(
+        data.message ||
+          "Payment completed successfully.",
+        "success"
+      );
+    } else {
+      showPaymentSuccessPopup(
+        data.message ||
+          "Payment cancelled successfully.",
+        "cancelled"
+      );
+    }
 
     // Keep all buttons disabled because the
     // final decision has now been recorded.
     setDecisionButtonsDisabled(true);
   } catch (error) {
-    showPaymentDecisionMessage(
+    showPaymentSuccessPopup(
       error.message,
       "error"
     );
@@ -1290,4 +1298,116 @@ function showPaymentDecisionMessage(
     `payment-decision-message ${type}`;
 
   messageBox.textContent = message;
+}
+
+
+// ==========================================
+// DISPLAY PAYMENT SUCCESS POPUP
+// ==========================================
+
+function showPaymentSuccessPopup(
+  message,
+  type = "success"
+) {
+  const popupTypes = {
+    success: {
+      label: "Payment completed",
+      title: "Success!",
+      icon: "fa-check",
+      button: "Done",
+    },
+    cancelled: {
+      label: "Payment stopped",
+      title: "Payment cancelled",
+      icon: "fa-xmark",
+      button: "Close",
+    },
+    error: {
+      label: "Payment not completed",
+      title: "Payment failed",
+      icon: "fa-triangle-exclamation",
+      button: "Try again",
+    },
+  };
+
+  const popupType =
+    popupTypes[type] || popupTypes.error;
+
+  const messageBox =
+    document.getElementById(
+      "paymentDecisionMessage"
+    );
+
+  if (messageBox) {
+    messageBox.hidden = true;
+  }
+
+  document
+    .getElementById("paymentSuccessOverlay")
+    ?.remove();
+
+  const overlay =
+    document.createElement("div");
+
+  overlay.id = "paymentSuccessOverlay";
+  overlay.className =
+    `payment-success-overlay ${type}`;
+
+  overlay.innerHTML = `
+    <div
+      class="payment-success-popup"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="paymentSuccessTitle"
+    >
+      <div class="payment-success-icon">
+        <i class="fa-solid ${popupType.icon}"></i>
+      </div>
+
+      <p class="payment-success-label">
+        ${popupType.label}
+      </p>
+
+      <h2 id="paymentSuccessTitle">
+        ${popupType.title}
+      </h2>
+
+      <p class="payment-success-message"></p>
+
+      <button
+        class="payment-success-close"
+        type="button"
+      >
+        ${popupType.button}
+      </button>
+    </div>
+  `;
+
+  overlay.querySelector(
+    ".payment-success-message"
+  ).textContent = message;
+
+  const closePopup = () => {
+    overlay.classList.add("closing");
+
+    setTimeout(() => {
+      overlay.remove();
+    }, 180);
+  };
+
+  overlay
+    .querySelector(".payment-success-close")
+    .addEventListener("click", closePopup);
+
+  overlay.addEventListener("click", (event) => {
+    if (event.target === overlay) {
+      closePopup();
+    }
+  });
+
+  document.body.appendChild(overlay);
+
+  overlay
+    .querySelector(".payment-success-close")
+    .focus();
 }
