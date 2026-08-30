@@ -96,6 +96,11 @@ function updateRiskPage(analysis) {
     analysis.summary || getDefaultSummary(riskLevel)
   );
 
+  updateAmountRangeAlert(
+    analysis.historicalComparison || {},
+    transaction.amount
+  );
+
   const riskHeading = document.querySelector(
     ".risk-description h2"
   );
@@ -550,12 +555,16 @@ function updateHistoricalComparison(history) {
     history.currentAmount || 0
   );
 
-  const usualAmount = Number(
-    history.usualAverageAmount || 0
+  const usualMinimumAmount = Number(
+    history.usualMinimumAmount || 0
   );
 
-  const amountRatio = Number(
-    history.amountRatio || 0
+  const usualMaximumAmount = Number(
+    history.usualMaximumAmount || 0
+  );
+
+  const rangeStatus = String(
+    history.amountRangeStatus || ""
   );
 
   const transactionsChecked = Number(
@@ -569,16 +578,119 @@ function updateHistoricalComparison(history) {
     return;
   }
 
+  if (
+    usualMinimumAmount > 0 &&
+    usualMaximumAmount > 0
+  ) {
+    const statusText =
+      rangeStatus === "above"
+        ? "Above usual range"
+        : rangeStatus === "below"
+          ? "Below usual range"
+          : "Within usual range";
+
+    comparisonText.innerHTML = `
+      Current payment:
+      <strong>${formatCurrency(currentAmount)}</strong>
+
+      · Usual range:
+      <strong>${formatCurrency(
+        usualMinimumAmount
+      )}–${formatCurrency(
+        usualMaximumAmount
+      )}</strong>
+
+      · Status:
+      <strong>${statusText}</strong>
+    `;
+
+    return;
+  }
+
+  // Compatibility for analyses saved before range-based
+  // amount scoring was introduced.
+  const usualAmount = Number(
+    history.usualAverageAmount || 0
+  );
+
   comparisonText.innerHTML = `
     Current payment:
     <strong>${formatCurrency(currentAmount)}</strong>
 
-    · Recent average:
+    · Previous baseline:
     <strong>${formatCurrency(usualAmount)}</strong>
-
-    · Ratio:
-    <strong>${amountRatio.toFixed(1)}x</strong>
   `;
+}
+
+
+function updateAmountRangeAlert(
+  history,
+  currentAmount
+) {
+  const riskDescription =
+    document.querySelector(".risk-description");
+
+  if (!riskDescription) {
+    return;
+  }
+
+  riskDescription
+    .querySelector(".amount-range-alert")
+    ?.remove();
+
+  const rangeStatus = String(
+    history.amountRangeStatus || ""
+  );
+
+  if (
+    rangeStatus !== "above" &&
+    rangeStatus !== "below"
+  ) {
+    return;
+  }
+
+  const minimum = Number(
+    history.usualMinimumAmount || 0
+  );
+
+  const maximum = Number(
+    history.usualMaximumAmount || 0
+  );
+
+  if (minimum <= 0 || maximum <= 0) {
+    return;
+  }
+
+  const alert = document.createElement("div");
+
+  alert.className =
+    `amount-range-alert ${rangeStatus}`;
+
+  alert.innerHTML = `
+    <i class="fa-solid fa-chart-line"></i>
+    <div>
+      <strong>Amount outside your usual range</strong>
+      <span></span>
+    </div>
+  `;
+
+  const direction =
+    rangeStatus === "above" ? "above" : "below";
+
+  alert.querySelector("span").textContent =
+    `${formatCurrency(currentAmount)} is ${direction} ` +
+    `your usual ${formatCurrency(minimum)}–` +
+    `${formatCurrency(maximum)} payment range.`;
+
+  const analyzedTime =
+    riskDescription.querySelector(
+      ".analyzed-time"
+    );
+
+  riskDescription.insertBefore(
+    alert,
+    analyzedTime || null
+  );
 }
 
 function findBreakdownValue(object, possibleKeys) {

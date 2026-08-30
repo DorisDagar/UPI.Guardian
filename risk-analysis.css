@@ -132,6 +132,12 @@ a { color: inherit; text-decoration: none; }
 .risk-description h2 { font-size: 29px; letter-spacing: -1px; }
 .risk-description > p { margin-top: 10px; color: var(--text-soft); font-size: 16px; line-height: 1.7; }
 .analyzed-time { display: inline-flex; align-items: center; gap: 8px; margin-top: 14px; padding: 8px 12px; border: 1px solid var(--border); border-radius: 999px; background: rgba(5, 17, 45, .55); color: var(--muted); font-size: 12px; }
+.amount-range-alert { display: flex; align-items: flex-start; gap: 11px; max-width: 520px; margin: 17px auto 2px; padding: 13px 15px; border: 1px solid rgba(255, 211, 106, .34); border-radius: 14px; background: rgba(255, 211, 106, .08); color: var(--yellow); text-align: left; }
+.amount-range-alert.above { border-color: rgba(255, 100, 124, .34); background: rgba(255, 100, 124, .08); color: #ff9bad; }
+.amount-range-alert > i { margin-top: 3px; font-size: 16px; }
+.amount-range-alert strong, .amount-range-alert span { display: block; }
+.amount-range-alert strong { font-size: 13px; }
+.amount-range-alert span { margin-top: 4px; color: var(--text-soft); font-size: 12px; line-height: 1.55; }
 .transaction-details { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 11px; margin-top: 26px; padding-top: 24px; border-top: 1px solid var(--border); }
 .detail-item { display: flex; align-items: center; gap: 11px; min-width: 0; padding: 13px; border: 1px solid var(--border); border-radius: 15px; background: rgba(5, 17, 45, .5); }
 .detail-icon { display: grid; place-items: center; flex: 0 0 37px; width: 37px; height: 37px; border-radius: 11px; font-size: 14px; font-weight: 800; }

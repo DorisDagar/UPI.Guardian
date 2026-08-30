@@ -19,6 +19,14 @@ function clampScore(value) {
   );
 }
 
+function formatCurrency(value) {
+  return new Intl.NumberFormat("en-IN", {
+    style: "currency",
+    currency: "INR",
+    maximumFractionDigits: 2,
+  }).format(Number(value) || 0);
+}
+
 // ==========================================
 // GENERATE A TRANSACTION REFERENCE
 // ==========================================
@@ -204,6 +212,23 @@ async function createPaymentRiskAnalysis({
       "No major risk indicators were detected, but always confirm the receiver before making a payment.";
   }
 
+  const amountRangeStatus =
+    factualRisk.facts.amountRangeStatus;
+
+  if (
+    amountRangeStatus === "above" ||
+    amountRangeStatus === "below"
+  ) {
+    summary +=
+      ` This payment of ${formatCurrency(amount)} is ` +
+      `${amountRangeStatus} your usual payment range of ` +
+      `${formatCurrency(
+        factualRisk.facts.usualMinimumAmount
+      )} to ${formatCurrency(
+        factualRisk.facts.usualMaximumAmount
+      )}.`;
+  }
+
   // 5. Combine factual and Gemini risk factors.
   const riskFactors = [
     ...factualRisk.riskFactors,
@@ -257,8 +282,30 @@ async function createPaymentRiskAnalysis({
       unusualReceiver:
         factualRisk.scores.receiver,
 
-      transactionAmount:
-        factualRisk.scores.amount,
+      transactionAmount: {
+        score: factualRisk.scores.amount,
+        description:
+          amountRangeStatus === "no_history"
+            ? "No completed payment history is available yet"
+            : amountRangeStatus === "within"
+              ? `Within your usual range of ${formatCurrency(
+                  factualRisk.facts.usualMinimumAmount
+                )} to ${formatCurrency(
+                  factualRisk.facts.usualMaximumAmount
+                )}`
+              : `${capitalizeRangeStatus(
+                  amountRangeStatus
+                )} your usual range of ${formatCurrency(
+                  factualRisk.facts.usualMinimumAmount
+                )} to ${formatCurrency(
+                  factualRisk.facts.usualMaximumAmount
+                )}`,
+        rangeStatus: amountRangeStatus,
+        usualMinimumAmount:
+          factualRisk.facts.usualMinimumAmount,
+        usualMaximumAmount:
+          factualRisk.facts.usualMaximumAmount,
+      },
 
       timeAndFrequency:
         factualRisk.scores.timeAndFrequency,
@@ -296,6 +343,10 @@ async function createPaymentRiskAnalysis({
       error: aiError,
     },
   };
+}
+
+function capitalizeRangeStatus(value) {
+  return value === "above" ? "Above" : "Below";
 }
 
 module.exports = {

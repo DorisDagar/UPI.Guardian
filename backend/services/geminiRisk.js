@@ -146,12 +146,26 @@ async function analyzePaymentContext({
         factualRisk.facts.isNewPayee
       ),
 
-      amountRatio: Number(
-        factualRisk.facts.amountRatio || 1
+      usualPaymentRange: {
+        minimum: Number(
+          factualRisk.facts.usualMinimumAmount ||
+            amount
+        ),
+
+        maximum: Number(
+          factualRisk.facts.usualMaximumAmount ||
+            amount
+        ),
+      },
+
+      amountRangeStatus: String(
+        factualRisk.facts.amountRangeStatus ||
+          "no_history"
       ),
 
-      averageAmount: Number(
-        factualRisk.facts.averageAmount || amount
+      amountDeviationPercentage: Number(
+        factualRisk.facts
+          .amountDeviationPercentage || 0
       ),
 
       isLateNight: Boolean(
@@ -193,6 +207,7 @@ Important rules:
 7. Keep the explanation short and understandable for a non-technical user.
 8. Return between 2 and 4 useful safety recommendations.
 9. Do not tell the user that fraud is confirmed. Explain that these are risk indicators.
+10. When discussing the amount, use the supplied usual payment range. Do not compare it with an average.
 
 Payment context:
 

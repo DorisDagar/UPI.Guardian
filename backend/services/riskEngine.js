@@ -2,6 +2,29 @@ function clamp(number, minimum = 0, maximum = 100) {
   return Math.min(maximum, Math.max(minimum, Math.round(number)));
 }
 
+function percentile(sortedValues, percentileValue) {
+  if (sortedValues.length === 0) {
+    return 0;
+  }
+
+  const position =
+    (sortedValues.length - 1) * percentileValue;
+
+  const lowerIndex = Math.floor(position);
+  const upperIndex = Math.ceil(position);
+
+  if (lowerIndex === upperIndex) {
+    return sortedValues[lowerIndex];
+  }
+
+  const weight = position - lowerIndex;
+
+  return (
+    sortedValues[lowerIndex] * (1 - weight) +
+    sortedValues[upperIndex] * weight
+  );
+}
+
 function calculateFactualRisk({
   receiverName,
   receiverUpiId,
@@ -44,34 +67,99 @@ function calculateFactualRisk({
   receiverScore = clamp(receiverScore);
 
   // ==========================================
-  // 2. COMPARE AMOUNT WITH TRANSACTION HISTORY
+  // 2. COMPARE AMOUNT WITH THE USER'S USUAL RANGE
   // ==========================================
 
   const previousAmounts = history
     .map((transaction) => Number(transaction.amount))
     .filter((value) => Number.isFinite(value) && value > 0);
 
-  const averageAmount =
-    previousAmounts.length > 0
-      ? previousAmounts.reduce((total, value) => total + value, 0) /
-        previousAmounts.length
-      : numericAmount;
+  const sortedAmounts = [...previousAmounts].sort(
+    (first, second) => first - second
+  );
 
-  const amountRatio =
-    averageAmount > 0 ? numericAmount / averageAmount : 1;
+  // Five or more payments: use the central 80% so one
+  // unusually small or large old transaction does not
+  // distort the user's normal range.
+  // Fewer than five: use the observed minimum and maximum.
+  const usualMinimumAmount =
+    sortedAmounts.length >= 5
+      ? percentile(sortedAmounts, 0.1)
+      : sortedAmounts[0] ?? numericAmount;
+
+  const usualMaximumAmount =
+    sortedAmounts.length >= 5
+      ? percentile(sortedAmounts, 0.9)
+      : sortedAmounts[sortedAmounts.length - 1] ??
+        numericAmount;
+
+  let amountRangeStatus = "no_history";
+
+  if (previousAmounts.length > 0) {
+    if (numericAmount < usualMinimumAmount) {
+      amountRangeStatus = "below";
+    } else if (numericAmount > usualMaximumAmount) {
+      amountRangeStatus = "above";
+    } else {
+      amountRangeStatus = "within";
+    }
+  }
+
+  let amountDeviationRatio = 1;
+  let amountDeviationPercentage = 0;
+
+  if (
+    amountRangeStatus === "above" &&
+    usualMaximumAmount > 0
+  ) {
+    amountDeviationRatio =
+      numericAmount / usualMaximumAmount;
+
+    amountDeviationPercentage =
+      ((numericAmount - usualMaximumAmount) /
+        usualMaximumAmount) *
+      100;
+  } else if (
+    amountRangeStatus === "below" &&
+    numericAmount > 0
+  ) {
+    amountDeviationRatio =
+      usualMinimumAmount / numericAmount;
+
+    amountDeviationPercentage =
+      ((usualMinimumAmount - numericAmount) /
+        usualMinimumAmount) *
+      100;
+  }
 
   let amountScore = 15;
 
   if (previousAmounts.length === 0) {
     amountScore = 25;
-  } else if (amountRatio >= 3) {
-    amountScore = 90;
-  } else if (amountRatio >= 2) {
-    amountScore = 70;
-  } else if (amountRatio >= 1.5) {
-    amountScore = 50;
-  } else if (amountRatio >= 1.2) {
-    amountScore = 30;
+  } else if (amountRangeStatus === "within") {
+    amountScore = 15;
+  } else if (amountRangeStatus === "above") {
+    if (amountDeviationRatio >= 3) {
+      amountScore = 90;
+    } else if (amountDeviationRatio >= 2) {
+      amountScore = 75;
+    } else if (amountDeviationRatio >= 1.5) {
+      amountScore = 60;
+    } else if (amountDeviationRatio >= 1.2) {
+      amountScore = 45;
+    } else {
+      amountScore = 30;
+    }
+  } else if (amountRangeStatus === "below") {
+    if (amountDeviationRatio >= 3) {
+      amountScore = 55;
+    } else if (amountDeviationRatio >= 2) {
+      amountScore = 45;
+    } else if (amountDeviationRatio >= 1.5) {
+      amountScore = 35;
+    } else {
+      amountScore = 25;
+    }
   }
 
   // ==========================================
@@ -130,14 +218,28 @@ function calculateFactualRisk({
     });
   }
 
-  if (amountRatio >= 1.5 && previousAmounts.length > 0) {
+  if (
+    amountRangeStatus === "above" ||
+    amountRangeStatus === "below"
+  ) {
+    const direction =
+      amountRangeStatus === "above"
+        ? "above"
+        : "below";
+
     riskFactors.push({
-      key: "high_amount",
-      title: "High Amount",
-      description: `This amount is ${amountRatio.toFixed(
-        1
-      )}x higher than your recent average.`,
-      level: amountRatio >= 3 ? "high" : "medium",
+      key: "amount_outside_usual_range",
+      title: "Outside Usual Payment Range",
+      description:
+        `This payment is ${direction} your usual range of ` +
+        `₹${usualMinimumAmount.toFixed(2)} to ` +
+        `₹${usualMaximumAmount.toFixed(2)} ` +
+        `(${amountDeviationPercentage.toFixed(0)}% ${direction} the range).`,
+      level:
+        amountRangeStatus === "above" &&
+        amountDeviationRatio >= 2
+          ? "high"
+          : "medium",
       score: amountScore,
     });
   }
@@ -179,8 +281,25 @@ function calculateFactualRisk({
       hasSuspiciousReceiverName,
       previousPaymentsToReceiver:
         previousPaymentsToReceiver.length,
-      averageAmount: Number(averageAmount.toFixed(2)),
-      amountRatio: Number(amountRatio.toFixed(2)),
+      usualMinimumAmount: Number(
+        usualMinimumAmount.toFixed(2)
+      ),
+      usualMaximumAmount: Number(
+        usualMaximumAmount.toFixed(2)
+      ),
+      amountRangeStatus,
+      amountDeviationRatio: Number(
+        amountDeviationRatio.toFixed(2)
+      ),
+      amountDeviationPercentage: Number(
+        amountDeviationPercentage.toFixed(1)
+      ),
+      amountRangeMethod:
+        sortedAmounts.length >= 5
+          ? "central_80_percent"
+          : sortedAmounts.length > 0
+            ? "observed_minimum_maximum"
+            : "no_history",
       isLateNight,
       transactionsDuringLastHour,
       historySize: history.length,
@@ -189,9 +308,20 @@ function calculateFactualRisk({
     riskFactors,
 
     historicalComparison: {
-      usualAverageAmount: Number(averageAmount.toFixed(2)),
       currentAmount: numericAmount,
-      amountRatio: Number(amountRatio.toFixed(2)),
+      usualMinimumAmount: Number(
+        usualMinimumAmount.toFixed(2)
+      ),
+      usualMaximumAmount: Number(
+        usualMaximumAmount.toFixed(2)
+      ),
+      amountRangeStatus,
+      amountDeviationRatio: Number(
+        amountDeviationRatio.toFixed(2)
+      ),
+      amountDeviationPercentage: Number(
+        amountDeviationPercentage.toFixed(1)
+      ),
       previousPaymentsToReceiver:
         previousPaymentsToReceiver.length,
       recentTransactionsChecked: history.length,

@@ -105,6 +105,7 @@ router.post("/analyze", async (req, res) => {
           transaction_time
         FROM transactions
         WHERE user_id = $1
+          AND transaction_status = 'completed'
         ORDER BY transaction_time DESC
         LIMIT 20
       `,
