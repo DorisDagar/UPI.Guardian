@@ -1,47 +1,73 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>UPI Guardian - Identify Transaction</title>
 
     <!-- CSS -->
-    <link rel="stylesheet" href="select-transaction.css">
+    <link
+        rel="stylesheet"
+        href="select-transaction.css"
+    >
 
     <!-- Font Awesome -->
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
 </head>
+
 
 <body>
 
-    <!-- ================= HEADER ================= -->
+
+    <!-- ==================================================
+         HEADER
+    =================================================== -->
 
     <header class="top-header">
 
         <div class="brand">
 
-            <!-- Square Blue Logo -->
             <div class="logo-box">
+
                 <i class="fa-solid fa-shield-halved"></i>
+
             </div>
 
-            <span>UPI Guardian</span>
+            <span>
+                UPI Guardian
+            </span>
 
         </div>
 
     </header>
 
 
-    <!-- ================= MAIN ================= -->
+
+    <!-- ==================================================
+         MAIN
+    =================================================== -->
 
     <main class="main-container">
 
-        <!-- PAGE TOP -->
+
+        <!-- ==================================================
+             PAGE TOP
+        =================================================== -->
 
         <div class="page-top">
+
 
             <div class="page-heading">
 
@@ -49,13 +75,17 @@
 
                     <i class="fa-solid fa-rotate-left"></i>
 
-                    <span>RECOVERY <b>MODE</b></span>
+                    <span>
+                        RECOVERY <b>MODE</b>
+                    </span>
 
                 </div>
+
 
                 <h1>
                     Identify the Suspicious Transaction
                 </h1>
+
 
                 <p>
                     Select the transaction you believe may be fraudulent.
@@ -64,7 +94,10 @@
             </div>
 
 
-            <!-- Progress -->
+
+            <!-- ==================================================
+                 PROGRESS
+            =================================================== -->
 
             <div class="progress-box">
 
@@ -72,16 +105,23 @@
                     Step 1 of 6
                 </h3>
 
+
                 <div class="progress-bars">
 
                     <span class="active"></span>
+
                     <span></span>
+
                     <span></span>
+
                     <span></span>
+
                     <span></span>
+
                     <span></span>
 
                 </div>
+
 
                 <p>
                     16% Complete
@@ -92,363 +132,180 @@
         </div>
 
 
-        <!-- ================= TRANSACTION SECTION ================= -->
+
+        <!-- ==================================================
+             TRANSACTION SECTION
+        =================================================== -->
 
         <section class="transaction-section">
 
-            <!-- Section heading -->
+
+            <!-- ==================================================
+                 SECTION HEADING
+            =================================================== -->
 
             <div class="section-heading">
 
                 <div class="clock-icon">
+
                     <i class="fa-regular fa-clock"></i>
+
                 </div>
 
+
                 <div>
-                    <h2>Recent Transactions</h2>
+
+                    <h2>
+                        Recent Transactions
+                    </h2>
+
 
                     <p>
                         Select one transaction to continue
                     </p>
+
                 </div>
 
             </div>
 
 
-            <!-- ================= TRANSACTION 1 ================= -->
 
-            <div class="transaction-card selected"
-                 data-name="Lucky Reward UPI"
-                 data-amount="₹ 50,000"
-                 data-risk="HIGH RISK">
+            <!-- ==================================================
+                 DYNAMIC TRANSACTION CONTAINER
+            =================================================== -->
+            <!--
+                select-transaction.js will load the user's
+                transactions from the backend and create the
+                transaction cards here.
 
-                <div class="transaction-main">
+                IMPORTANT:
+                Each generated card will contain the real
+                PostgreSQL transaction ID as:
 
-                    <div class="transaction-icon gift-icon">
-                        <i class="fa-solid fa-gift"></i>
-                    </div>
+                data-id="DATABASE_TRANSACTION_ID"
 
-                    <div class="transaction-info">
+                This ID is then stored in localStorage and
+                passed to Immediate Action / Evidence Locker.
+            -->
 
-                        <h3>Lucky Reward UPI</h3>
-
-                        <p>
-                            <i class="fa-regular fa-calendar"></i>
-                            29 Aug 2026, 10:42 AM
-                        </p>
-
-                    </div>
-
-                </div>
+            <div
+                id="transactionsContainer"
+                class="transactions-container"
+            >
 
 
-                <div class="transaction-detail">
+                <!-- ==================================================
+                     LOADING STATE
+                =================================================== -->
 
-                    <span>
-                        <i class="fa-solid fa-hashtag"></i>
-                        Transaction ID
-                    </span>
+                <div
+                    id="transactionsLoading"
+                    class="transactions-loading"
+                >
 
-                    <strong>
-                        UPI982174563210
-                    </strong>
-
-                </div>
-
-
-                <div class="transaction-detail">
+                    <i class="fa-solid fa-spinner fa-spin"></i>
 
                     <span>
-                        <i class="fa-solid fa-wallet"></i>
-                        Payment Method
+                        Loading recent transactions...
                     </span>
 
-                    <strong>
-                        UPI • HDFC Bank
-                    </strong>
-
                 </div>
 
 
-                <div class="amount">
-                    ₹ 50,000
-                </div>
+                <!-- ==================================================
+                     ERROR STATE
+                =================================================== -->
 
+                <div
+                    id="transactionsError"
+                    class="transactions-error"
+                    style="display: none;"
+                >
 
-                <div class="risk high">
                     <i class="fa-solid fa-triangle-exclamation"></i>
-                    HIGH RISK
+
+                    <span>
+                        Unable to load transactions.
+                    </span>
+
+                    <button
+                        type="button"
+                        id="retryTransactionsBtn"
+                    >
+                        Try Again
+                    </button>
+
                 </div>
 
 
-                <button class="select-btn">
-                    Select
-                </button>
+                <!-- ==================================================
+                     EMPTY STATE
+                =================================================== -->
 
+                <div
+                    id="transactionsEmpty"
+                    class="transactions-empty"
+                    style="display: none;"
+                >
 
-                <div class="radio selected-radio">
-                    <i class="fa-solid fa-check"></i>
+                    <i class="fa-regular fa-folder-open"></i>
+
+                    <h3>
+                        No transactions found
+                    </h3>
+
+                    <p>
+                        There are no recent transactions available for recovery.
+                    </p>
+
                 </div>
+
 
             </div>
 
 
-            <!-- ================= TRANSACTION 2 ================= -->
 
-            <div class="transaction-card"
-                 data-name="Unknown Store"
-                 data-amount="₹ 2,000"
-                 data-risk="MEDIUM RISK">
-
-                <div class="transaction-main">
-
-                    <div class="transaction-icon store-icon">
-                        <i class="fa-solid fa-store"></i>
-                    </div>
-
-                    <div class="transaction-info">
-
-                        <h3>Unknown Store</h3>
-
-                        <p>
-                            <i class="fa-regular fa-calendar"></i>
-                            28 Aug 2026, 8:15 PM
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="transaction-detail">
-
-                    <span>
-                        <i class="fa-solid fa-hashtag"></i>
-                        Transaction ID
-                    </span>
-
-                    <strong>
-                        UPI746291038455
-                    </strong>
-
-                </div>
-
-
-                <div class="transaction-detail">
-
-                    <span>
-                        <i class="fa-solid fa-wallet"></i>
-                        Payment Method
-                    </span>
-
-                    <strong>
-                        UPI • SBI
-                    </strong>
-
-                </div>
-
-
-                <div class="amount">
-                    ₹ 2,000
-                </div>
-
-
-                <div class="risk medium">
-                    <i class="fa-solid fa-circle-exclamation"></i>
-                    MEDIUM RISK
-                </div>
-
-
-                <button class="select-btn">
-                    Select
-                </button>
-
-
-                <div class="radio">
-                    <i class="fa-solid fa-check"></i>
-                </div>
-
-            </div>
-
-
-            <!-- ================= TRANSACTION 3 ================= -->
-
-            <div class="transaction-card"
-                 data-name="Food Delivery"
-                 data-amount="₹ 500"
-                 data-risk="SAFE">
-
-                <div class="transaction-main">
-
-                    <div class="transaction-icon food-icon">
-                        <i class="fa-solid fa-bag-shopping"></i>
-                    </div>
-
-                    <div class="transaction-info">
-
-                        <h3>Food Delivery</h3>
-
-                        <p>
-                            <i class="fa-regular fa-calendar"></i>
-                            28 Aug 2026, 1:30 PM
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="transaction-detail">
-
-                    <span>
-                        <i class="fa-solid fa-hashtag"></i>
-                        Transaction ID
-                    </span>
-
-                    <strong>
-                        UPI530918274601
-                    </strong>
-
-                </div>
-
-
-                <div class="transaction-detail">
-
-                    <span>
-                        <i class="fa-solid fa-wallet"></i>
-                        Payment Method
-                    </span>
-
-                    <strong>
-                        UPI • ICICI Bank
-                    </strong>
-
-                </div>
-
-
-                <div class="amount">
-                    ₹ 500
-                </div>
-
-
-                <div class="risk safe">
-                    <i class="fa-regular fa-circle-check"></i>
-                    SAFE
-                </div>
-
-
-                <button class="select-btn">
-                    Select
-                </button>
-
-
-                <div class="radio">
-                    <i class="fa-solid fa-check"></i>
-                </div>
-
-            </div>
-
-
-            <!-- ================= TRANSACTION 4 ================= -->
-
-            <div class="transaction-card"
-                 data-name="Rahul Sharma"
-                 data-amount="₹ 1,200"
-                 data-risk="SAFE">
-
-                <div class="transaction-main">
-
-                    <div class="transaction-icon person-icon">
-                        <i class="fa-solid fa-user"></i>
-                    </div>
-
-                    <div class="transaction-info">
-
-                        <h3>Rahul Sharma</h3>
-
-                        <p>
-                            <i class="fa-regular fa-calendar"></i>
-                            27 Aug 2026, 6:05 PM
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="transaction-detail">
-
-                    <span>
-                        <i class="fa-solid fa-hashtag"></i>
-                        Transaction ID
-                    </span>
-
-                    <strong>
-                        UPI418620975334
-                    </strong>
-
-                </div>
-
-
-                <div class="transaction-detail">
-
-                    <span>
-                        <i class="fa-solid fa-wallet"></i>
-                        Payment Method
-                    </span>
-
-                    <strong>
-                        UPI • Axis Bank
-                    </strong>
-
-                </div>
-
-
-                <div class="amount">
-                    ₹ 1,200
-                </div>
-
-
-                <div class="risk safe">
-                    <i class="fa-regular fa-circle-check"></i>
-                    SAFE
-                </div>
-
-
-                <button class="select-btn">
-                    Select
-                </button>
-
-
-                <div class="radio">
-                    <i class="fa-solid fa-check"></i>
-                </div>
-
-            </div>
-
-
-            <!-- ================= BOTTOM ACTION ================= -->
+            <!-- ==================================================
+                 BOTTOM ACTION
+            =================================================== -->
 
             <div class="bottom-action">
+
+
+                <!-- SELECTED COUNT -->
 
                 <div class="selected-count">
 
                     <div class="count-icon">
+
                         <i class="fa-solid fa-check"></i>
+
                     </div>
 
+
                     <span id="selectedText">
-                        1 transaction selected
+
+                        0 transactions selected
+
                     </span>
 
                 </div>
 
 
-                <button class="continue-btn" id="continueBtn">
+
+                <!-- CONTINUE -->
+
+                <button
+                    class="continue-btn"
+                    id="continueBtn"
+                    type="button"
+                    disabled
+                >
 
                     <span>
                         Continue to Immediate Action
                     </span>
+
 
                     <i class="fa-solid fa-arrow-right"></i>
 
@@ -456,15 +313,22 @@
 
             </div>
 
+
         </section>
+
 
     </main>
 
 
-    <!-- JavaScript -->
+
+    <!-- ==================================================
+         JAVASCRIPT
+    =================================================== -->
 
     <script src="select-transaction.js"></script>
+
 
 </body>
 
 </html>
+
