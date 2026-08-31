@@ -21,7 +21,11 @@
 
     --panel-2: #06142f;
 
+    --panel-3: #071837;
+
     --blue: #168cff;
+
+    --blue-light: #4da8ff;
 
     --purple: #7139e8;
 
@@ -31,11 +35,20 @@
 
     --muted: #c4c9d8;
 
+    --muted-2: #8995ae;
+
     --green: #78df2d;
+
+    --green-light: #5de56c;
 
     --red: #ff3d52;
 
+    --orange: #ffb52e;
+
     --border: rgba(130, 153, 205, 0.32);
+
+    --border-light: rgba(132, 151, 198, 0.35);
+
 }
 
 
@@ -45,7 +58,9 @@
 
 html {
     font-size: 14px;
+    scroll-behavior: smooth;
 }
+
 
 body {
 
@@ -56,11 +71,19 @@ body {
         Helvetica,
         sans-serif;
 
-    background: var(--bg);
+    background:
+        radial-gradient(
+            circle at 80% 10%,
+            rgba(54, 49, 150, 0.08),
+            transparent 30%
+        ),
+        var(--bg);
 
     color: var(--text);
 
     overflow-x: hidden;
+
+    -webkit-font-smoothing: antialiased;
 }
 
 
@@ -88,6 +111,15 @@ body {
 
     border-bottom:
         1px solid rgba(255, 255, 255, 0.07);
+
+    background:
+        rgba(2, 10, 32, 0.92);
+
+    backdrop-filter:
+        blur(10px);
+
+    -webkit-backdrop-filter:
+        blur(10px);
 }
 
 
@@ -101,6 +133,8 @@ body {
     font-size: 17px;
 
     font-weight: 600;
+
+    letter-spacing: 0.1px;
 }
 
 
@@ -117,12 +151,18 @@ body {
     align-items: center;
     justify-content: center;
 
-    background: #167ef3;
+    background:
+        linear-gradient(
+            135deg,
+            #168cff,
+            #376ee8
+        );
 
-    border-radius: 4px;
+    border-radius: 5px;
 
     box-shadow:
-        0 4px 12px rgba(22, 126, 243, 0.28);
+        0 4px 12px
+        rgba(22, 126, 243, 0.28);
 }
 
 
@@ -182,6 +222,12 @@ body {
     color: #139cff;
 
     font-size: 34px;
+
+    filter:
+        drop-shadow(
+            0 0 8px
+            rgba(19,156,255,0.18)
+        );
 }
 
 
@@ -228,6 +274,8 @@ body {
     line-height: 1.15;
 
     font-weight: 700;
+
+    letter-spacing: -0.3px;
 }
 
 
@@ -249,7 +297,12 @@ body {
 
     padding: 14px 17px;
 
-    background: #06142f;
+    background:
+        linear-gradient(
+            135deg,
+            #071936,
+            #06132d
+        );
 
     border:
         1px solid rgba(133, 151, 197, 0.3);
@@ -257,7 +310,11 @@ body {
     border-radius: 11px;
 
     box-shadow:
-        0 5px 18px rgba(0, 0, 0, 0.18);
+        0 5px 18px
+        rgba(0, 0, 0, 0.18),
+
+        inset 0 1px 0
+        rgba(255,255,255,0.025);
 }
 
 
@@ -268,6 +325,8 @@ body {
     font-size: 14px;
 
     font-weight: 600;
+
+    color: #f4f6fb;
 }
 
 
@@ -289,22 +348,57 @@ body {
 
     border-radius: 10px;
 
-    background: #26344d;
+    background:
+        #26344d;
+
+    transition:
+        background 0.25s ease,
+        box-shadow 0.25s ease;
 }
 
 
 .bar.blue {
-    background: #149cff;
+
+    background:
+        linear-gradient(
+            90deg,
+            #149cff,
+            #3aaaff
+        );
+
+    box-shadow:
+        0 0 7px
+        rgba(20,156,255,0.25);
 }
 
 
 .bar.purple {
-    background: #713fe5;
+
+    background:
+        linear-gradient(
+            90deg,
+            #713fe5,
+            #8655f2
+        );
+
+    box-shadow:
+        0 0 7px
+        rgba(113,63,229,0.23);
 }
 
 
 .bar.pink {
-    background: #c14bdb;
+
+    background:
+        linear-gradient(
+            90deg,
+            #c14bdb,
+            #e151d7
+        );
+
+    box-shadow:
+        0 0 7px
+        rgba(193,75,219,0.22);
 }
 
 
@@ -338,7 +432,12 @@ body {
 
     padding: 11px 28px 11px 20px;
 
-    background: #06142f;
+    background:
+        linear-gradient(
+            110deg,
+            rgba(7,22,51,0.98),
+            rgba(6,18,47,0.98)
+        );
 
     border:
         1px solid #6852a2;
@@ -346,7 +445,29 @@ body {
     border-radius: 12px;
 
     box-shadow:
-        0 0 18px rgba(105, 65, 220, 0.13);
+        0 0 18px
+        rgba(105, 65, 220, 0.13),
+
+        inset 0 1px 0
+        rgba(255,255,255,0.025);
+
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+.transaction-card:hover {
+
+    border-color:
+        rgba(132,105,224,0.9);
+
+    box-shadow:
+        0 0 23px
+        rgba(105,65,220,0.18),
+
+        inset 0 1px 0
+        rgba(255,255,255,0.025);
 }
 
 
@@ -367,13 +488,19 @@ body {
 
     border-radius: 50%;
 
-    background: #5425c7;
+    background:
+        linear-gradient(
+            145deg,
+            #612bd5,
+            #4520ad
+        );
 
     border:
         1px solid #9b75f4;
 
     box-shadow:
-        0 0 15px rgba(106, 57, 238, 0.28);
+        0 0 15px
+        rgba(106,57,238,0.28);
 }
 
 
@@ -381,9 +508,24 @@ body {
 
     color: white;
 
-    font-size: 30px;
+    font-size: 29px;
+
+    transition:
+        transform 0.2s ease;
 }
 
+
+.transaction-card:hover
+.transaction-icon > i {
+
+    transform:
+        scale(1.06);
+}
+
+
+/* =========================================
+   WARNING BADGE
+========================================= */
 
 .warning-icon {
 
@@ -401,12 +543,21 @@ body {
 
     color: white;
 
-    background: #ffb700;
+    background:
+        linear-gradient(
+            135deg,
+            #ffc21a,
+            #ff9f00
+        );
 
-    border-radius: 5px;
+    border-radius: 6px;
 
     border:
         2px solid #07132f;
+
+    box-shadow:
+        0 3px 8px
+        rgba(255,174,0,0.22);
 }
 
 
@@ -419,9 +570,19 @@ body {
    TRANSACTION TEXT
 ========================================= */
 
+.transaction-info {
+
+    min-width: 0;
+
+    padding-right: 10px;
+}
+
+
 .transaction-info h3 {
 
     margin-bottom: 4px;
+
+    color: #f3f5fb;
 
     font-size: 16px;
 
@@ -430,6 +591,14 @@ body {
 
 
 .transaction-info p {
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+    color: #dce2ef;
 
     font-size: 15px;
 
@@ -459,9 +628,15 @@ body {
 
     text-align: center;
 
+    color: #ffffff;
+
     font-size: 23px;
 
     font-weight: 700;
+
+    white-space: nowrap;
+
+    letter-spacing: -0.3px;
 }
 
 
@@ -471,7 +646,11 @@ body {
 
 .transaction-details {
 
+    min-width: 0;
+
     padding-left: 28px;
+
+    color: #bfc7d9;
 
     font-size: 13px;
 
@@ -480,15 +659,89 @@ body {
 
 
 .transaction-details p {
+
     white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+
+.transaction-details span {
+
+    color: #dce3f1;
+
+    font-weight: 500;
 }
 
 
 .transaction-details strong {
 
-    color: var(--red);
-
     font-size: 14px;
+
+    font-weight: 700;
+
+    transition:
+        color 0.2s ease;
+}
+
+
+/* =========================================
+   DYNAMIC RISK COLORS
+========================================= */
+
+#transactionRisk.risk-high {
+
+    color: #ff4055;
+
+    text-shadow:
+        0 0 8px
+        rgba(255,64,85,0.18);
+}
+
+
+#transactionRisk.risk-medium {
+
+    color: #ffb52e;
+
+    text-shadow:
+        0 0 8px
+        rgba(255,181,46,0.16);
+}
+
+
+#transactionRisk.risk-low {
+
+    color: #5de56c;
+
+    text-shadow:
+        0 0 8px
+        rgba(93,229,108,0.15);
+}
+
+
+#transactionRisk.risk-unknown {
+
+    color: #a9b3c8;
+}
+
+
+/* =========================================
+   TRANSACTION ID
+========================================= */
+
+#transactionId {
+
+    display: inline-block;
+
+    max-width: 190px;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    vertical-align: bottom;
 }
 
 
@@ -502,12 +755,24 @@ body {
 
     padding: 17px 20px 11px;
 
-    background: #071633;
+    background:
+        linear-gradient(
+            135deg,
+            #071633,
+            #06142f
+        );
 
     border:
         1px solid var(--border);
 
     border-radius: 12px;
+
+    box-shadow:
+        0 7px 22px
+        rgba(0,0,0,0.08),
+
+        inset 0 1px 0
+        rgba(255,255,255,0.02);
 }
 
 
@@ -522,6 +787,8 @@ body {
     font-size: 20px;
 
     line-height: 1.2;
+
+    letter-spacing: -0.2px;
 }
 
 
@@ -569,23 +836,38 @@ body {
 
     cursor: pointer;
 
-    background: #071837;
+    background:
+        linear-gradient(
+            135deg,
+            #071837,
+            #06152f
+        );
 
     border:
-        1px solid rgba(132, 151, 198, 0.35);
+        1px solid
+        rgba(132,151,198,0.35);
 
     border-radius: 11px;
 
-    transition: 0.2s ease;
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
 }
 
 
 .person-card:hover {
 
-    border-color: #6086d8;
+    transform:
+        translateY(-1px);
+
+    border-color:
+        #6086d8;
 
     box-shadow:
-        0 5px 15px rgba(0, 0, 0, 0.2);
+        0 5px 15px
+        rgba(0,0,0,0.2);
 }
 
 
@@ -598,10 +880,12 @@ body {
             #21123e
         );
 
-    border-color: #65aaff;
+    border-color:
+        #65aaff;
 
     box-shadow:
-        0 0 15px rgba(55, 125, 255, 0.16);
+        0 0 15px
+        rgba(55,125,255,0.16);
 }
 
 
@@ -625,7 +909,12 @@ body {
     border-radius: 50%;
 
     border:
-        1px solid rgba(255, 255, 255, 0.3);
+        1px solid
+        rgba(255,255,255,0.3);
+
+    box-shadow:
+        inset 0 1px 4px
+        rgba(255,255,255,0.08);
 }
 
 
@@ -638,17 +927,35 @@ body {
 
 
 .person-avatar.mom {
-    background: #5225c4;
+
+    background:
+        linear-gradient(
+            135deg,
+            #642bd3,
+            #4620a9
+        );
 }
 
 
 .person-avatar.dad {
-    background: #155dcc;
+
+    background:
+        linear-gradient(
+            135deg,
+            #1768db,
+            #124ca7
+        );
 }
 
 
 .person-avatar.friend {
-    background: #128d9a;
+
+    background:
+        linear-gradient(
+            135deg,
+            #159ca8,
+            #087982
+        );
 }
 
 
@@ -658,6 +965,8 @@ body {
 
 .person-info {
 
+    min-width: 0;
+
     padding-right: 30px;
 }
 
@@ -665,6 +974,12 @@ body {
 .person-info h3 {
 
     margin-bottom: 5px;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
 
     font-size: 16px;
 
@@ -690,9 +1005,16 @@ body {
     width: 9px;
     height: 9px;
 
+    flex-shrink: 0;
+
     border-radius: 50%;
 
-    background: var(--green);
+    background:
+        var(--green);
+
+    box-shadow:
+        0 0 7px
+        rgba(120,223,45,0.35);
 }
 
 
@@ -706,11 +1028,18 @@ body {
 
     color: white;
 
-    background: #123d7d;
+    background:
+        rgba(18,61,125,0.9);
+
+    border:
+        1px solid
+        rgba(77,154,255,0.22);
 
     border-radius: 4px;
 
     font-size: 10px;
+
+    font-weight: 500;
 }
 
 
@@ -736,17 +1065,29 @@ body {
         1.5px solid #d8d9df;
 
     border-radius: 50%;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
 
 .radio.checked {
 
-    background: #258bff;
+    background:
+        linear-gradient(
+            135deg,
+            #2b98ff,
+            #1477e9
+        );
 
-    border-color: white;
+    border-color:
+        white;
 
     box-shadow:
-        0 0 10px rgba(37, 139, 255, 0.4);
+        0 0 10px
+        rgba(37,139,255,0.4);
 }
 
 
@@ -755,6 +1096,359 @@ body {
     color: white;
 
     font-size: 12px;
+}
+
+
+/* =========================================
+   WHATSAPP NUMBER SECTION
+========================================= */
+
+.whatsapp-number-section {
+
+    margin-top: 16px;
+
+    padding: 16px 18px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(8,28,61,0.95),
+            rgba(5,19,45,0.98)
+        );
+
+    border:
+        1px solid
+        rgba(79,139,226,0.35);
+
+    border-radius: 12px;
+
+    box-shadow:
+        inset 0 1px 0
+        rgba(255,255,255,0.025),
+
+        0 8px 22px
+        rgba(0,0,0,0.12);
+
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+.whatsapp-number-section:focus-within {
+
+    border-color:
+        rgba(22,145,255,0.75);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(22,145,255,0.08),
+
+        0 8px 25px
+        rgba(0,0,0,0.18);
+}
+
+
+/* =========================================
+   WHATSAPP LABEL
+========================================= */
+
+.whatsapp-number-section label {
+
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    margin-bottom: 9px;
+
+    color: #f4f7ff;
+
+    font-size: 13px;
+
+    font-weight: 600;
+}
+
+
+.whatsapp-number-section label i {
+
+    color: #25d366;
+
+    font-size: 17px;
+
+    filter:
+        drop-shadow(
+            0 0 5px
+            rgba(37,211,102,0.25)
+        );
+}
+
+
+/* =========================================
+   WHATSAPP INPUT CONTAINER
+========================================= */
+
+.whatsapp-input {
+
+    width: 100%;
+    height: 52px;
+
+    display: flex;
+    align-items: center;
+
+    overflow: hidden;
+
+    background:
+        rgba(2,11,31,0.92);
+
+    border:
+        1px solid
+        rgba(126,151,199,0.38);
+
+    border-radius: 10px;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+
+.whatsapp-input:focus-within {
+
+    background:
+        rgba(3,16,39,1);
+
+    border-color:
+        #2497ff;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(36,151,255,0.09);
+}
+
+
+/* =========================================
+   COUNTRY CODE
+========================================= */
+
+.country-code {
+
+    height: 100%;
+
+    min-width: 78px;
+
+    padding: 0 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(20,54,100,0.72),
+            rgba(12,38,76,0.72)
+        );
+
+    color: #e9f2ff;
+
+    font-size: 14px;
+}
+
+
+.country-flag {
+
+    font-size: 16px;
+
+    line-height: 1;
+}
+
+
+.country-code strong {
+
+    color: #ffffff;
+
+    font-size: 14px;
+
+    font-weight: 600;
+}
+
+
+/* =========================================
+   PHONE DIVIDER
+========================================= */
+
+.phone-divider {
+
+    width: 1px;
+
+    height: 26px;
+
+    flex-shrink: 0;
+
+    background:
+        rgba(147,165,202,0.24);
+}
+
+
+/* =========================================
+   PHONE INPUT
+========================================= */
+
+.whatsapp-input input {
+
+    flex: 1;
+
+    min-width: 0;
+
+    height: 100%;
+
+    padding: 0 14px;
+
+    border: none;
+
+    outline: none;
+
+    background: transparent;
+
+    color: #ffffff;
+
+    font-family: inherit;
+
+    font-size: 15px;
+
+    font-weight: 500;
+
+    letter-spacing: 0.5px;
+}
+
+
+.whatsapp-input input::placeholder {
+
+    color: #71809e;
+
+    font-weight: 400;
+}
+
+
+.whatsapp-input input:focus::placeholder {
+
+    color: #566887;
+}
+
+
+/* =========================================
+   PHONE STATUS
+========================================= */
+
+.phone-status {
+
+    width: 48px;
+
+    height: 100%;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #579fff;
+
+    border-left:
+        1px solid
+        rgba(147,165,202,0.16);
+
+    transition:
+        color 0.2s ease;
+}
+
+
+.phone-status i {
+
+    font-size: 16px;
+}
+
+
+/* =========================================
+   VALID PHONE NUMBER
+========================================= */
+
+.whatsapp-input input.valid {
+
+    color: #ffffff;
+}
+
+
+.whatsapp-input:has(input.valid) {
+
+    border-color:
+        rgba(65,220,116,0.72);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(65,220,116,0.07);
+}
+
+
+.whatsapp-input:has(input.valid)
+.phone-status {
+
+    color: #40dc74;
+}
+
+
+/* =========================================
+   INVALID PHONE NUMBER
+========================================= */
+
+.whatsapp-input:has(input.invalid) {
+
+    border-color:
+        rgba(255,61,82,0.78);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(255,61,82,0.07);
+}
+
+
+.whatsapp-input:has(input.invalid)
+.phone-status {
+
+    color: #ff5265;
+}
+
+
+/* =========================================
+   PHONE HELPER TEXT
+========================================= */
+
+.whatsapp-number-section small {
+
+    display: flex;
+    align-items: center;
+
+    gap: 7px;
+
+    margin-top: 8px;
+
+    color: #8795b0;
+
+    font-size: 11px;
+
+    line-height: 1.4;
+}
+
+
+.whatsapp-number-section small i {
+
+    color: #4e9eff;
+
+    font-size: 10px;
 }
 
 
@@ -776,17 +1470,27 @@ body {
 
     padding: 17px;
 
-    background: #061735;
+    background:
+        linear-gradient(
+            135deg,
+            #061735,
+            #05132e
+        );
 
     border:
-        1px solid rgba(108, 133, 191, 0.4);
+        1px solid
+        rgba(108,133,191,0.4);
 
     border-radius: 11px;
+
+    box-shadow:
+        inset 0 1px 0
+        rgba(255,255,255,0.02);
 }
 
 
 /* =========================================
-   INFORMATION SHIELD IMAGE
+   INFORMATION ICON
 ========================================= */
 
 .information-icon {
@@ -801,13 +1505,14 @@ body {
     justify-content: center;
 
     border-right:
-        1px solid rgba(168, 174, 198, 0.3);
+        1px solid
+        rgba(168,174,198,0.3);
 }
 
 
-/*
-   YOUR SHIELD IMAGE
-*/
+/* =========================================
+   SHIELD IMAGE
+========================================= */
 
 .information-shield {
 
@@ -817,6 +1522,12 @@ body {
     object-fit: contain;
 
     display: block;
+
+    filter:
+        drop-shadow(
+            0 0 9px
+            rgba(47,137,255,0.12)
+        );
 }
 
 
@@ -838,7 +1549,8 @@ body {
     align-items: center;
     justify-content: center;
 
-    background: #1769e5;
+    background:
+        #1769e5;
 
     color: white;
 
@@ -846,6 +1558,10 @@ body {
         2px solid #061735;
 
     border-radius: 50%;
+
+    box-shadow:
+        0 0 8px
+        rgba(23,105,229,0.25);
 }
 
 
@@ -907,6 +1623,12 @@ body {
     color: #76df32;
 
     font-size: 17px;
+
+    filter:
+        drop-shadow(
+            0 0 5px
+            rgba(118,223,50,0.12)
+        );
 }
 
 
@@ -932,7 +1654,8 @@ body {
     font-size: 12px;
 
     border-top:
-        1px solid rgba(150, 160, 190, 0.22);
+        1px solid
+        rgba(150,160,190,0.22);
 }
 
 
@@ -974,15 +1697,32 @@ body {
 
     color: #2998ff;
 
+    font-family: inherit;
+
     font-size: 14px;
 
     cursor: pointer;
+
+    transition:
+        color 0.2s ease;
 }
 
 
 .continue-btn:hover {
 
     color: #67b8ff;
+}
+
+
+.continue-btn:focus-visible {
+
+    outline:
+        2px solid
+        rgba(41,152,255,0.55);
+
+    outline-offset: 4px;
+
+    border-radius: 4px;
 }
 
 
@@ -1016,6 +1756,8 @@ body {
 
     color: white;
 
+    font-family: inherit;
+
     font-size: 18px;
 
     font-weight: 600;
@@ -1023,18 +1765,48 @@ body {
     cursor: pointer;
 
     box-shadow:
-        0 7px 20px rgba(50, 84, 255, 0.25);
+        0 7px 20px
+        rgba(50,84,255,0.25);
 
-    transition: 0.2s ease;
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        opacity 0.2s ease;
 }
 
 
 .recovery-btn:hover {
 
-    transform: translateY(-1px);
+    transform:
+        translateY(-1px);
 
     box-shadow:
-        0 10px 25px rgba(50, 84, 255, 0.4);
+        0 10px 25px
+        rgba(50,84,255,0.4);
+}
+
+
+.recovery-btn:active {
+
+    transform:
+        translateY(0);
+}
+
+
+.recovery-btn:disabled {
+
+    cursor:
+        default;
+
+    opacity:
+        0.92;
+
+    transform:
+        none;
+
+    box-shadow:
+        0 7px 20px
+        rgba(50,84,255,0.18);
 }
 
 
@@ -1080,6 +1852,7 @@ body {
 
 @media (max-width: 1050px) {
 
+
     .intro-section {
 
         grid-template-columns:
@@ -1087,6 +1860,7 @@ body {
             1fr
             250px;
     }
+
 
 
     .transaction-card {
@@ -1100,8 +1874,10 @@ body {
             220px;
 
         padding-left: 16px;
+
         padding-right: 18px;
     }
+
 
 
     .transaction-details {
@@ -1110,10 +1886,12 @@ body {
     }
 
 
+
     .recovery-btn {
 
         width: 360px;
     }
+
 }
 
 
@@ -1123,10 +1901,13 @@ body {
 
 @media (max-width: 850px) {
 
+
     .container {
 
-        width: calc(100% - 26px);
+        width:
+            calc(100% - 26px);
     }
+
 
 
     .intro-section {
@@ -1137,6 +1918,7 @@ body {
     }
 
 
+
     .progress-card {
 
         grid-column: 2;
@@ -1144,6 +1926,9 @@ body {
         margin-top: 12px;
     }
 
+
+
+    /* Transaction becomes two-column */
 
     .transaction-card {
 
@@ -1157,32 +1942,42 @@ body {
     }
 
 
+
     .transaction-divider {
 
         display: none;
     }
 
 
+
     .amount {
 
-        grid-column: 1 / -1;
+        grid-column:
+            1 / -1;
+
+        padding-top: 3px;
 
         text-align: left;
     }
 
 
+
     .transaction-details {
 
-        grid-column: 1 / -1;
+        grid-column:
+            1 / -1;
 
         padding-left: 0;
     }
 
 
+
     .people-grid {
 
-        grid-template-columns: 1fr;
+        grid-template-columns:
+            1fr;
     }
+
 
 
     .actions {
@@ -1191,10 +1986,12 @@ body {
     }
 
 
+
     .recovery-btn {
 
         width: 330px;
     }
+
 }
 
 
@@ -1204,6 +2001,7 @@ body {
 
 @media (max-width: 600px) {
 
+
     .top-header {
 
         height: 48px;
@@ -1212,10 +2010,12 @@ body {
     }
 
 
+
     .brand {
 
         font-size: 15px;
     }
+
 
 
     .logo-box {
@@ -1225,24 +2025,31 @@ body {
     }
 
 
+
     .logo-box i {
 
         font-size: 15px;
     }
 
 
+
     .container {
 
-        width: calc(100% - 18px);
+        width:
+            calc(100% - 18px);
 
         padding-top: 15px;
     }
 
 
+
+    /* Intro */
+
     .intro-section {
 
         display: block;
     }
+
 
 
     .intro-icon {
@@ -1251,10 +2058,12 @@ body {
     }
 
 
+
     .intro-content h1 {
 
         font-size: 23px;
     }
+
 
 
     .intro-content p {
@@ -1263,22 +2072,105 @@ body {
     }
 
 
+
     .progress-card {
 
         margin-top: 12px;
     }
 
 
+
+    /* Transaction */
+
     .transaction-card {
 
         margin-top: 12px;
+
+        grid-template-columns:
+            58px
+            1fr;
+
+        padding: 14px;
     }
 
+
+
+    .transaction-icon {
+
+        width: 52px;
+        height: 52px;
+    }
+
+
+
+    .transaction-icon > i {
+
+        font-size: 23px;
+    }
+
+
+
+    .warning-icon {
+
+        width: 20px;
+        height: 20px;
+
+        right: -3px;
+        bottom: -3px;
+    }
+
+
+
+    .transaction-info h3 {
+
+        font-size: 15px;
+    }
+
+
+
+    .transaction-info p {
+
+        font-size: 14px;
+    }
+
+
+
+    .amount {
+
+        font-size: 21px;
+
+        padding-top: 3px;
+    }
+
+
+
+    .transaction-details {
+
+        font-size: 12px;
+
+        line-height: 1.7;
+    }
+
+
+
+    #transactionId {
+
+        max-width:
+            155px;
+    }
+
+
+
+    /* Trusted section */
 
     .trusted-section {
 
-        padding: 14px 12px 10px;
+        padding:
+            14px
+            12px
+            10px;
     }
+
 
 
     .section-heading h2 {
@@ -1287,20 +2179,71 @@ body {
     }
 
 
+
     .section-heading p {
 
         font-size: 12px;
     }
 
 
-    /* Information box */
+
+    /* =====================================
+       WHATSAPP
+    ====================================== */
+
+    .whatsapp-number-section {
+
+        padding: 14px;
+
+        margin-top: 14px;
+    }
+
+
+
+    .whatsapp-input {
+
+        height: 50px;
+    }
+
+
+
+    .country-code {
+
+        min-width: 72px;
+
+        padding: 0 9px;
+    }
+
+
+
+    .whatsapp-input input {
+
+        padding: 0 11px;
+
+        font-size: 14px;
+    }
+
+
+
+    .phone-status {
+
+        width: 42px;
+    }
+
+
+
+    /* =====================================
+       INFORMATION BOX
+    ====================================== */
 
     .information-box {
 
-        grid-template-columns: 1fr;
+        grid-template-columns:
+            1fr;
 
         padding: 13px;
     }
+
 
 
     .information-icon {
@@ -1311,10 +2254,12 @@ body {
         border-right: none;
 
         border-bottom:
-            1px solid rgba(168, 174, 198, 0.3);
+            1px solid
+            rgba(168,174,198,0.3);
 
         margin-bottom: 12px;
     }
+
 
 
     .information-shield {
@@ -1324,38 +2269,49 @@ body {
     }
 
 
+
     .information-content {
 
         padding-left: 0;
     }
 
 
+
     .information-list {
 
-        grid-template-columns: 1fr;
+        grid-template-columns:
+            1fr;
     }
+
 
 
     .information-bottom {
 
-        align-items: flex-start;
+        align-items:
+            flex-start;
     }
 
 
-    /* Buttons */
+
+    /* =====================================
+       BUTTONS
+    ====================================== */
 
     .actions {
 
-        flex-direction: column-reverse;
+        flex-direction:
+            column-reverse;
 
         width: 100%;
     }
+
 
 
     .continue-btn {
 
         width: 100%;
     }
+
 
 
     .recovery-btn {
@@ -1368,12 +2324,15 @@ body {
     }
 
 
+
     .footer-message {
 
-        justify-content: flex-start;
+        justify-content:
+            flex-start;
 
         font-size: 11px;
     }
+
 }
 
 
@@ -1383,10 +2342,12 @@ body {
 
 @media (max-width: 400px) {
 
+
     .intro-content h1 {
 
         font-size: 21px;
     }
+
 
 
     .transaction-info h3 {
@@ -1395,10 +2356,12 @@ body {
     }
 
 
+
     .transaction-info p {
 
         font-size: 13px;
     }
+
 
 
     .amount {
@@ -1407,12 +2370,14 @@ body {
     }
 
 
+
     .person-card {
 
         min-height: 90px;
 
         padding: 10px;
     }
+
 
 
     .person-avatar {
@@ -1424,10 +2389,12 @@ body {
     }
 
 
+
     .person-avatar i {
 
         font-size: 23px;
     }
+
 
 
     .person-info h3 {
@@ -1436,8 +2403,95 @@ body {
     }
 
 
+
+    /* WhatsApp */
+
+    .whatsapp-number-section {
+
+        padding: 12px;
+    }
+
+
+
+    .country-code {
+
+        min-width: 68px;
+    }
+
+
+
+    .country-flag {
+
+        font-size: 14px;
+    }
+
+
+
+    .country-code strong {
+
+        font-size: 13px;
+    }
+
+
+
+    .whatsapp-input input {
+
+        font-size: 13px;
+    }
+
+
+
+    .phone-status {
+
+        width: 38px;
+    }
+
+
+
     .recovery-btn {
 
         font-size: 15px;
     }
+
+}
+
+
+/* =========================================
+   ACCESSIBILITY
+========================================= */
+
+button:focus-visible,
+input:focus-visible {
+
+    outline:
+        2px solid
+        rgba(77,168,255,0.7);
+
+    outline-offset:
+        2px;
+}
+
+
+/* =========================================
+   REDUCE MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+
+        scroll-behavior: auto !important;
+
+        transition-duration:
+            0.01ms !important;
+
+        animation-duration:
+            0.01ms !important;
+
+        animation-iteration-count:
+            1 !important;
+    }
+
 }
