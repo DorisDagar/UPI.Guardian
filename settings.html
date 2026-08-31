@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>
+      Settings | UPI Guardian
+    </title>
+    <link rel="stylesheet" href="settings.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div class="app-layout">
+      <main class="main-content">
+        <header class="topbar">
+          <a href="dashboard.html" class="mobile-title back-dashboard">
+            <span class="brand-mark"><i class="fa-solid fa-shield-halved"></i></span>
+            <span><strong>UPI Guardian</strong><small>Back to dashboard</small></span>
+          </a>
+          <div class="topbar-right">
+            <div class="protection-status">
+              <span class="status-dot">
+              </span>
+              Protection active
+            </div>
+            <button class="notification-button">
+              <i class="fa-regular fa-bell">
+              </i>
+              <span class="notification-badge">
+                2
+              </span>
+            </button>
+            <div class="top-profile">
+              <div class="small-avatar" data-user-initial>
+                D
+              </div>
+              <span data-user-name>
+                Dagar
+              </span>
+              <i class="fa-solid fa-chevron-down">
+              </i>
+            </div>
+          </div>
+        </header>
+        <section class="page-container">
+          <div class="page-heading">
+            <div>
+              <p class="eyebrow">
+                PERSONALISE YOUR PROTECTION
+              </p>
+              <h1>
+                Settings
+              </h1>
+              <p>
+                Control alerts, privacy and how Guardian supports every payment decision.
+              </p>
+            </div>
+            <div class="security-pill">
+              <i class="fa-solid fa-shield-check">
+              </i>
+              Security checks always stay active
+            </div>
+          </div>
+          <div class="settings-layout">
+            <nav class="settings-nav" aria-label="Settings sections">
+              <button class="settings-tab active" data-tab="profile">
+                <i class="fa-regular fa-user">
+                </i>
+                Profile
+              </button>
+              <button class="settings-tab" data-tab="protection">
+                <i class="fa-solid fa-shield-halved">
+                </i>
+                Protection
+              </button>
+              <button class="settings-tab" data-tab="notifications">
+                <i class="fa-regular fa-bell">
+                </i>
+                Notifications
+              </button>
+              <button class="settings-tab" data-tab="privacy">
+                <i class="fa-solid fa-lock">
+                </i>
+                Privacy & security
+              </button>
+            </nav>
+            <div>
+              <section class="panel tab-panel" data-panel="profile">
+                <div class="panel-header">
+                  <div>
+                    <h2>
+                      Profile & account
+                    </h2>
+                    <p>
+                      Your basic UPI Guardian account information.
+                    </p>
+                  </div>
+                </div>
+                <div class="setting-section">
+                  <div class="profile-card">
+                    <div class="large-avatar" data-user-initial>
+                      D
+                    </div>
+                    <div>
+                      <h3 data-user-name>
+                        Dagar
+                      </h3>
+                      <p id="userEmail">
+                        dagar@example.com · Personal account
+                      </p>
+                    </div>
+                    <button class="outline-button" data-demo="Profile editing">
+                      <i class="fa-regular fa-pen-to-square">
+                      </i>
+                      Edit profile
+                    </button>
+                  </div>
+                </div>
+                <div class="setting-section">
+                  <h3 class="section-title">
+                    Preferences
+                  </h3>
+                  <div class="setting-row">
+                    <div class="setting-copy">
+                      <span class="row-icon">
+                        <i class="fa-solid fa-language">
+                        </i>
+                      </span>
+                      <div>
+                        <strong>
+                          Language
+                        </strong>
+                        <small>
+                          English (India)
+                        </small>
+                      </div>
+                    </div>
+                    <button class="outline-button" data-demo="Language selection">
+                      Change
+                    </button>
+                  </div>
+                  <div class="setting-row">
+                    <div class="setting-copy">
+                      <span class="row-icon">
+                        <i class="fa-solid fa-indian-rupee-sign">
+                        </i>
+                      </span>
+                      <div>
+                        <strong>
+                          Currency
+                        </strong>
+                        <small>
+                          Indian Rupee (₹)
+                        </small>
+                      </div>
+                    </div>
+                    <button class="outline-button" data-demo="Currency selection">
+                      Change
+                    </button>
+                  </div>
+                </div>
+              </section>
+              <section class="panel tab-panel" data-panel="protection" hidden>
+                <div class="panel-header">
+                  <div>
+                    <h2>
+                      Protection preferences
+                    </h2>
+                    <p>
+                      Choose when Guardian gives you extra context before you pay.
+                    </p>
+                  </div>
+                </div>
+                <div class="setting-section">
+                  <div class="setting-row">
+                    <div class="setting-copy">
+                      <span class="row-icon">
+                        <i class="fa-solid fa-brain">
+                        </i>
+                      </span>
+                      <div>
+                        <strong>
+                          AI-powered payment analysis
+                        </strong>
+                        <small>
+                          Explain unusual receivers, amounts and payment context.
+                        </small>
+                      </div>
+                    </div>
+                    <label class="toggle">
+                      <input type="checkbox" data-setting="aiAnalysis" checked>
+                      <span>
+                      </span>
+                    </label>
+                  </div>
+                  <div class="setting-row">
+                    <div class="setting-copy">
+                      <span class="row-icon">
+                        <i class="fa-solid fa-user-shield">
+                        </i>
+                      </span>
+                      <div>
+                        <strong>
+                          Trusted person confirmation
+                        </strong>
+                        <small>
+                          Suggest confirmation when a payment appears high-risk.
+                        </small>
+                      </div>
+                    </div>
+                    <label class="toggle">
+                      <input type="checkbox" data-setting="trustedConfirmation" checked>
+                      <span>
+                      </span>
+                    </label>
+                  </div>
+                  <div class="setting-row">
+                    <div class="setting-copy">
+                      <span class="row-icon">
+                        <i class="fa-solid fa-clock-rotate-left">
+                        </i>
+                      </span>
+                      <div>
+                        <strong>
+                          Scam timeline logging
+                        </strong>
+                        <small>
+                          Keep related safety events together for recovery.
+                        </small>
+                      </div>
+                    </div>
+                    <label class="toggle">
+                      <input type="checkbox" data-setting="timelineLogging" checked>
+                      <span>
+                      </span>
+                    </label>
+                  </div>
+                  <div class="setting-row">
+                    <div class="setting-copy">
+                      <span class="row-icon">
+                        <i class="fa-solid fa-qrcode">
+                        </i>
+                      </span>
+                      <div>
+                        <strong>
+                          QR direction warning
+                        </strong>
+                        <small>
+                          Remind you whether a QR code sends or receives money.
+                        </small>
+                      </div>
+                    </div>
+                    <label class="toggle">
+                      <input type="checkbox" data-setting="qrWarning" checked>
+                      <span>
+                      </span>
+                    </label>
+                  </div>
+                </div>
+              </section>
+              <section class="panel tab-panel" data-panel="notifications" hidden>
+                <div class="panel-header">
+                  <div>
+                    <h2>
+                      Notifications
+                    </h2>
+                    <p>
+                      Decide which safety updates deserve your attention.
+                    </p>
+                  </div>
+                </div>
+                <div class="setting-section">
+                  <div class="setting-row">
+                    <div class="setting-copy">
+                      <span class="row-icon">
+                        <i class="fa-solid fa-triangle-exclamation">
+                        </i>
+                      </span>
+                      <div>
+                        <strong>
+                          High-risk payment alerts
+                        </strong>
+                        <small>
+                          Critical warnings before a suspicious payment.
+                        </small>
+                      </div>
+                    </div>
+                    <label class="toggle">
+                      <input type="checkbox" data-setting="riskAlerts" checked>
+                      <span>
+                      </span>
+                    </label>
+                  </div>
+                  <div class="setting-row">
+                    <div class="setting-copy">
+                      <span class="row-icon">
+                        <i class="fa-solid fa-inbox">
+                        </i>
+                      </span>
+                      <div>
+                        <strong>
+                          Payment request alerts
+                        </strong>
+                        <small>
+                          Notify when a new collect request needs review.
+                        </small>
+                      </div>
+                    </div>
+                    <label class="toggle">
+                      <input type="checkbox" data-setting="requestAlerts" checked>
+                      <span>
+                      </span>
+                    </label>
+                  </div>
+                  <div class="setting-row">
+                    <div class="setting-copy">
+                      <span class="row-icon">
+                        <i class="fa-solid fa-circle-check">
+                        </i>
+                      </span>
+                      <div>
+                        <strong>
+                          Protection summaries
+                        </strong>
+                        <small>
+                          Show brief updates about protected payments.
+                        </small>
+                      </div>
+                    </div>
+                    <label class="toggle">
+                      <input type="checkbox" data-setting="summaryAlerts">
+                      <span>
+                      </span>
+                    </label>
+                  </div>
+                  <div class="setting-row">
+                    <div class="setting-copy">
+                      <span class="row-icon">
+                        <i class="fa-solid fa-volume-high">
+                        </i>
+                      </span>
+                      <div>
+                        <strong>
+                          Alert sounds
+                        </strong>
+                        <small>
+                          Play a sound for urgent safety warnings.
+                        </small>
+                      </div>
+                    </div>
+                    <label class="toggle">
+                      <input type="checkbox" data-setting="alertSounds">
+                      <span>
+                      </span>
+                    </label>
+                  </div>
+                </div>
+              </section>
+              <section class="panel tab-panel" data-panel="privacy" hidden>
+                <div class="panel-header">
+                  <div>
+                    <h2>
+                      Privacy & security
+                    </h2>
+                    <p>
+                      Your prototype privacy controls and session preferences.
+                    </p>
+                  </div>
+                </div>
+                <div class="setting-section">
+                  <div class="setting-row">
+                    <div class="setting-copy">
+                      <span class="row-icon">
+                        <i class="fa-solid fa-fingerprint">
+                        </i>
+                      </span>
+                      <div>
+                        <strong>
+                          Biometric confirmation
+                        </strong>
+                        <small>
+                          Ask for device verification before sensitive actions.
+                        </small>
+                      </div>
+                    </div>
+                    <label class="toggle">
+                      <input type="checkbox" data-setting="biometric">
+                      <span>
+                      </span>
+                    </label>
+                  </div>
+                  <div class="setting-row">
+                    <div class="setting-copy">
+                      <span class="row-icon">
+                        <i class="fa-solid fa-eye-slash">
+                        </i>
+                      </span>
+                      <div>
+                        <strong>
+                          Hide payment amounts
+                        </strong>
+                        <small>
+                          Mask amounts when viewing activity in public.
+                        </small>
+                      </div>
+                    </div>
+                    <label class="toggle">
+                      <input type="checkbox" data-setting="hideAmounts">
+                      <span>
+                      </span>
+                    </label>
+                  </div>
+                  <div class="setting-row">
+                    <div class="setting-copy">
+                      <span class="row-icon">
+                        <i class="fa-solid fa-stopwatch">
+                        </i>
+                      </span>
+                      <div>
+                        <strong>
+                          Automatic session lock
+                        </strong>
+                        <small>
+                          Lock the app after 10 minutes of inactivity.
+                        </small>
+                      </div>
+                    </div>
+                    <label class="toggle">
+                      <input type="checkbox" data-setting="sessionLock" checked>
+                      <span>
+                      </span>
+                    </label>
+                  </div>
+                </div>
+                <div class="setting-section">
+                  <h3 class="section-title">
+                    Account actions
+                  </h3>
+                  <button class="danger-button" data-demo="Account data deletion">
+                    <i class="fa-regular fa-trash-can">
+                    </i>
+                    Delete account data
+                  </button>
+                </div>
+              </section>
+              <div class="save-bar">
+                <button class="outline-button" id="resetSettings">
+                  Reset changes
+                </button>
+                <button class="primary-button" id="saveSettings">
+                  <i class="fa-solid fa-check">
+                  </i>
+                  Save preferences
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+    <div class="toast" id="toast" hidden>
+      <i class="fa-solid fa-circle-check">
+      </i>
+      <span>
+      </span>
+    </div>
+    <script src="settings.js">
+    </script>
+  </body>
+</html>

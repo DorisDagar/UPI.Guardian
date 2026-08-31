@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>
+      Help &amp; Support | UPI Guardian
+    </title>
+    <link rel="stylesheet" href="help-support.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div class="app-layout">
+      <main class="main-content">
+        <header class="topbar">
+          <a href="dashboard.html" class="mobile-title back-dashboard">
+            <span class="brand-mark"><i class="fa-solid fa-shield-halved"></i></span>
+            <span><strong>UPI Guardian</strong><small>Back to dashboard</small></span>
+          </a>
+          <div class="topbar-right">
+            <div class="protection-status">
+              <span class="status-dot">
+              </span>
+              Protection active
+            </div>
+            <button class="notification-button">
+              <i class="fa-regular fa-bell">
+              </i>
+              <span class="notification-badge">
+                2
+              </span>
+            </button>
+            <div class="top-profile">
+              <div class="small-avatar" data-user-initial>
+                D
+              </div>
+              <span data-user-name>
+                Dagar
+              </span>
+              <i class="fa-solid fa-chevron-down">
+              </i>
+            </div>
+          </div>
+        </header>
+        <section class="page-container">
+          <div class="page-heading">
+            <div>
+              <p class="eyebrow">
+                GUIDANCE WHEN YOU NEED IT
+              </p>
+              <h1>
+                Help &amp; Support
+              </h1>
+              <p>
+                Understand UPI Guardian, solve common issues and get help during a suspected scam.
+              </p>
+            </div>
+          </div>
+          <section class="help-hero">
+            <h2>
+              How can we help you today?
+            </h2>
+            <p>
+              Search safety guidance, features and frequently asked questions.
+            </p>
+            <label class="search-box">
+              <i class="fa-solid fa-magnifying-glass">
+              </i>
+              <input id="helpSearch" type="search" placeholder="Search for payments, QR codes, scam alerts...">
+            </label>
+          </section>
+          <div class="help-grid">
+            <button class="help-category" data-query="payment">
+              <span class="category-icon">
+                <i class="fa-solid fa-paper-plane">
+                </i>
+              </span>
+              <h3>
+                Payments
+              </h3>
+              <p>
+                Risk checks, scores and safe payment decisions.
+              </p>
+            </button>
+            <button class="help-category" data-query="request">
+              <span class="category-icon">
+                <i class="fa-solid fa-inbox">
+                </i>
+              </span>
+              <h3>
+                Payment requests
+              </h3>
+              <p>
+                Review collect requests before responding.
+              </p>
+            </button>
+            <button class="help-category" data-query="message">
+              <span class="category-icon">
+                <i class="fa-solid fa-message">
+                </i>
+              </span>
+              <h3>
+                Scam messages
+              </h3>
+              <p>
+                Analyze suspicious texts and urgent claims.
+              </p>
+            </button>
+            <button class="help-category" data-query="recovery">
+              <span class="category-icon">
+                <i class="fa-solid fa-life-ring">
+                </i>
+              </span>
+              <h3>
+                Recovery
+              </h3>
+              <p>
+                Evidence, reports and immediate actions.
+              </p>
+            </button>
+          </div>
+          <div class="support-layout">
+            <section class="panel">
+              <div class="panel-header">
+                <div>
+                  <h2>
+                    Frequently asked questions
+                  </h2>
+                  <p>
+                    Quick answers about how the prototype protects you.
+                  </p>
+                </div>
+              </div>
+              <div class="faq-list" id="faqList">
+                <article class="faq-item" data-keywords="payment risk score safe analysis">
+                  <button class="faq-question">
+                    What does the payment safety score mean?
+                    <i class="fa-solid fa-chevron-down">
+                    </i>
+                  </button>
+                  <div class="faq-answer">
+                    The score summarizes signals such as the amount, receiver familiarity and payment context. Always review the explanation—not only the number—before deciding.
+                  </div>
+                </article>
+                <article class="faq-item" data-keywords="request collect receive money upi pin">
+                  <button class="faq-question">
+                    Why is a collect request asking for my UPI PIN?
+                    <i class="fa-solid fa-chevron-down">
+                    </i>
+                  </button>
+                  <div class="faq-answer">
+                    A UPI PIN authorizes money leaving your account. You never need to enter it simply to receive money. Decline requests you do not recognise.
+                  </div>
+                </article>
+                <article class="faq-item" data-keywords="message analyzer screenshot text scam">
+                  <button class="faq-question">
+                    How does the Message Analyzer help?
+                    <i class="fa-solid fa-chevron-down">
+                    </i>
+                  </button>
+                  <div class="faq-answer">
+                    It identifies common scam signals such as urgency, impersonation, suspicious links and requests for sensitive information, then explains them in plain language.
+                  </div>
+                </article>
+                <article class="faq-item" data-keywords="qr payment scan receive">
+                  <button class="faq-question">
+                    Can scanning a QR code make me receive money?
+                    <i class="fa-solid fa-chevron-down">
+                    </i>
+                  </button>
+                  <div class="faq-answer">
+                    Normally, scanning a payment QR prepares you to send money. Verify the receiver name and amount before authorizing anything.
+                  </div>
+                </article>
+                <article class="faq-item" data-keywords="recovery fraud scam report evidence 1930">
+                  <button class="faq-question">
+                    What should I do immediately after a suspected scam?
+                    <i class="fa-solid fa-chevron-down">
+                    </i>
+                  </button>
+                  <div class="faq-answer">
+                    Contact your bank, call India’s cyber-fraud helpline 1930 quickly, preserve messages and transaction evidence, and use Recovery Mode to organise the incident.
+                  </div>
+                </article>
+                <article class="faq-item" data-keywords="trusted person confirmation recovery">
+                  <button class="faq-question">
+                    What is Trusted Person Confirmation?
+                    <i class="fa-solid fa-chevron-down">
+                    </i>
+                  </button>
+                  <div class="faq-answer">
+                    It gives you a deliberate pause by involving someone you trust when a decision looks risky or during the recovery process.
+                  </div>
+                </article>
+              </div>
+              <div class="empty-search" id="emptySearch" hidden>
+                No matching help articles found. Try a simpler keyword.
+              </div>
+            </section>
+            <aside>
+              <section class="panel">
+                <div class="panel-header">
+                  <div>
+                    <h2>
+                      Contact support
+                    </h2>
+                    <p>
+                      Prototype support channels.
+                    </p>
+                  </div>
+                </div>
+                <div style="margin-top:15px">
+                  <button class="contact-card" data-contact="Live chat">
+                    <span class="contact-icon">
+                      <i class="fa-regular fa-comments">
+                      </i>
+                    </span>
+                    <span>
+                      <strong>
+                        Start live chat
+                      </strong>
+                      <small>
+                        Typical response: under 5 minutes
+                      </small>
+                    </span>
+                  </button>
+                  <button class="contact-card" data-contact="Email support">
+                    <span class="contact-icon">
+                      <i class="fa-regular fa-envelope">
+                      </i>
+                    </span>
+                    <span>
+                      <strong>
+                        Email support
+                      </strong>
+                      <small>
+                        support@upiguardian.demo
+                      </small>
+                    </span>
+                  </button>
+                </div>
+                <div class="emergency-card">
+                  <strong>
+                    <i class="fa-solid fa-triangle-exclamation">
+                    </i>
+                    Money already sent?
+                  </strong>
+                  <p>
+                    For an active financial scam, call India’s cyber-fraud helpline immediately.
+                  </p>
+                  <button class="danger-button" data-contact="Cyber-fraud helpline 1930">
+                    <i class="fa-solid fa-phone">
+                    </i>
+                    Call 1930
+                  </button>
+                </div>
+              </section>
+              <section class="panel" style="margin-top:20px">
+                <div class="panel-header">
+                  <div>
+                    <h2>
+                      Send a message
+                    </h2>
+                    <p>
+                      Tell us what you need help with.
+                    </p>
+                  </div>
+                </div>
+                <form class="support-form" id="supportForm">
+                  <label>
+                    Subject
+                    <input id="subject" required placeholder="What can we help with?">
+                  </label>
+                  <label>
+                    Message
+                    <textarea id="message" required placeholder="Describe the issue...">
+                    </textarea>
+                  </label>
+                  <button class="primary-button" type="submit">
+                    <i class="fa-regular fa-paper-plane">
+                    </i>
+                    Submit request
+                  </button>
+                </form>
+              </section>
+            </aside>
+          </div>
+        </section>
+      </main>
+    </div>
+    <div class="toast" id="toast" hidden>
+      <i class="fa-solid fa-circle-check">
+      </i>
+      <span>
+      </span>
+    </div>
+    <script src="help-support.js">
+    </script>
+  </body>
+</html>

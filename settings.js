@@ -1,0 +1,10 @@
+const defaults={aiAnalysis:true,trustedConfirmation:true,timelineLogging:true,qrWarning:true,riskAlerts:true,requestAlerts:true,summaryAlerts:false,alertSounds:false,biometric:false,hideAmounts:false,sessionLock:true};
+const stored=JSON.parse(localStorage.getItem("upiGuardianPrototypeSettings")||"null");let saved={...defaults,...stored};
+function apply(values){document.querySelectorAll("[data-setting]").forEach(input=>{input.checked=Boolean(values[input.dataset.setting])})}
+function toast(message){const el=document.getElementById("toast");el.querySelector("span").textContent=message;el.hidden=false;clearTimeout(toast.timer);toast.timer=setTimeout(()=>el.hidden=true,2600)}
+function loadUser(){try{const user=JSON.parse(localStorage.getItem("upiGuardianUser")||"null");if(!user)return;const name=user.name||user.fullName||"User";document.querySelectorAll("[data-user-name]").forEach(el=>el.textContent=name);document.querySelectorAll("[data-user-initial]").forEach(el=>el.textContent=name.charAt(0).toUpperCase());document.getElementById("userEmail").textContent=`${user.email||"Personal account"} · Personal account`}catch{}}
+document.querySelectorAll(".settings-tab").forEach(button=>button.addEventListener("click",()=>{document.querySelectorAll(".settings-tab").forEach(el=>el.classList.toggle("active",el===button));document.querySelectorAll(".tab-panel").forEach(panel=>panel.hidden=panel.dataset.panel!==button.dataset.tab)}));
+document.getElementById("saveSettings").addEventListener("click",()=>{document.querySelectorAll("[data-setting]").forEach(input=>saved[input.dataset.setting]=input.checked);localStorage.setItem("upiGuardianPrototypeSettings",JSON.stringify(saved));toast("Your preferences have been saved.")});
+document.getElementById("resetSettings").addEventListener("click",()=>{apply(saved);toast("Unsaved changes were reset.")});
+document.querySelectorAll("[data-demo]").forEach(button=>button.addEventListener("click",()=>toast(`${button.dataset.demo} is ready for backend integration.`)));
+apply(saved);loadUser();
