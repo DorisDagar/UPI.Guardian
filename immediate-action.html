@@ -2,7 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>UPI Guardian - Recovery Mode</title>
 
@@ -26,7 +29,6 @@
 
         <div class="brand">
 
-            <!-- Square blue logo -->
             <div class="brand-logo">
                 <i class="fa-solid fa-shield-halved"></i>
             </div>
@@ -63,13 +65,17 @@
                 <h1>Take Immediate Action</h1>
 
                 <p class="hero-description">
-                    Follow the steps below to protect your money and secure your account.
+                    Follow the steps below to protect your money
+                    and secure your account.
                 </p>
 
             </div>
 
 
-            <!-- Progress -->
+            <!-- =========================
+                 PROGRESS
+            ========================== -->
+
             <div class="progress-card">
 
                 <div class="progress-title">
@@ -88,7 +94,7 @@
                 </div>
 
                 <div class="progress-text">
-                    <span id="progressPercent">33</span>% Complete
+                    <span id="progressPercent">0</span>% Complete
                 </div>
 
             </div>
@@ -97,32 +103,57 @@
 
 
         <!-- =========================
-             TRANSACTION CARD
+             SELECTED TRANSACTION
+             THIS IS NOW DYNAMIC
         ========================== -->
 
-        <section class="transaction-card">
+        <section
+            class="transaction-card"
+            id="selectedTransactionCard"
+        >
 
             <div class="transaction-info">
 
+                <!-- Transaction icon -->
+
                 <div class="transaction-icon">
-                    <i class="fa-solid fa-gift"></i>
+
+                    <i
+                        id="transactionIcon"
+                        class="fa-solid fa-gift"
+                    ></i>
 
                     <span class="transaction-warning">
-                        <i class="fa-solid fa-triangle-exclamation"></i>
+
+                        <i
+                            class="fa-solid fa-triangle-exclamation"
+                        ></i>
+
                     </span>
+
                 </div>
 
+
+                <!-- Transaction information -->
 
                 <div class="transaction-details">
 
-                    <h3>Suspicious Transaction</h3>
+                    <h3>
+                        Suspicious Transaction
+                    </h3>
 
-                    <div class="transaction-name">
-                        Lucky Reward UPI
+                    <div
+                        class="transaction-name"
+                        id="transactionName"
+                    >
+                        Loading transaction...
                     </div>
 
-                    <div class="transaction-id">
-                        Transaction ID: UPI12345678
+                    <div
+                        class="transaction-id"
+                        id="transactionId"
+                    >
+                        Transaction ID: --
                     </div>
 
                 </div>
@@ -130,18 +161,33 @@
             </div>
 
 
-            <div class="amount">
-                ₹50,000
+            <!-- Amount -->
+
+            <div
+                class="amount"
+                id="transactionAmount"
+            >
+                ₹0
             </div>
 
 
-            <div class="risk">
+            <!-- Risk -->
 
-                <i class="fa-solid fa-triangle-exclamation"></i>
+            <div
+                class="risk"
+                id="transactionRisk"
+            >
+
+                <i
+                    id="transactionRiskIcon"
+                    class="fa-solid fa-triangle-exclamation"
+                ></i>
 
                 <span>
                     Risk Level:
-                    <strong>HIGH</strong>
+                    <strong id="transactionRiskText">
+                        --
+                    </strong>
                 </span>
 
             </div>
@@ -155,10 +201,13 @@
 
         <div class="warning">
 
-            <i class="fa-solid fa-triangle-exclamation warning-icon"></i>
+            <i
+                class="fa-solid fa-triangle-exclamation warning-icon"
+            ></i>
 
-            <span>
-                This transaction looks suspicious. Take these steps immediately.
+            <span id="warningMessage">
+                This transaction looks suspicious.
+                Take these steps immediately.
             </span>
 
         </div>
@@ -171,11 +220,18 @@
         <section class="steps-grid">
 
 
-            <!-- STEP 1 -->
+            <!-- =========================
+                 STEP 1
+            ========================== -->
 
-            <article class="step" data-step="1">
+            <article
+                class="step"
+                data-step="1"
+            >
 
-                <div class="step-number">1</div>
+                <div class="step-number">
+                    1
+                </div>
 
                 <img
                     src="img/action1.png"
@@ -202,10 +258,14 @@
                         >
 
                         <span class="custom-checkbox">
+
                             <i class="fa-solid fa-check"></i>
+
                         </span>
 
-                        <span>Mark complete</span>
+                        <span>
+                            Mark complete
+                        </span>
 
                     </label>
 
@@ -214,11 +274,18 @@
             </article>
 
 
-            <!-- STEP 2 -->
+            <!-- =========================
+                 STEP 2
+            ========================== -->
 
-            <article class="step" data-step="2">
+            <article
+                class="step"
+                data-step="2"
+            >
 
-                <div class="step-number">2</div>
+                <div class="step-number">
+                    2
+                </div>
 
                 <img
                     src="img/action2.png"
@@ -245,10 +312,14 @@
                         >
 
                         <span class="custom-checkbox">
+
                             <i class="fa-solid fa-check"></i>
+
                         </span>
 
-                        <span>Mark complete</span>
+                        <span>
+                            Mark complete
+                        </span>
 
                     </label>
 
@@ -257,11 +328,18 @@
             </article>
 
 
-            <!-- STEP 3 -->
+            <!-- =========================
+                 STEP 3
+            ========================== -->
 
-            <article class="step" data-step="3">
+            <article
+                class="step"
+                data-step="3"
+            >
 
-                <div class="step-number">3</div>
+                <div class="step-number">
+                    3
+                </div>
 
                 <img
                     src="img/action3.png"
@@ -288,10 +366,14 @@
                         >
 
                         <span class="custom-checkbox">
+
                             <i class="fa-solid fa-check"></i>
+
                         </span>
 
-                        <span>Mark complete</span>
+                        <span>
+                            Mark complete
+                        </span>
 
                     </label>
 
@@ -300,11 +382,18 @@
             </article>
 
 
-            <!-- STEP 4 -->
+            <!-- =========================
+                 STEP 4
+            ========================== -->
 
-            <article class="step" data-step="4">
+            <article
+                class="step"
+                data-step="4"
+            >
 
-                <div class="step-number">4</div>
+                <div class="step-number">
+                    4
+                </div>
 
                 <img
                     src="img/action4.png"
@@ -331,10 +420,14 @@
                         >
 
                         <span class="custom-checkbox">
+
                             <i class="fa-solid fa-check"></i>
+
                         </span>
 
-                        <span>Mark complete</span>
+                        <span>
+                            Mark complete
+                        </span>
 
                     </label>
 
@@ -351,15 +444,24 @@
 
         <div class="bottom-bar">
 
+            <!-- Back -->
+
             <button
                 class="back-button"
                 type="button"
                 id="backButton"
             >
+
                 <i class="fa-solid fa-arrow-left"></i>
-                <span>Back to Transaction</span>
+
+                <span>
+                    Back to Transaction
+                </span>
+
             </button>
 
+
+            <!-- Continue -->
 
             <button
                 class="continue-button"
@@ -368,7 +470,9 @@
                 disabled
             >
 
-                <span>Continue to Trusted Person</span>
+                <span>
+                    Continue to Trusted Person
+                </span>
 
                 <i class="fa-solid fa-arrow-right"></i>
 
@@ -377,7 +481,12 @@
         </div>
 
     </main>
-    <!-- Custom JS -->
+
+
+    <!-- =========================
+         CUSTOM JS
+    ========================== -->
+
     <script src="immediate-action.js"></script>
 
 </body>
