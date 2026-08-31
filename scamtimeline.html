@@ -1,0 +1,281 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>UPI Guardian - Scam Timeline</title>
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+    <!-- Inter -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="scamtimeline.css"
+    >
+</head>
+
+<body>
+
+    <div class="page">
+
+        <!-- ==================================================
+             TOP BAR
+        ================================================== -->
+
+        <header class="topbar">
+
+            <a
+                href="dashboard.html"
+                class="back-link"
+            >
+                <i class="fa-solid fa-arrow-left"></i>
+                <span>Back to Dashboard</span>
+            </a>
+
+            <div class="brand">
+
+                <div class="brand-icon">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+
+                <div>
+                    <strong>UPI Guardian</strong>
+                    <small>Explain Before You Pay</small>
+                </div>
+
+            </div>
+
+            <div class="protection">
+
+                <span class="online-dot"></span>
+
+                Protection active
+
+            </div>
+
+        </header>
+
+
+        <!-- ==================================================
+             MAIN
+        ================================================== -->
+
+        <main class="main">
+
+            <!-- ==================================================
+                 HEADER
+            ================================================== -->
+
+            <section class="intro">
+
+                <div>
+
+                    <p class="eyebrow">
+                        SECURITY ACTIVITY
+                    </p>
+
+                    <h1>
+                        Scam Timeline
+                    </h1>
+
+                    <p class="subtitle">
+                        All your security and payment signals
+                        in one chronological view.
+                    </p>
+
+                </div>
+
+                <div class="event-total">
+
+                    <span id="eventCount">
+                        0
+                    </span>
+
+                    <small>
+                        events
+                    </small>
+
+                </div>
+
+            </section>
+
+
+            <!-- ==================================================
+                 FILTERS + SEARCH
+            ================================================== -->
+
+            <section class="toolbar">
+
+                <div class="filters">
+
+                    <button
+                        type="button"
+                        class="filter active"
+                        data-filter="all"
+                    >
+                        All
+                    </button>
+
+                    <button
+                        type="button"
+                        class="filter"
+                        data-filter="high"
+                    >
+                        High Risk
+                    </button>
+
+                    <button
+                        type="button"
+                        class="filter"
+                        data-filter="message"
+                    >
+                        Messages
+                    </button>
+
+                    <button
+                        type="button"
+                        class="filter"
+                        data-filter="payment"
+                    >
+                        Payments
+                    </button>
+
+                </div>
+
+
+                <div class="search-box">
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                    <input
+                        type="search"
+                        id="searchInput"
+                        placeholder="Search timeline..."
+                        autocomplete="off"
+                    >
+
+                </div>
+
+            </section>
+
+
+            <!-- ==================================================
+                 STATUS
+            ================================================== -->
+
+            <div
+                class="status"
+                id="status"
+                aria-live="polite"
+            ></div>
+
+
+            <!-- ==================================================
+                 TIMELINE
+            ================================================== -->
+
+            <section
+                class="timeline-container"
+                id="timelineContainer"
+            >
+
+                <div class="loading">
+
+                    <div class="spinner"></div>
+
+                    <p>
+                        Loading your security activity...
+                    </p>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <!-- ==================================================
+         EVENT DETAILS MODAL
+    ================================================== -->
+
+    <div
+        class="modal"
+        id="eventModal"
+        hidden
+    >
+
+        <div
+            class="modal-overlay"
+            data-close-modal
+        ></div>
+
+        <div class="modal-card">
+
+            <button
+                type="button"
+                class="modal-close"
+                data-close-modal
+                aria-label="Close"
+            >
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div
+                class="modal-icon"
+                id="modalIcon"
+            >
+                <i class="fa-solid fa-shield-halved"></i>
+            </div>
+
+            <p
+                class="modal-label"
+                id="modalType"
+            >
+                SECURITY EVENT
+            </p>
+
+            <h2
+                id="modalTitle"
+            >
+                Event
+            </h2>
+
+            <p
+                class="modal-time"
+                id="modalTime"
+            >
+            </p>
+
+            <div
+                class="modal-content"
+                id="modalContent"
+            >
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script src="scamtimeline.js"></script>
+
+</body>
+</html>
+
