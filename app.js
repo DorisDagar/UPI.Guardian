@@ -23,6 +23,7 @@ let dashboardRefreshPromise = null;
 
 const state = {
   dashboard: null,
+  scamTimeline: [],
   user: null,
   toastTimer: null,
 };
@@ -86,7 +87,7 @@ function formatMoney(amount) {
       currency: "INR",
       maximumFractionDigits: 0,
     }
-  ).format(amount);
+  ).format(amount || 0);
 }
 
 
@@ -170,6 +171,49 @@ function formatTransactionTime(value) {
 
 
 // ======================================================
+// TIMELINE TIME
+// ======================================================
+
+function formatTimelineTime(value) {
+  const date =
+    new Date(value);
+
+  if (
+    Number.isNaN(
+      date.getTime()
+    )
+  ) {
+    return "Time unavailable";
+  }
+
+  const now =
+    new Date();
+
+  const sameDay =
+    date.toDateString() ===
+    now.toDateString();
+
+  if (sameDay) {
+    return date.toLocaleTimeString(
+      "en-IN",
+      {
+        hour: "numeric",
+        minute: "2-digit",
+      }
+    );
+  }
+
+  return date.toLocaleDateString(
+    "en-IN",
+    {
+      day: "numeric",
+      month: "short",
+    }
+  );
+}
+
+
+// ======================================================
 // API HELPER
 // ======================================================
 
@@ -201,6 +245,7 @@ async function api(
       .catch(() => ({}));
 
   if (response.status === 401) {
+
     localStorage.removeItem(
       "upiGuardianToken"
     );
@@ -269,6 +314,7 @@ function showToast(message) {
 // ======================================================
 
 function setUser(user) {
+
   if (!user?.name) {
     return;
   }
@@ -300,19 +346,23 @@ function setUser(user) {
     .querySelectorAll(
       "[data-user-name]"
     )
-    .forEach((element) => {
-      element.textContent =
-        user.name;
-    });
+    .forEach(
+      (element) => {
+        element.textContent =
+          user.name;
+      }
+    );
 
   document
     .querySelectorAll(
       "[data-user-initial]"
     )
-    .forEach((element) => {
-      element.textContent =
-        initial;
-    });
+    .forEach(
+      (element) => {
+        element.textContent =
+          initial;
+      }
+    );
 
   const profileEmail =
     document.getElementById(
@@ -331,6 +381,7 @@ function setUser(user) {
     );
 
   if (greetingElement) {
+
     greetingElement.textContent =
       `${greeting}, ${firstName} `;
 
@@ -354,6 +405,7 @@ function setUser(user) {
 // ======================================================
 
 function updateDate() {
+
   const todayLabel =
     document.getElementById(
       "todayLabel"
@@ -383,6 +435,7 @@ function updateDate() {
 // ======================================================
 
 function logOut() {
+
   localStorage.removeItem(
     "upiGuardianToken"
   );
@@ -402,6 +455,7 @@ function logOut() {
 // ======================================================
 
 function renderNotifications() {
+
   const notifications =
     state.dashboard
       ?.notifications || [];
@@ -417,6 +471,7 @@ function renderNotifications() {
     );
 
   if (badge) {
+
     badge.textContent =
       unread;
 
@@ -470,6 +525,7 @@ function renderNotifications() {
 // ======================================================
 
 function transactionMarkup(item) {
+
   const statusClass =
     item.status === "Safe"
       ? "safe"
@@ -490,9 +546,11 @@ function transactionMarkup(item) {
     <div class="transaction-row">
 
       <div class="transaction-avatar ${avatarClass}-avatar">
+
         <i class="fa-solid fa-${escapeHtml(
-          item.icon
+          item.icon || "money-bill-transfer"
         )}"></i>
+
       </div>
 
       <div class="transaction-info">
@@ -531,9 +589,11 @@ function transactionMarkup(item) {
       </div>
 
       <span class="risk-tag ${statusClass}-tag">
+
         ${escapeHtml(
           item.status
         )}
+
       </span>
 
     </div>
@@ -546,6 +606,7 @@ function transactionMarkup(item) {
 // ======================================================
 
 function renderTransactions() {
+
   const items =
     state.dashboard
       ?.transactions || [];
@@ -576,13 +637,284 @@ function renderTransactions() {
 
 
 // ======================================================
+// NORMALIZE SCAM TIMELINE EVENT
+// ======================================================
+//
+// Converts the backend /api/scam-timeline format
+// into the smaller format required by the dashboard.
+//
+// Backend returns:
+//   type
+//   title
+//   description
+//   riskLevel
+//   riskScore
+//   eventTime
+//
+// Dashboard needs:
+//   type
+//   title
+//   description
+//   time
+//   status
+//   icon
+//
+// ======================================================
+
+function normalizeTimelineEvent(event) {
+
+  const riskLevel =
+    String(
+      event.riskLevel ||
+      "unknown"
+    ).toLowerCase();
+
+  let status;
+  let cssType;
+  let icon;
+
+  // ------------------------------------------
+  // MESSAGE EVENT
+  // ------------------------------------------
+
+  if (event.type === "message") {
+
+    icon =
+      "message";
+
+    if (
+      riskLevel === "high" ||
+      riskLevel === "critical"
+    ) {
+
+      status =
+        "High risk";
+
+      cssType =
+        "danger";
+
+    } else if (
+      riskLevel === "medium"
+    ) {
+
+      status =
+        "Medium risk";
+
+      cssType =
+        "danger";
+
+    } else if (
+      riskLevel === "low" ||
+      riskLevel === "safe"
+    ) {
+
+      status =
+        "Low risk";
+
+      cssType =
+        "success";
+
+    } else {
+
+      status =
+        "Analyzed";
+
+      cssType =
+        "danger";
+    }
+  }
+
+
+  // ------------------------------------------
+  // TRANSACTION EVENT
+  // ------------------------------------------
+
+  else if (
+    event.type === "transaction"
+  ) {
+
+    icon =
+      "money-bill-transfer";
+
+    const transactionStatus =
+      String(
+        event.transactionStatus ||
+        ""
+      ).toLowerCase();
+
+    if (
+      transactionStatus === "blocked"
+    ) {
+
+      status =
+        "Protected";
+
+      cssType =
+        "success";
+
+      icon =
+        "shield-halved";
+
+    } else if (
+      riskLevel === "high" ||
+      riskLevel === "critical"
+    ) {
+
+      status =
+        "High risk";
+
+      cssType =
+        "danger";
+
+    } else if (
+      riskLevel === "medium"
+    ) {
+
+      status =
+        "Medium risk";
+
+      cssType =
+        "danger";
+
+    } else if (
+      riskLevel === "low" ||
+      riskLevel === "safe"
+    ) {
+
+      status =
+        "Protected";
+
+      cssType =
+        "success";
+
+      icon =
+        "shield-halved";
+
+    } else {
+
+      status =
+        "Recorded";
+
+      cssType =
+        "success";
+    }
+  }
+
+
+  // ------------------------------------------
+  // UNKNOWN EVENT
+  // ------------------------------------------
+
+  else {
+
+    icon =
+      "triangle-exclamation";
+
+    status =
+      "Recorded";
+
+    cssType =
+      "danger";
+  }
+
+
+  return {
+
+    ...event,
+
+    uiType:
+      cssType,
+
+    icon,
+
+    status,
+
+    time:
+      formatTimelineTime(
+        event.eventTime
+      ),
+
+  };
+}
+
+
+// ======================================================
+// LOAD SCAM TIMELINE
+// ======================================================
+//
+// This is the important new function.
+//
+// It loads the SAME timeline data used by
+// the full Scam Timeline feature.
+//
+// ======================================================
+
+async function loadScamTimeline() {
+
+  try {
+
+    const data =
+      await api(
+        "/api/scam-timeline",
+        {
+          cache: "no-store",
+        }
+      );
+
+    if (
+      !data ||
+      !Array.isArray(
+        data.events
+      )
+    ) {
+
+      state.scamTimeline = [];
+
+      return;
+    }
+
+    state.scamTimeline =
+      data.events
+        .map(
+          normalizeTimelineEvent
+        )
+        .sort(
+          (a, b) =>
+            new Date(
+              b.eventTime
+            ) -
+            new Date(
+              a.eventTime
+            )
+        );
+
+  } catch (error) {
+
+    console.error(
+      "❌ Scam Timeline loading failed:",
+      error
+    );
+
+    state.scamTimeline = [];
+
+    if (
+      error.message !==
+      "Session expired"
+    ) {
+
+      showToast(
+        "Unable to load Scam Timeline."
+      );
+    }
+  }
+}
+
+
+// ======================================================
 // RENDER TIMELINE
 // ======================================================
 
 function renderTimeline() {
-  const items =
-    state.dashboard
-      ?.timeline || [];
 
   const timelineList =
     document.getElementById(
@@ -593,82 +925,111 @@ function renderTimeline() {
     return;
   }
 
+  const items =
+    state.scamTimeline || [];
+
+
+  // ------------------------------------------
+  // EMPTY STATE
+  // ------------------------------------------
+
+  if (!items.length) {
+
+    timelineList.innerHTML = `
+      <div class="empty-state">
+        No scam signals detected yet.
+      </div>
+    `;
+
+    return;
+  }
+
+
+  // ------------------------------------------
+  // SHOW ONLY LATEST 3 EVENTS
+  // ------------------------------------------
+
+  const latestEvents =
+    items.slice(0, 3);
+
+
   timelineList.innerHTML =
-    items.length
-      ? items
-          .map(
-            (
-              item,
-              index
-            ) => `
-              <div class="timeline-item">
+    latestEvents
+      .map(
+        (
+          item,
+          index
+        ) => {
 
-                <div class="timeline-marker ${
-                  item.type === "success"
-                    ? "success-marker"
-                    : "danger-marker"
-                }">
+          const markerClass =
+            item.uiType === "success"
+              ? "success-marker"
+              : "danger-marker";
 
-                  <i class="fa-solid fa-${escapeHtml(
-                    item.icon
-                  )}"></i>
+          const riskClass =
+            item.uiType === "success"
+              ? "protected-risk"
+              : "high-risk";
 
-                </div>
+          return `
+            <div class="timeline-item">
 
-                ${
-                  index <
-                  items.length - 1
-                    ? '<div class="timeline-line"></div>'
-                    : ""
-                }
+              <div class="timeline-marker ${markerClass}">
 
-                <div class="timeline-content">
+                <i class="fa-solid fa-${escapeHtml(
+                  item.icon
+                )}"></i>
 
-                  <div class="timeline-top">
+              </div>
 
-                    <h4>
-                      ${escapeHtml(
-                        item.title
-                      )}
-                    </h4>
+              ${
+                index <
+                latestEvents.length - 1
+                  ? `
+                    <div class="timeline-line"></div>
+                  `
+                  : ""
+              }
 
-                    <span>
-                      ${escapeHtml(
-                        item.time
-                      )}
-                    </span>
+              <div class="timeline-content">
 
-                  </div>
+                <div class="timeline-top">
 
-                  <p>
+                  <h4>
                     ${escapeHtml(
-                      item.description
+                      item.title
                     )}
-                  </p>
+                  </h4>
 
-                  <span class="timeline-risk ${
-                    item.type === "success"
-                      ? "protected-risk"
-                      : "high-risk"
-                  }">
-
+                  <span>
                     ${escapeHtml(
-                      item.status
+                      item.time
                     )}
-
                   </span>
 
                 </div>
 
+                <p>
+                  ${escapeHtml(
+                    item.description
+                  )}
+                </p>
+
+                <span class="timeline-risk ${riskClass}">
+
+                  ${escapeHtml(
+                    item.status
+                  )}
+
+                </span>
+
               </div>
-            `
-          )
-          .join("")
-      : `
-          <div class="empty-state">
-            No connected scam signals yet.
-          </div>
-        `;
+
+            </div>
+          `;
+        }
+      )
+      .join("");
 }
 
 
@@ -677,6 +1038,7 @@ function renderTimeline() {
 // ======================================================
 
 function renderDashboard() {
+
   const {
     stats,
     paymentRequests,
@@ -707,27 +1069,36 @@ function renderDashboard() {
       "paymentsStopped"
     );
 
+
   if (safetyScore) {
+
     safetyScore.textContent =
       stats.safetyScore;
   }
 
+
   if (paymentsReviewed) {
+
     paymentsReviewed.textContent =
       stats.paymentsReviewed;
   }
 
+
   if (riskPrevented) {
+
     riskPrevented.textContent =
       formatMoney(
         stats.riskPrevented
       );
   }
 
+
   if (paymentsStopped) {
+
     paymentsStopped.textContent =
       `${stats.paymentsStopped} payments stopped`;
   }
+
 
   const pending =
     (
@@ -739,12 +1110,15 @@ function renderDashboard() {
         "Pending"
     ).length;
 
+
   const requestBadge =
     document.getElementById(
       "requestBadge"
     );
 
+
   if (requestBadge) {
+
     requestBadge.textContent =
       pending;
 
@@ -752,8 +1126,11 @@ function renderDashboard() {
       pending === 0;
   }
 
+
   renderNotifications();
+
   renderTransactions();
+
   renderTimeline();
 }
 
@@ -767,6 +1144,7 @@ function openModal(
   icon,
   html
 ) {
+
   if (
     !modal ||
     !modalTitle ||
@@ -794,6 +1172,7 @@ function openModal(
 
 
 function closeModal() {
+
   if (!modal) {
     return;
   }
@@ -811,6 +1190,7 @@ function closeModal() {
 // ======================================================
 
 function requestMarkup(request) {
+
   return `
     <div class="request-item">
 
@@ -844,11 +1224,15 @@ function requestMarkup(request) {
             )}
           </strong>
 
-          <span class="risk-pill ${request.risk.toLowerCase()}">
+          <span class="risk-pill ${String(
+            request.risk || ""
+          ).toLowerCase()}">
+
             ${escapeHtml(
               request.risk
             )}
             risk
+
           </span>
 
         </div>
@@ -893,8 +1277,10 @@ function requestMarkup(request) {
 
 
 function openRequests() {
+
   const draw =
     () => {
+
       if (!modalBody) {
         return;
       }
@@ -910,6 +1296,7 @@ function openRequests() {
         </p>
 
         <div class="request-list">
+
           ${
             requests.length
               ? requests
@@ -923,8 +1310,10 @@ function openRequests() {
                   </div>
                 `
           }
+
         </div>
       `;
+
 
       modalBody
         .querySelectorAll(
@@ -932,10 +1321,13 @@ function openRequests() {
         )
         .forEach(
           (button) => {
+
             button.addEventListener(
               "click",
               async () => {
+
                 try {
+
                   const data =
                     await api(
                       `/api/dashboard/payment-requests/${button.dataset.requestId}/action`,
@@ -950,6 +1342,7 @@ function openRequests() {
                       }
                     );
 
+
                   const index =
                     state.dashboard
                       .paymentRequests
@@ -959,19 +1352,27 @@ function openRequests() {
                           data.request.id
                       );
 
-                  if (index !== -1) {
+
+                  if (
+                    index !== -1
+                  ) {
+
                     state.dashboard
                       .paymentRequests[index] =
                       data.request;
                   }
 
+
                   renderDashboard();
+
                   draw();
 
                   showToast(
                     data.message
                   );
+
                 } catch (error) {
+
                   showToast(
                     error.message
                   );
@@ -981,6 +1382,7 @@ function openRequests() {
           }
         );
     };
+
 
   openModal(
     "Payment Requests",
@@ -997,6 +1399,7 @@ function openRequests() {
 // ======================================================
 
 function openTransactions() {
+
   const items =
     state.dashboard
       ?.transactions || [];
@@ -1075,6 +1478,7 @@ function openTransactions() {
 // ======================================================
 
 function openSettings() {
+
   const alertsEnabled =
     localStorage.getItem(
       "guardianAlerts"
@@ -1120,6 +1524,7 @@ function openSettings() {
     `
   );
 
+
   document
     .getElementById(
       "saveSettings"
@@ -1127,6 +1532,7 @@ function openSettings() {
     ?.addEventListener(
       "click",
       () => {
+
         localStorage.setItem(
           "guardianAlerts",
           document.getElementById(
@@ -1149,6 +1555,7 @@ function openSettings() {
 // ======================================================
 
 function openHelp() {
+
   openModal(
     "Help & Support",
     "circle-question",
@@ -1189,6 +1596,7 @@ function openHelp() {
 // ======================================================
 
 function handleAction(action) {
+
   const handlers = {
 
     dashboard: () =>
@@ -1197,37 +1605,41 @@ function handleAction(action) {
         behavior: "smooth",
       }),
 
+
     "new-payment": () => {
+
       window.location.href =
         "send%20money.html";
     },
 
+
     requests:
       openRequests,
 
-    timeline: () => {
-      const timelineSection =
-        document.getElementById(
-          "timelineSection"
-        );
 
-      if (timelineSection) {
-        timelineSection.scrollIntoView({
-          behavior: "smooth",
-          block: "center",
-        });
-      }
+    // ==================================================
+    // OPEN FULL SCAM TIMELINE
+    // ==================================================
+
+    timeline: () => {
+
+      window.location.href =
+        "scamtimeline.html";
     },
+
 
     transactions:
       openTransactions,
 
+
     settings:
       openSettings,
+
 
     help:
       openHelp,
   };
+
 
   handlers[action]?.();
 }
@@ -1238,13 +1650,18 @@ function handleAction(action) {
 // ======================================================
 
 async function initializeDashboard() {
-  dashboardIsInitializing = true;
+
+  dashboardIsInitializing =
+    true;
 
   updateDate();
 
+
   let cachedUser = null;
 
+
   try {
+
     cachedUser =
       JSON.parse(
         localStorage.getItem(
@@ -1252,20 +1669,31 @@ async function initializeDashboard() {
         ) ||
         "null"
       );
+
   } catch {
+
     cachedUser = null;
   }
+
 
   setUser(
     cachedUser
   );
 
+
   try {
+
+    // ==================================================
+    // LOAD PROFILE + DASHBOARD + REAL SCAM TIMELINE
+    // ==================================================
+
     const [
       profile,
       dashboard,
+      scamTimeline,
     ] =
       await Promise.all([
+
         api(
           "/api/auth/me"
         ),
@@ -1276,7 +1704,20 @@ async function initializeDashboard() {
             cache: "no-store",
           }
         ),
+
+        api(
+          "/api/scam-timeline",
+          {
+            cache: "no-store",
+          }
+        ),
+
       ]);
+
+
+    // ==================================================
+    // SAVE USER
+    // ==================================================
 
     localStorage.setItem(
       "upiGuardianUser",
@@ -1285,29 +1726,79 @@ async function initializeDashboard() {
       )
     );
 
+
     setUser(
       profile.user
     );
 
+
+    // ==================================================
+    // SAVE DASHBOARD
+    // ==================================================
+
     state.dashboard =
       dashboard;
 
+
+    // ==================================================
+    // SAVE REAL SCAM TIMELINE
+    // ==================================================
+
+    if (
+      scamTimeline &&
+      Array.isArray(
+        scamTimeline.events
+      )
+    ) {
+
+      state.scamTimeline =
+        scamTimeline.events
+          .map(
+            normalizeTimelineEvent
+          )
+          .sort(
+            (a, b) =>
+              new Date(
+                b.eventTime
+              ) -
+              new Date(
+                a.eventTime
+              )
+          );
+
+    } else {
+
+      state.scamTimeline = [];
+    }
+
+
+    // ==================================================
+    // RENDER
+    // ==================================================
+
     renderDashboard();
+
 
     localStorage.removeItem(
       DASHBOARD_REFRESH_KEY
     );
+
   } catch (error) {
+
     if (
       error.message !==
       "Session expired"
     ) {
+
       showToast(
         error.message
       );
     }
+
   } finally {
-    dashboardIsInitializing = false;
+
+    dashboardIsInitializing =
+      false;
   }
 }
 
@@ -1317,6 +1808,7 @@ async function initializeDashboard() {
 // ======================================================
 
 async function refreshDashboardIfNeeded() {
+
   if (
     dashboardIsInitializing ||
     document.visibilityState === "hidden" ||
@@ -1327,47 +1819,113 @@ async function refreshDashboardIfNeeded() {
     return;
   }
 
+
   if (dashboardRefreshPromise) {
     return dashboardRefreshPromise;
   }
 
+
   dashboardRefreshPromise =
     (async () => {
+
       try {
-        const dashboard =
-          await api(
-            "/api/dashboard/summary",
-            {
-              cache: "no-store",
-            }
-          );
+
+        // ==============================================
+        // LOAD DASHBOARD + SCAM TIMELINE
+        // ==============================================
+
+        const [
+          dashboard,
+          scamTimeline,
+        ] =
+          await Promise.all([
+
+            api(
+              "/api/dashboard/summary",
+              {
+                cache: "no-store",
+              }
+            ),
+
+            api(
+              "/api/scam-timeline",
+              {
+                cache: "no-store",
+              }
+            ),
+
+          ]);
+
 
         state.dashboard =
           dashboard;
 
+
+        if (
+          scamTimeline &&
+          Array.isArray(
+            scamTimeline.events
+          )
+        ) {
+
+          state.scamTimeline =
+            scamTimeline.events
+              .map(
+                normalizeTimelineEvent
+              )
+              .sort(
+                (a, b) =>
+                  new Date(
+                    b.eventTime
+                  ) -
+                  new Date(
+                    a.eventTime
+                  )
+              );
+
+        } else {
+
+          state.scamTimeline = [];
+        }
+
+
         renderDashboard();
+
 
         localStorage.removeItem(
           DASHBOARD_REFRESH_KEY
         );
+
+
       } catch (error) {
+
         if (
           error.message !==
           "Session expired"
         ) {
+
           showToast(
             error.message
           );
         }
+
+
       } finally {
+
         dashboardRefreshPromise =
           null;
       }
+
     })();
+
 
   return dashboardRefreshPromise;
 }
 
+
+// ======================================================
+// REFRESH EVENTS
+// ======================================================
 
 window.addEventListener(
   "pageshow",
@@ -1378,10 +1936,12 @@ window.addEventListener(
 document.addEventListener(
   "visibilitychange",
   () => {
+
     if (
       document.visibilityState ===
       "visible"
     ) {
+
       refreshDashboardIfNeeded();
     }
   }
@@ -1400,18 +1960,18 @@ window.addEventListener(
 //
 // IMPORTANT:
 //
-// If an element has a REAL href such as:
+// Real href links continue to work normally.
+//
+// Examples:
 //
 // href="message-analyzer.html"
 // href="recovery.html"
 // href="send money.html"
 // href="scan and pay.html"
+// href="scamtimeline.html"
 //
-// app.js will NOT prevent the browser from
-// navigating to that page.
+// Only href="#" actions are handled here.
 //
-// Only href="#" dashboard actions are handled
-// by JavaScript.
 // ======================================================
 
 document
@@ -1433,25 +1993,29 @@ document
               "href"
             );
 
-          // ------------------------------------------------
-          // IMPORTANT:
-          // Allow real page links to work normally.
-          // This fixes Message Analyzer and Recovery Mode.
-          // ------------------------------------------------
+
+          // ==============================================
+          // ALLOW REAL PAGE LINKS
+          // ==============================================
 
           if (
             href &&
             href !== "#" &&
-            !href.startsWith("javascript:")
+            !href.startsWith(
+              "javascript:"
+            )
           ) {
+
             return;
           }
 
-          // ------------------------------------------------
-          // Dashboard-only actions
-          // ------------------------------------------------
+
+          // ==============================================
+          // DASHBOARD ACTION
+          // ==============================================
 
           event.preventDefault();
+
 
           if (
             !state.dashboard &&
@@ -1460,12 +2024,14 @@ document
               "new-payment",
             ].includes(action)
           ) {
+
             showToast(
               "Dashboard data is still loading."
             );
 
             return;
           }
+
 
           handleAction(
             action
@@ -1500,7 +2066,12 @@ document
 document.addEventListener(
   "keydown",
   (event) => {
-    if (event.key === "Escape") {
+
+    if (
+      event.key ===
+      "Escape"
+    ) {
+
       closeModal();
     }
   }
@@ -1518,16 +2089,22 @@ document
   ?.addEventListener(
     "click",
     (event) => {
+
       event.stopPropagation();
 
+
       if (profileDropdown) {
+
         profileDropdown.hidden =
           true;
       }
 
+
       if (notificationDropdown) {
+
         notificationDropdown.hidden =
           !notificationDropdown.hidden;
+
 
         event.currentTarget.setAttribute(
           "aria-expanded",
@@ -1551,14 +2128,19 @@ document
   ?.addEventListener(
     "click",
     (event) => {
+
       event.stopPropagation();
 
+
       if (notificationDropdown) {
+
         notificationDropdown.hidden =
           true;
       }
 
+
       if (profileDropdown) {
+
         profileDropdown.hidden =
           !profileDropdown.hidden;
       }
@@ -1577,11 +2159,13 @@ document
   ?.addEventListener(
     "click",
     () => {
+
       if (
         confirm(
           "Do you want to log out of UPI Guardian?"
         )
       ) {
+
         logOut();
       }
     }
@@ -1611,11 +2195,14 @@ document.addEventListener(
   () => {
 
     if (notificationDropdown) {
+
       notificationDropdown.hidden =
         true;
     }
 
+
     if (profileDropdown) {
+
       profileDropdown.hidden =
         true;
     }
