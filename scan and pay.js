@@ -1940,7 +1940,7 @@ function showFakePaymentSuccess(
         "click",
         () => {
             window.location.href =
-                "../dashboard.html";
+                "dashboard.html";
         }
     );
 }
