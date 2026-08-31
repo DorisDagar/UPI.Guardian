@@ -1,4 +1,3 @@
-
 /* =========================================
    UPI GUARDIAN
    SELECT SUSPICIOUS TRANSACTION
@@ -483,6 +482,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         showLoading();
 
+
         if (continueBtn) {
 
             continueBtn.disabled =
@@ -620,7 +620,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             /* =====================================
-               RENDER
+               RENDER TRANSACTIONS
             ===================================== */
 
             renderTransactions(
@@ -672,33 +672,27 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-        /*
-         * Remove any dynamically generated
-         * transaction cards.
-         *
-         * Keep loading/error/empty elements.
-         */
-
         const existingCards =
             transactionsContainer.querySelectorAll(
                 ".transaction-card"
             );
 
 
-        existingCards.forEach(card => {
+        existingCards.forEach(
+            card => {
 
-            card.remove();
+                card.remove();
 
-        });
+            }
+        );
 
 
         transactionList.forEach(
-            (transaction, index) => {
+            transaction => {
 
                 const card =
                     createTransactionCard(
-                        transaction,
-                        index
+                        transaction
                     );
 
 
@@ -717,8 +711,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ========================================= */
 
     function createTransactionCard(
-        transaction,
-        index
+        transaction
     ) {
 
         const card =
@@ -745,31 +738,33 @@ document.addEventListener("DOMContentLoaded", () => {
             );
 
 
-        const isSelected =
-            index === 0;
-
-
-        card.className =
-            "transaction-card" +
-            (
-                isSelected
-                    ? " selected"
-                    : ""
-            );
-
-
         /*
          * IMPORTANT:
          *
-         * data-id is the REAL PostgreSQL
-         * transactions.id.
+         * We DO NOT automatically select
+         * the first transaction here.
+         *
+         * Selection is handled separately
+         * by restoreSelectedTransaction().
          */
+
+        card.className =
+            "transaction-card";
+
+
+        /* =====================================
+           DATABASE ID
+        ===================================== */
 
         card.dataset.id =
             String(
                 transaction.id
             );
 
+
+        /* =====================================
+           BASIC TRANSACTION DATA
+        ===================================== */
 
         card.dataset.name =
             transaction.receiver_name ||
@@ -818,10 +813,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 <div
                     class="transaction-icon ${iconData.className}"
                 >
+
                     <i
                         class="fa-solid ${iconData.icon}"
                     ></i>
+
                 </div>
+
 
                 <div class="transaction-info">
 
@@ -928,11 +926,7 @@ document.addEventListener("DOMContentLoaded", () => {
             </button>
 
 
-            <div class="radio ${
-                isSelected
-                    ? "selected-radio"
-                    : ""
-            }">
+            <div class="radio">
 
                 <i
                     class="fa-solid fa-check"
@@ -961,7 +955,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         /* =====================================
-           SELECT BUTTON CLICK
+           SELECT BUTTON
         ===================================== */
 
         const selectButton =
@@ -1003,9 +997,24 @@ document.addEventListener("DOMContentLoaded", () => {
         card
     ) {
 
-        /*
-         * Remove previous selection
-         */
+        if (
+            !transaction ||
+            !transaction.id
+        ) {
+
+            console.error(
+                "❌ Cannot select transaction without an ID:",
+                transaction
+            );
+
+            return;
+
+        }
+
+
+        /* =====================================
+           REMOVE OLD SELECTION
+        ===================================== */
 
         const allCards =
             transactionsContainer.querySelectorAll(
@@ -1039,9 +1048,9 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
 
-        /*
-         * Add selection
-         */
+        /* =====================================
+           SELECT CURRENT CARD
+        ===================================== */
 
         card.classList.add(
             "selected"
@@ -1063,25 +1072,33 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-        /*
-         * Save selected transaction
-         */
+        /* =====================================
+           UPDATE STATE
+        ===================================== */
 
         selectedTransaction =
             transaction;
 
+
+        /* =====================================
+           SAVE TO LOCAL STORAGE
+        ===================================== */
 
         saveSelectedTransaction(
             transaction
         );
 
 
-        /*
-         * Update UI
-         */
+        /* =====================================
+           UPDATE TEXT
+        ===================================== */
 
         updateSelectedText();
 
+
+        /* =====================================
+           ENABLE CONTINUE
+        ===================================== */
 
         if (continueBtn) {
 
@@ -1092,7 +1109,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         console.log(
-            "✅ Transaction selected:",
+            "✅ Transaction selected and saved:",
             transaction
         );
 
@@ -1109,54 +1126,114 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const selectedData = {
 
+            /*
+             * PostgreSQL transaction ID
+             */
+
             id:
                 transaction.id,
+
+
+            /*
+             * Receiver
+             */
 
             name:
                 transaction.receiver_name ||
                 "",
+
+
+            /*
+             * Amount
+             */
 
             amount:
                 String(
                     transaction.amount ?? ""
                 ),
 
+
+            /*
+             * Risk
+             */
+
             risk:
                 getRiskLabel(
                     transaction.risk_level
                 ),
 
+
             riskLevel:
                 transaction.risk_level ||
                 "",
+
+
+            /*
+             * Transaction reference
+             */
 
             reference:
                 transaction.transaction_reference ||
                 "",
 
+
+            /*
+             * Receiver UPI ID
+             */
+
             upiId:
                 transaction.receiver_upi_id ||
                 "",
+
+
+            /*
+             * Payment method
+             */
 
             paymentMethod:
                 transaction.payment_method ||
                 "UPI",
 
+
+            /*
+             * Bank
+             */
+
             bankName:
                 transaction.bank_name ||
                 "",
+
+
+            /*
+             * Transaction time
+             */
 
             transactionTime:
                 transaction.transaction_time ||
                 "",
 
+
+            /*
+             * Transaction status
+             */
+
             transactionStatus:
                 transaction.transaction_status ||
                 "",
 
+
+            /*
+             * Risk reason
+             */
+
             riskReason:
                 transaction.risk_reason ||
                 "",
+
+
+            /*
+             * Receiver category
+             */
 
             receiverCategory:
                 transaction.receiver_category ||
@@ -1164,6 +1241,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         };
 
+
+        /* =====================================
+           MAIN TRANSACTION OBJECT
+        ===================================== */
 
         localStorage.setItem(
             "selectedTransaction",
@@ -1173,12 +1254,9 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
 
-        /*
-         * Also save transaction ID separately.
-         *
-         * This makes it easy for other Recovery
-         * Mode pages to retrieve it.
-         */
+        /* =====================================
+           TRANSACTION ID
+        ===================================== */
 
         localStorage.setItem(
             "selectedTransactionId",
@@ -1189,8 +1267,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         console.log(
-            "💾 Selected transaction saved:",
-            selectedData
+            "💾 selectedTransaction:",
+            localStorage.getItem(
+                "selectedTransaction"
+            )
+        );
+
+
+        console.log(
+            "💾 selectedTransactionId:",
+            localStorage.getItem(
+                "selectedTransactionId"
+            )
         );
 
     }
@@ -1209,43 +1297,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         /*
-         * If nothing was previously selected,
-         * select first transaction.
+         * Nothing previously selected.
+         *
+         * Do NOT automatically select the first
+         * transaction.
          */
 
         if (!savedId) {
 
-            const firstCard =
-                transactionsContainer.querySelector(
-                    ".transaction-card"
-                );
+            selectedTransaction =
+                null;
+
+            updateSelectedText();
 
 
-            if (
-                firstCard &&
-                transactions.length > 0
-            ) {
+            if (continueBtn) {
 
-                const firstTransaction =
-                    transactions.find(
-                        transaction =>
-                            String(
-                                transaction.id
-                            ) ===
-                            String(
-                                firstCard.dataset.id
-                            )
-                    );
-
-
-                if (firstTransaction) {
-
-                    selectTransaction(
-                        firstTransaction,
-                        firstCard
-                    );
-
-                }
+                continueBtn.disabled =
+                    true;
 
             }
 
@@ -1255,9 +1324,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-        /*
-         * Find saved transaction in current list
-         */
+        /* =====================================
+           FIND TRANSACTION
+        ===================================== */
 
         const savedTransaction =
             transactions.find(
@@ -1265,53 +1334,44 @@ document.addEventListener("DOMContentLoaded", () => {
                     String(
                         transaction.id
                     ) ===
-                    String(savedId)
+                    String(
+                        savedId
+                    )
             );
 
 
+        /*
+         * Saved transaction no longer exists.
+         */
+
         if (!savedTransaction) {
 
-            /*
-             * Saved transaction no longer exists.
-             * Select first one instead.
-             */
+            console.warn(
+                "⚠️ Previously selected transaction was not found."
+            );
+
+
+            localStorage.removeItem(
+                "selectedTransaction"
+            );
+
 
             localStorage.removeItem(
                 "selectedTransactionId"
             );
 
 
-            const firstCard =
-                transactionsContainer.querySelector(
-                    ".transaction-card"
-                );
+            selectedTransaction =
+                null;
 
 
-            if (
-                firstCard &&
-                transactions.length > 0
-            ) {
-
-                const firstTransaction =
-                    transactions.find(
-                        transaction =>
-                            String(
-                                transaction.id
-                            ) ===
-                            String(
-                                firstCard.dataset.id
-                            )
-                    );
+            updateSelectedText();
 
 
-                if (firstTransaction) {
+            if (continueBtn) {
 
-                    selectTransaction(
-                        firstTransaction,
-                        firstCard
-                    );
-
-                }
+                continueBtn.disabled =
+                    true;
 
             }
 
@@ -1321,26 +1381,104 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-        /*
-         * Find and activate matching card
-         */
+        /* =====================================
+           FIND CARD
+        ===================================== */
 
-        const matchingCard =
-            transactionsContainer.querySelector(
-                `.transaction-card[data-id="${CSS.escape(
-                    String(savedTransaction.id)
-                )}"]`
+        const cards =
+            transactionsContainer.querySelectorAll(
+                ".transaction-card"
             );
 
 
-        if (matchingCard) {
+        let matchingCard = null;
 
-            selectTransaction(
-                savedTransaction,
-                matchingCard
+
+        cards.forEach(
+            card => {
+
+                if (
+                    String(
+                        card.dataset.id
+                    ) ===
+                    String(
+                        savedTransaction.id
+                    )
+                ) {
+
+                    matchingCard =
+                        card;
+
+                }
+
+            }
+        );
+
+
+        if (!matchingCard) {
+
+            console.warn(
+                "⚠️ Matching transaction card not found."
+            );
+
+            return;
+
+        }
+
+
+        /* =====================================
+           RESTORE SELECTION
+        ===================================== */
+
+        selectedTransaction =
+            savedTransaction;
+
+
+        matchingCard.classList.add(
+            "selected"
+        );
+
+
+        const radio =
+            matchingCard.querySelector(
+                ".radio"
+            );
+
+
+        if (radio) {
+
+            radio.classList.add(
+                "selected-radio"
             );
 
         }
+
+
+        updateSelectedText();
+
+
+        if (continueBtn) {
+
+            continueBtn.disabled =
+                false;
+
+        }
+
+
+        /*
+         * Re-save the latest version of the
+         * transaction returned by PostgreSQL.
+         */
+
+        saveSelectedTransaction(
+            savedTransaction
+        );
+
+
+        console.log(
+            "🔄 Previous transaction restored:",
+            savedTransaction
+        );
 
     }
 
@@ -1395,17 +1533,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
 
 
-                /*
-                 * Safety check:
-                 * PostgreSQL ID must exist.
-                 */
-
                 if (
                     !selectedTransaction.id
                 ) {
 
                     console.error(
-                        "❌ Selected transaction is missing database ID:",
+                        "❌ Selected transaction has no database ID:",
                         selectedTransaction
                     );
 
@@ -1420,7 +1553,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
                 /*
-                 * Save one final time.
+                 * Save one final time before
+                 * navigating to Immediate Action.
                  */
 
                 saveSelectedTransaction(
@@ -1429,14 +1563,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
                 console.log(
-                    "➡️ Continuing with transaction ID:",
-                    selectedTransaction.id
+                    "➡️ Opening Immediate Action for:",
+                    selectedTransaction
                 );
 
-
-                /*
-                 * Continue to Immediate Action
-                 */
 
                 window.location.href =
                     "immediate-action.html";
@@ -1448,7 +1578,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =========================================
-       RETRY BUTTON
+       RETRY
     ========================================= */
 
     if (retryTransactionsBtn) {
@@ -1505,4 +1635,3 @@ document.addEventListener("DOMContentLoaded", () => {
     loadTransactions();
 
 });
-
