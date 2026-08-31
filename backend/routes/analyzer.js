@@ -1,3 +1,4 @@
+
 const express = require("express");
 const multer = require("multer");
 
@@ -16,8 +17,9 @@ const router = express.Router();
 // AUTHENTICATION
 // ============================================================
 //
-// Every scam-message analysis is linked to the currently
-// logged-in user using the JWT userId.
+// Every scam-message analysis belongs to the currently
+// authenticated user.
+//
 // ============================================================
 
 router.use(requireAuth);
@@ -28,34 +30,54 @@ router.use(requireAuth);
 // ============================================================
 
 const upload = multer({
-  storage: multer.memoryStorage(),
+
+  storage:
+    multer.memoryStorage(),
 
   limits: {
-    fileSize: 5 * 1024 * 1024, // 5 MB
+    fileSize:
+      5 * 1024 * 1024, // 5 MB
   },
 
-  fileFilter: (req, file, cb) => {
-    const allowedTypes = [
-      "image/png",
-      "image/jpeg",
-      "image/jpg",
-    ];
+  fileFilter:
+    (req, file, cb) => {
 
-    if (allowedTypes.includes(file.mimetype)) {
-      cb(null, true);
-    } else {
-      cb(
-        new Error(
-          "Only PNG, JPG and JPEG images are allowed."
+      const allowedTypes = [
+        "image/png",
+        "image/jpeg",
+        "image/jpg",
+      ];
+
+
+      if (
+        allowedTypes.includes(
+          file.mimetype
         )
-      );
-    }
-  },
+      ) {
+
+        cb(
+          null,
+          true
+        );
+
+      } else {
+
+        cb(
+          new Error(
+            "Only PNG, JPG and JPEG images are allowed."
+          )
+        );
+
+      }
+
+    },
+
 });
 
 
 // ============================================================
 // ANALYZE MESSAGE / SCREENSHOT
+// POST /api/analyzer/analyze
 // ============================================================
 
 router.post(
@@ -63,30 +85,42 @@ router.post(
   upload.single("screenshot"),
 
   async (req, res) => {
+
     try {
 
-      // --------------------------------------------------------
+      // ========================================================
       // GET LOGGED-IN USER
-      // --------------------------------------------------------
+      // ========================================================
 
-      const userId = req.user.userId;
+      const userId =
+        req.user.userId;
+
 
       if (!userId) {
+
         return res.status(401).json({
-          success: false,
-          message: "Unable to identify the logged-in user.",
+
+          success:
+            false,
+
+          message:
+            "Unable to identify the logged-in user.",
+
         });
+
       }
 
 
-      // --------------------------------------------------------
+      // ========================================================
       // GET TEXT MESSAGE
-      // --------------------------------------------------------
+      // ========================================================
 
       const message =
         String(
-          req.body?.message || ""
+          req.body?.message ||
+          ""
         ).trim();
+
 
       let analysis;
       let inputType;
@@ -96,23 +130,35 @@ router.post(
       // OPTION 1 — SCREENSHOT
       // ========================================================
 
-      if (req.file) {
+      if (
+        req.file
+      ) {
 
-        inputType = "screenshot";
+        inputType =
+          "screenshot";
+
 
         console.log(
           `📷 Screenshot received from user ${userId}. Sending to Gemini...`
         );
 
+
         analysis =
           await analyzeScreenshot({
-            buffer: req.file.buffer,
-            mimeType: req.file.mimetype,
+
+            buffer:
+              req.file.buffer,
+
+            mimeType:
+              req.file.mimetype,
+
           });
+
 
         console.log(
           "✅ Screenshot analysis completed."
         );
+
       }
 
 
@@ -120,33 +166,51 @@ router.post(
       // OPTION 2 — PASTED MESSAGE
       // ========================================================
 
-      else if (message) {
+      else if (
+        message
+      ) {
 
-        inputType = "text";
+        inputType =
+          "text";
+
 
         // ------------------------------------------------------
         // MESSAGE LENGTH VALIDATION
         // ------------------------------------------------------
 
-        if (message.length > 1000) {
+        if (
+          message.length >
+          1000
+        ) {
+
           return res.status(400).json({
-            success: false,
+
+            success:
+              false,
 
             message:
               "Message cannot exceed 1000 characters.",
+
           });
+
         }
+
 
         console.log(
           `💬 Message received from user ${userId}. Sending to Gemini...`
         );
 
+
         analysis =
-          await analyzeMessage(message);
+          await analyzeMessage(
+            message
+          );
+
 
         console.log(
           "✅ Message analysis completed."
         );
+
       }
 
 
@@ -157,11 +221,15 @@ router.post(
       else {
 
         return res.status(400).json({
-          success: false,
+
+          success:
+            false,
 
           message:
             "Please enter a message or upload a screenshot.",
+
         });
+
       }
 
 
@@ -169,105 +237,118 @@ router.post(
       // SAVE AI ANALYSIS TO DATABASE
       // ========================================================
       //
-      // This stores BOTH:
-      // 1. Pasted text analysis
-      // 2. Screenshot analysis
+      // Existing functionality:
       //
-      // inside the same scam_message_analyses table.
+      // Text and screenshot analyses are stored in
+      // scam_message_analyses.
+      //
       // ========================================================
 
-      const insertResult = await pool.query(
-        `
-          INSERT INTO scam_message_analyses (
-            user_id,
-            input_type,
-            message_text,
-            risk_score,
-            risk_level,
-            is_potential_scam,
-            explanation,
-            risk_factors,
-            detected_elements,
-            recommendations,
-            detected_urls,
-            detected_upi_ids,
-            detected_phone_numbers,
-            ai_provider,
-            ai_model,
-            analyzed_at
-          )
-          VALUES (
-            $1,
-            $2,
-            $3,
-            $4,
-            $5,
-            $6,
-            $7,
-            $8::jsonb,
-            $9::jsonb,
-            $10::jsonb,
-            $11::jsonb,
-            $12::jsonb,
-            $13::jsonb,
-            $14,
-            $15,
-            CURRENT_TIMESTAMP
-          )
-          RETURNING id, analyzed_at
-        `,
-        [
-          userId,
+      const insertResult =
+        await pool.query(
+          `
+            INSERT INTO scam_message_analyses (
+              user_id,
+              input_type,
+              message_text,
+              risk_score,
+              risk_level,
+              is_potential_scam,
+              explanation,
+              risk_factors,
+              detected_elements,
+              recommendations,
+              detected_urls,
+              detected_upi_ids,
+              detected_phone_numbers,
+              ai_provider,
+              ai_model,
+              analyzed_at
+            )
+            VALUES (
+              $1,
+              $2,
+              $3,
+              $4,
+              $5,
+              $6,
+              $7,
+              $8::jsonb,
+              $9::jsonb,
+              $10::jsonb,
+              $11::jsonb,
+              $12::jsonb,
+              $13::jsonb,
+              $14,
+              $15,
+              CURRENT_TIMESTAMP
+            )
+            RETURNING
+              id,
+              analyzed_at
+          `,
+          [
 
-          inputType,
+            userId,
 
-          // For pasted text, save the actual message.
-          // For screenshot analysis, messageRiskEngine currently
-          // does not perform OCR, so this will remain null.
-          message || null,
+            inputType,
 
-          analysis.score,
+            // Text messages are stored directly.
+            // Screenshot analyses currently do not have OCR,
+            // therefore message_text remains null.
+            message ||
+              null,
 
-          analysis.level,
+            analysis.score,
 
-          analysis.isPotentialScam,
+            analysis.level,
 
-          analysis.explanation,
+            analysis.isPotentialScam,
 
-          JSON.stringify(
-            analysis.riskFactors || []
-          ),
+            analysis.explanation,
 
-          JSON.stringify(
-            analysis.detectedElements || []
-          ),
+            JSON.stringify(
+              analysis.riskFactors ||
+              []
+            ),
 
-          JSON.stringify(
-            analysis.recommendations || []
-          ),
+            JSON.stringify(
+              analysis.detectedElements ||
+              []
+            ),
 
-          JSON.stringify(
-            analysis.detected?.urls || []
-          ),
+            JSON.stringify(
+              analysis.recommendations ||
+              []
+            ),
 
-          JSON.stringify(
-            analysis.detected?.upiIds || []
-          ),
+            JSON.stringify(
+              analysis.detected?.urls ||
+              []
+            ),
 
-          JSON.stringify(
-            analysis.detected?.phoneNumbers || []
-          ),
+            JSON.stringify(
+              analysis.detected?.upiIds ||
+              []
+            ),
 
-          "Google Gemini",
+            JSON.stringify(
+              analysis.detected?.phoneNumbers ||
+              []
+            ),
 
-          process.env.GEMINI_MODEL ||
-            "gemini-3.7-flash",
-        ]
-      );
+            "Google Gemini",
+
+            process.env.GEMINI_MODEL ||
+              "gemini-3.7-flash",
+
+          ]
+        );
 
 
       const savedAnalysisId =
         insertResult.rows[0].id;
+
 
       const analyzedAt =
         insertResult.rows[0].analyzed_at;
@@ -279,12 +360,180 @@ router.post(
 
 
       // ========================================================
+      // SCAM TIMELINE EVENT
+      // ========================================================
+      //
+      // NEW FEATURE:
+      //
+      // Every successful Message Analyzer analysis is also
+      // recorded in scam_timeline_events.
+      //
+      // This makes the GLOBAL Scam Timeline dynamic.
+      //
+      // Recovery Timeline is NOT touched here.
+      //
+      // ========================================================
+
+      try {
+
+        // ------------------------------------------------------
+        // Timeline title
+        // ------------------------------------------------------
+
+        const timelineTitle =
+          analysis.isPotentialScam ===
+          true
+
+            ? "Suspicious message detected"
+
+            : "Message analyzed";
+
+
+        // ------------------------------------------------------
+        // Timeline description
+        // ------------------------------------------------------
+
+        const timelineDescription =
+          analysis.explanation ||
+          (
+            inputType ===
+            "screenshot"
+
+              ? "Screenshot security analysis completed."
+
+              : "Message security analysis completed."
+          );
+
+
+        // ------------------------------------------------------
+        // Timeline status
+        // ------------------------------------------------------
+
+        const timelineStatus =
+          analysis.isPotentialScam ===
+          true
+
+            ? "Detected"
+
+            : "Analyzed";
+
+
+        // ------------------------------------------------------
+        // Normalize risk level
+        // ------------------------------------------------------
+
+        const timelineRiskLevel =
+          String(
+            analysis.level ||
+            "safe"
+          ).toLowerCase();
+
+
+        // ------------------------------------------------------
+        // Normalize score
+        // ------------------------------------------------------
+
+        const timelineRiskScore =
+          Number(
+            analysis.score ||
+            0
+          );
+
+
+        // ------------------------------------------------------
+        // Insert timeline event
+        // ------------------------------------------------------
+
+        await pool.query(
+          `
+            INSERT INTO scam_timeline_events (
+              user_id,
+              event_type,
+              title,
+              description,
+              risk_level,
+              risk_score,
+              icon,
+              status,
+              event_time
+            )
+            VALUES (
+              $1,
+              $2,
+              $3,
+              $4,
+              $5,
+              $6,
+              $7,
+              $8,
+              $9
+            )
+          `,
+          [
+
+            userId,
+
+            "message",
+
+            timelineTitle,
+
+            timelineDescription,
+
+            timelineRiskLevel,
+
+            timelineRiskScore,
+
+            "message",
+
+            timelineStatus,
+
+            analyzedAt,
+
+          ]
+        );
+
+
+        console.log(
+          `🕒 Scam Timeline event created for analysis ${savedAnalysisId}`
+        );
+
+      } catch (
+        timelineError
+      ) {
+
+        // ======================================================
+        // IMPORTANT
+        // ======================================================
+        //
+        // The new Scam Timeline must NEVER break the existing
+        // Message Analyzer.
+        //
+        // If timeline insertion fails, the already-saved AI
+        // analysis is still returned normally.
+        //
+        // ======================================================
+
+        console.error(
+          "⚠️ Scam Timeline event creation failed:",
+          timelineError.message
+        );
+
+      }
+
+
+      // ========================================================
       // SEND RESULT TO FRONTEND
+      // ========================================================
+      //
+      // This response structure is kept compatible with your
+      // existing Message Analyzer frontend.
+      //
       // ========================================================
 
       return res.status(200).json({
 
-        success: true,
+        success:
+          true,
 
         analysisId:
           savedAnalysisId,
@@ -319,10 +568,13 @@ router.post(
 
           messageLength:
             analysis.messageLength,
+
         },
+
       });
 
     }
+
 
     // ========================================================
     // ERROR HANDLING
@@ -344,7 +596,8 @@ router.post(
       // ------------------------------------------------------
 
       if (
-        error instanceof multer.MulterError
+        error instanceof
+        multer.MulterError
       ) {
 
         if (
@@ -353,19 +606,28 @@ router.post(
         ) {
 
           return res.status(400).json({
-            success: false,
+
+            success:
+              false,
 
             message:
               "Screenshot is too large. Maximum size is 5 MB.",
+
           });
+
         }
 
+
         return res.status(400).json({
-          success: false,
+
+          success:
+            false,
 
           message:
             "Unable to process the uploaded screenshot.",
+
         });
+
       }
 
 
@@ -381,11 +643,15 @@ router.post(
       ) {
 
         return res.status(400).json({
-          success: false,
+
+          success:
+            false,
 
           message:
             "Only PNG, JPG and JPEG images are allowed.",
+
         });
+
       }
 
 
@@ -402,12 +668,17 @@ router.post(
           error.code
         );
 
+
         return res.status(500).json({
-          success: false,
+
+          success:
+            false,
 
           message:
             "The analysis was generated, but it could not be saved. Please try again.",
+
         });
+
       }
 
 
@@ -417,13 +688,17 @@ router.post(
 
       return res.status(500).json({
 
-        success: false,
+        success:
+          false,
 
         message:
           error.message ||
           "Unable to analyze the message.",
+
       });
+
     }
+
   }
 );
 
@@ -432,4 +707,5 @@ router.post(
 // EXPORT ROUTER
 // ============================================================
 
-module.exports = router;
+module.exports =router;
+
