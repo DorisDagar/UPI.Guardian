@@ -18,6 +18,9 @@ const paymentRoutes = require("./routes/payments");
 const evidenceRoutes = require("./routes/evidence");
 const paymentRequestRoutes = require("./routes/paymentRequests");
 
+// NEW: GLOBAL SCAM TIMELINE
+const scamTimelineRoutes = require("./routes/scamTimeline");
+
 
 // ======================================================
 // CREATE EXPRESS APP
@@ -246,6 +249,26 @@ app.use(
 app.use(
     "/api/evidence",
     evidenceRoutes
+);
+
+
+// ======================================================
+// GLOBAL SCAM TIMELINE
+// ======================================================
+//
+// GET:
+// /api/scam-timeline
+//
+// This is the NEW GLOBAL timeline.
+//
+// It is completely separate from:
+// scamtimeline-recovery.html
+//
+// ======================================================
+
+app.use(
+    "/api/scam-timeline",
+    scamTimelineRoutes
 );
 
 
@@ -661,6 +684,11 @@ app.listen(
 
         console.log(
             "  GET  /api/evidence/health"
+        );
+
+        // NEW GLOBAL SCAM TIMELINE
+        console.log(
+            "  GET  /api/scam-timeline"
         );
 
         console.log(
