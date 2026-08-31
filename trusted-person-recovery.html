@@ -3,23 +3,39 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>UPI Guardian</title>
 
-    <!-- Font Awesome -->
+    <!-- =====================================
+         FONT AWESOME
+    ====================================== -->
+
     <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     >
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="trusted-person-recovery.css">
+
+    <!-- =====================================
+         CSS
+    ====================================== -->
+
+    <link
+        rel="stylesheet"
+        href="trusted-person-recovery.css"
+    >
+
 </head>
+
 
 <body>
 
     <div class="page">
+
 
         <!-- =====================================
              HEADER
@@ -29,16 +45,20 @@
 
             <div class="brand">
 
-                <!-- Blue square logo -->
                 <div class="logo-box">
+
                     <i class="fa-solid fa-shield-halved"></i>
+
                 </div>
 
-                <span>UPI Guardian</span>
+                <span>
+                    UPI Guardian
+                </span>
 
             </div>
 
         </header>
+
 
 
         <!-- =====================================
@@ -58,28 +78,38 @@
                 <!-- Recovery icon -->
 
                 <div class="intro-icon">
+
                     <i class="fa-solid fa-arrow-rotate-left"></i>
+
                 </div>
 
 
-                <!-- Intro text -->
+
+                <!-- Intro content -->
 
                 <div class="intro-content">
 
+
                     <div class="breadcrumb">
 
-                        <span>Recovery Mode</span>
+                        <span>
+                            Recovery Mode
+                        </span>
 
                         <i class="fa-solid fa-slash"></i>
 
-                        <strong>Trusted Person</strong>
+                        <strong>
+                            Trusted Person
+                        </strong>
 
                     </div>
+
 
 
                     <h1>
                         Keep Your Trusted Person in the Loop
                     </h1>
+
 
 
                     <p>
@@ -89,34 +119,53 @@
                 </div>
 
 
-                <!-- Progress card -->
+
+                <!-- =================================
+                     PROGRESS CARD
+                ================================== -->
 
                 <div class="progress-card">
 
-                    <div class="step-title">
-                        Step 3 of 7
+
+                    <div
+                        class="step-title"
+                        id="stepTitle"
+                    >
+                        Step 3 of 6
                     </div>
+
 
 
                     <div class="progress-bars">
 
+
                         <span class="bar blue"></span>
+
 
                         <span class="bar purple"></span>
 
+
                         <span class="bar pink"></span>
 
-                        <span class="bar"></span>
 
                         <span class="bar"></span>
 
+
                         <span class="bar"></span>
+
+
+                        <span class="bar"></span>
+
 
                     </div>
 
 
-                    <div class="progress-percent">
-                        43% Complete
+
+                    <div
+                        class="progress-percent"
+                        id="progressPercent"
+                    >
+                        50% Complete
                     </div>
 
                 </div>
@@ -126,20 +175,28 @@
 
 
             <!-- =================================
-                 SUSPICIOUS TRANSACTION
+                 SELECTED TRANSACTION
             ================================== -->
 
-            <section class="transaction-card">
+            <section
+                class="transaction-card"
+                id="transactionCard"
+            >
 
 
-                <!-- Gift icon -->
+                <!-- =================================
+                     TRANSACTION ICON
+                ================================== -->
 
-                <div class="transaction-icon">
+                <div
+                    class="transaction-icon"
+                    id="transactionIcon"
+                >
 
-                    <i class="fa-solid fa-gift"></i>
+                    <i class="fa-solid fa-receipt"></i>
 
 
-                    <!-- Warning -->
+                    <!-- Warning badge -->
 
                     <span class="warning-icon">
 
@@ -150,46 +207,87 @@
                 </div>
 
 
-                <!-- Transaction name -->
+
+                <!-- =================================
+                     TRANSACTION INFORMATION
+                ================================== -->
 
                 <div class="transaction-info">
+
 
                     <h3>
                         Suspicious Transaction
                     </h3>
 
-                    <p>
-                        Lucky Reward UPI
+
+                    <!--
+                        This is populated dynamically
+                        from selectedTransaction.
+                    -->
+
+                    <p id="transactionName">
+                        Selected Transaction
                     </p>
 
                 </div>
 
 
+
+                <!-- Divider -->
+
                 <div class="transaction-divider"></div>
 
 
-                <!-- Amount -->
 
-                <div class="amount">
-                    ₹50,000
+                <!-- =================================
+                     AMOUNT
+                ================================== -->
+
+                <div
+                    class="amount"
+                    id="transactionAmount"
+                >
+                    ₹0
                 </div>
 
 
+
+                <!-- Divider -->
+
                 <div class="transaction-divider"></div>
 
 
-                <!-- Details -->
+
+                <!-- =================================
+                     TRANSACTION DETAILS
+                ================================== -->
 
                 <div class="transaction-details">
 
-                    <p>
-                        Transaction ID:
-                        <span>UPI12345678</span>
-                    </p>
 
                     <p>
+
+                        Transaction ID:
+
+                        <span id="transactionId">
+                            —
+                        </span>
+
+                    </p>
+
+
+
+                    <p>
+
                         Risk Level:
-                        <strong>HIGH</strong>
+
+                        <strong
+                            id="transactionRisk"
+                            class="risk-unknown"
+                        >
+                            —
+                        </strong>
+
                     </p>
 
                 </div>
@@ -205,11 +303,17 @@
             <section class="trusted-section">
 
 
+                <!-- =================================
+                     SECTION HEADING
+                ================================== -->
+
                 <div class="section-heading">
+
 
                     <h2>
                         Select a Trusted Person
                     </h2>
+
 
                     <p>
                         Your existing trusted persons can help you stay organized and informed during recovery.
@@ -220,18 +324,21 @@
 
 
                 <!-- =================================
-                     PEOPLE
+                     PEOPLE GRID
                 ================================== -->
 
                 <div class="people-grid">
 
 
-                    <!-- MOM -->
+                    <!-- =================================
+                         MOM
+                    ================================== -->
 
                     <div
                         class="person-card selected"
                         data-person="Mom"
                     >
+
 
                         <div class="person-avatar mom">
 
@@ -240,7 +347,9 @@
                         </div>
 
 
+
                         <div class="person-info">
+
 
                             <h3>
                                 Mom
@@ -263,6 +372,7 @@
                         </div>
 
 
+
                         <div class="radio checked">
 
                             <i class="fa-solid fa-check"></i>
@@ -273,12 +383,15 @@
 
 
 
-                    <!-- DAD -->
+                    <!-- =================================
+                         DAD
+                    ================================== -->
 
                     <div
                         class="person-card"
                         data-person="Dad"
                     >
+
 
                         <div class="person-avatar dad">
 
@@ -287,7 +400,9 @@
                         </div>
 
 
+
                         <div class="person-info">
+
 
                             <h3>
                                 Dad
@@ -305,18 +420,22 @@
                         </div>
 
 
+
                         <div class="radio"></div>
 
                     </div>
 
 
 
-                    <!-- BEST FRIEND -->
+                    <!-- =================================
+                         BEST FRIEND
+                    ================================== -->
 
                     <div
                         class="person-card"
                         data-person="Best Friend"
                     >
+
 
                         <div class="person-avatar friend">
 
@@ -325,7 +444,9 @@
                         </div>
 
 
+
                         <div class="person-info">
+
 
                             <h3>
                                 Best Friend
@@ -343,40 +464,103 @@
                         </div>
 
 
+
                         <div class="radio"></div>
 
                     </div>
 
                 </div>
 
+
+
                 <!-- =================================
-                    WHATSAPP NUMBER
+                     WHATSAPP NUMBER
                 ================================== -->
 
                 <div class="whatsapp-number-section">
 
+
+                    <!-- Label -->
+
                     <label for="trustedWhatsapp">
-                        Trusted Person WhatsApp Number
+
+                        <i class="fa-brands fa-whatsapp"></i>
+
+                        <span>
+                            Trusted Person WhatsApp Number
+                        </span>
+
                     </label>
+
+
+
+                    <!-- Phone input -->
 
                     <div class="whatsapp-input">
 
-                        <span>+91</span>
+
+                        <!-- Country code -->
+
+                        <div class="country-code">
+
+                            <span class="country-flag">
+                                🇮🇳
+                            </span>
+
+                            <strong>
+                                +91
+                            </strong>
+
+                        </div>
+
+
+
+                        <!-- Divider -->
+
+                        <div class="phone-divider"></div>
+
+
+
+                        <!-- Number -->
 
                         <input
-                        type="tel"
-                        id="trustedWhatsapp"
-                        placeholder="Enter 10 digit WhatsApp number"
-                        maxlength="10"
-                        inputmode="numeric">
+                            type="tel"
+                            id="trustedWhatsapp"
+                            placeholder="Enter 10 digit number"
+                            maxlength="10"
+                            inputmode="numeric"
+                            autocomplete="tel"
+                            aria-label="Trusted Person WhatsApp Number"
+                        >
+
+
+
+                        <!-- Status icon -->
+
+                        <div class="phone-status">
+
+                            <i class="fa-solid fa-mobile-screen-button"></i>
+
+                        </div>
 
                     </div>
 
+
+
+                    <!-- Helper text -->
+
                     <small>
-                        This number will be used later when the fraud report is ready to share.
+
+                        <i class="fa-solid fa-lock"></i>
+
+                        <span>
+                            Only used to share recovery updates with your trusted person.
+                        </span>
+
                     </small>
 
                 </div>
+
 
 
                 <!-- =================================
@@ -386,11 +570,12 @@
                 <div class="information-box">
 
 
-                    <!-- SHIELD IMAGE -->
+                    <!-- =================================
+                         SHIELD
+                    ================================== -->
 
                     <div class="information-icon">
 
-                      
 
                         <img
                             src="img/tpr.png"
@@ -399,7 +584,7 @@
                         >
 
 
-                        <!-- Small check remains Font Awesome -->
+                        <!-- Check -->
 
                         <span>
 
@@ -411,13 +596,17 @@
 
 
 
-                    <!-- Information -->
+                    <!-- =================================
+                         INFORMATION CONTENT
+                    ================================== -->
 
                     <div class="information-content">
+
 
                         <h3>
                             Once connected, they'll stay informed
                         </h3>
+
 
 
                         <div class="information-list">
@@ -434,6 +623,7 @@
                             </div>
 
 
+
                             <div>
 
                                 <i class="fa-solid fa-circle-check"></i>
@@ -443,6 +633,7 @@
                                 </span>
 
                             </div>
+
 
 
                             <div>
@@ -456,6 +647,7 @@
                             </div>
 
 
+
                             <div>
 
                                 <i class="fa-solid fa-circle-check"></i>
@@ -465,6 +657,7 @@
                                 </span>
 
                             </div>
+
 
 
                             <div>
@@ -477,18 +670,21 @@
 
                             </div>
 
-
                         </div>
 
                     </div>
 
 
 
-                    <!-- Information bottom -->
+                    <!-- =================================
+                         INFORMATION BOTTOM
+                    ================================== -->
 
                     <div class="information-bottom">
 
+
                         <i class="fa-solid fa-lock"></i>
+
 
                         <span>
                             Only recovery information related to this incident will be shared.
@@ -509,24 +705,34 @@
             <section class="actions">
 
 
+                <!-- Continue without trusted person -->
+
                 <button
                     class="continue-btn"
                     id="continueBtn"
+                    type="button"
                 >
                     Continue Without Trusted Person
                 </button>
 
 
+
+                <!-- Add to recovery -->
+
                 <button
                     class="recovery-btn"
                     id="recoveryBtn"
+                    type="button"
                 >
 
+
                     <i class="fa-solid fa-user-plus"></i>
+
 
                     <span>
                         Add to Recovery
                     </span>
+
 
                     <i class="fa-solid fa-arrow-right"></i>
 
@@ -537,12 +743,14 @@
 
 
             <!-- =================================
-                 FOOTER
+                 FOOTER MESSAGE
             ================================== -->
 
             <div class="footer-message">
 
+
                 <i class="fa-solid fa-shield-halved"></i>
+
 
                 <span>
                     Your trusted person will remain connected to this recovery case until it is resolved.
@@ -556,7 +764,11 @@
     </div>
 
 
-    <!-- JavaScript -->
+
+    <!-- =====================================
+         JAVASCRIPT
+    ====================================== -->
+
     <script src="trusted-person-recovery.js"></script>
 
 </body>
