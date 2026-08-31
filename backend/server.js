@@ -1,4 +1,3 @@
-
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
@@ -17,6 +16,7 @@ const analyzerRoutes = require("./routes/analyzer");
 const transactionRoutes = require("./routes/transactions");
 const paymentRoutes = require("./routes/payments");
 const evidenceRoutes = require("./routes/evidence");
+const paymentRequestRoutes = require("./routes/paymentRequests");
 
 
 // ======================================================
@@ -138,6 +138,33 @@ app.use(
 
 
 // ======================================================
+// PAYMENT REQUEST ROUTES
+// ======================================================
+//
+// GET:
+// /api/payment-requests
+//
+// GET:
+// /api/payment-requests/history
+//
+// POST:
+// /api/payment-requests/:requestId/analyze
+//
+// POST:
+// /api/payment-requests/:requestId/decline
+//
+// POST:
+// /api/payment-requests/:requestId/accept
+//
+// ======================================================
+
+app.use(
+    "/api/payment-requests",
+    paymentRequestRoutes
+);
+
+
+// ======================================================
 // DASHBOARD ROUTES
 // ======================================================
 
@@ -206,13 +233,13 @@ app.use(
 // ======================================================
 //
 // GET:
-//    /api/evidence?transaction_id=123
+// /api/evidence?transaction_id=123
 //
 // POST:
-//    /api/evidence
+// /api/evidence
 //
 // DELETE:
-//    /api/evidence/:id
+// /api/evidence/:id
 //
 // ======================================================
 
@@ -318,18 +345,6 @@ app.get(
 // ======================================================
 // STATIC FRONTEND FILES
 // ======================================================
-//
-// Serves:
-// - HTML
-// - CSS
-// - JavaScript
-// - Images
-// - Recovery Mode pages
-// - Dashboard
-// - Scan & Pay
-// - etc.
-//
-// ======================================================
 
 app.use(
     express.static(
@@ -352,10 +367,6 @@ app.use(
 // They are exposed through:
 //
 // /uploads/evidence/<filename>
-//
-// Example:
-//
-// http://localhost:5000/uploads/evidence/file.png
 //
 // ======================================================
 
@@ -386,7 +397,6 @@ app.use(
         console.log(
             `❌ API NOT FOUND: ${req.method} ${req.originalUrl}`
         );
-
 
         return res.status(404).json({
 
@@ -504,7 +514,6 @@ app.use(
             err.statusCode ||
             500;
 
-
         return res
             .status(statusCode)
             .json({
@@ -611,6 +620,26 @@ app.listen(
         );
 
         console.log(
+            "  GET  /api/payment-requests"
+        );
+
+        console.log(
+            "  GET  /api/payment-requests/history"
+        );
+
+        console.log(
+            "  POST /api/payment-requests/:requestId/analyze"
+        );
+
+        console.log(
+            "  POST /api/payment-requests/:requestId/decline"
+        );
+
+        console.log(
+            "  POST /api/payment-requests/:requestId/accept"
+        );
+
+        console.log(
             "  GET  /api/transactions/health"
         );
 
@@ -648,4 +677,3 @@ app.listen(
 
     }
 );
-

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Requests | UPI Guardian</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="payment-requests.css?v=5">
+</head>
+
+<body>
+  <main class="page-shell">
+    <header class="topbar">
+      <a class="brand" href="dashboard.html" aria-label="Return to dashboard">
+        <span class="brand-icon"><i class="fa-solid fa-shield-halved"></i></span>
+        <span class="brand-copy">
+          <strong>UPI Guardian</strong>
+          <small>Explain Before You Pay</small>
+        </span>
+      </a>
+
+      <div class="topbar-status">
+        <span class="status-dot"></span>
+        <span>Protection active</span>
+      </div>
+
+      <a class="dashboard-link" href="dashboard.html">
+        <i class="fa-solid fa-arrow-left"></i>
+        <span>Dashboard</span>
+      </a>
+    </header>
+
+    <div class="page-container">
+      <section class="page-heading">
+        <div>
+          <div class="eyebrow">
+            <i class="fa-solid fa-inbox"></i>
+            Collect requests
+          </div>
+          <h1>Payment Requests</h1>
+          <p>Review incoming payment requests and choose what you want to do next.</p>
+        </div>
+
+      </section>
+
+      <section class="requests-section" aria-labelledby="activeRequestsTitle">
+        <div class="section-heading">
+          <div>
+            <p>REVIEW CAREFULLY</p>
+            <h2 id="activeRequestsTitle">Active requests</h2>
+          </div>
+          <span><i class="fa-solid fa-wand-magic-sparkles"></i> Analyze a request for AI-powered insights</span>
+        </div>
+
+        <div class="request-grid" id="requestGrid" aria-live="polite">
+          <div class="request-page-state loading-state">
+            <div class="state-icon"><i class="fa-solid fa-spinner fa-spin"></i></div>
+            <h3>Loading payment requests</h3>
+            <p>Finding unresolved requests for your account...</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="history-section" aria-labelledby="requestHistoryTitle">
+        <div class="section-heading history-heading">
+          <div>
+            <p>PAST DECISIONS</p>
+            <h2 id="requestHistoryTitle">Payment Request History</h2>
+          </div>
+          <span><i class="fa-solid fa-clock-rotate-left"></i> Accepted and declined requests</span>
+        </div>
+
+        <div class="history-grid" id="requestHistoryGrid" aria-live="polite">
+          <div class="request-page-state loading-state">
+            <div class="state-icon"><i class="fa-solid fa-spinner fa-spin"></i></div>
+            <h3>Loading request history</h3>
+            <p>Finding your previous payment request decisions...</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="safety-strip">
+        <div><i class="fa-solid fa-pause"></i><span><strong>Pause</strong><small>Do not act under pressure</small></span></div>
+        <div><i class="fa-solid fa-user-check"></i><span><strong>Verify</strong><small>Contact the requester independently</small></span></div>
+        <div><i class="fa-solid fa-shield-heart"></i><span><strong>Then pay</strong><small>Continue only when confident</small></span></div>
+      </section>
+    </div>
+  </main>
+
+  <script src="payment-requests.js?v=6"></script>
+</body>
+</html>

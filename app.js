@@ -1199,7 +1199,7 @@ function handleAction(action) {
 
     "new-payment": () => {
       window.location.href =
-        "send money.html";
+        "send%20money.html";
     },
 
     requests:
@@ -1271,7 +1271,10 @@ async function initializeDashboard() {
         ),
 
         api(
-          "/api/dashboard/summary"
+          "/api/dashboard/summary",
+          {
+            cache: "no-store",
+          }
         ),
       ]);
 
@@ -1333,7 +1336,10 @@ async function refreshDashboardIfNeeded() {
       try {
         const dashboard =
           await api(
-            "/api/dashboard/summary"
+            "/api/dashboard/summary",
+            {
+              cache: "no-store",
+            }
           );
 
         state.dashboard =
